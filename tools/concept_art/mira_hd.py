@@ -179,83 +179,90 @@ def sprite_side(step=0, apron=False, hat=True):
     return im
 
 
-# ---------------------------------------------------------------- 128x128 portrait
+# ---------------------------------------------------------------- 256x256 portrait
+BROW = (104, 70, 44)
+
+
 def portrait(expr, apron=False, hat=True):
-    im = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
-    part(im, lambda d: d.ellipse((8, 100, 120, 176), fill=255), DRESS, shade=(5, 0))
-    part(im, lambda d: d.polygon([(46, 100), (82, 100), (64, 122)], fill=255), LINEN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.polygon([(52, 100), (76, 100), (64, 114)], fill=255), SKIN, shade=(0, 0), light_top=0)
-    d = ImageDraw.Draw(im)
+    """256x256, laid out on a 128 grid (k() doubles coordinates)."""
+    from portrait_kit import k, kp, mirror, dots, brow, eye
+    im = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+    part(im, lambda d: d.ellipse(k(8, 100, 120, 176), fill=255), DRESS, shade=(10, 0))
+    part(im, lambda d: d.polygon(kp([(46, 100), (82, 100), (64, 122)]), fill=255), LINEN, shade=(0, 0), light_top=0)
+    part(im, lambda d: d.polygon(kp([(52, 100), (76, 100), (64, 114)]), fill=255), SKIN, shade=(0, 0), light_top=0)
     if apron:
         for x0 in (36, 80):
-            part(im, lambda d, x0=x0: d.rectangle((x0, 104, x0 + 11, 127), fill=255), APRON, shade=(3, 0))
-        put(im, [(40, 110), (43, 113), (41, 117), (86, 108), (89, 112)], FLOUR)
-    part(im, lambda d: d.rectangle((50, 76, 77, 104), fill=255), SKIN, shade=(5, 0), light_top=0)
-    put(im, [(x, y) for x in range(51, 77) for y in range(80, 86)], SKIN[1])
-    part(im, lambda d: d.ellipse((81, 66, 101, 90), fill=255), HAIR, shade=(3, 0))          # low bun, tucked behind the jaw
-    part(im, lambda d: d.ellipse((30, 14, 98, 78), fill=255), HAIR, shade=(4, 0))
-    part(im, lambda d: d.ellipse((31, 54, 41, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.ellipse((87, 54, 97, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.ellipse((35, 24, 93, 96), fill=255), SKIN, shade=(6, 0), light_top=0)
-    # centre parting, hair swept back over the ears
-    part(im, lambda d: d.polygon([(31, 68), (30, 46), (35, 30), (46, 20), (58, 15), (70, 15), (82, 20), (93, 30), (98, 46), (97, 68),
-                                  (92, 68), (91, 52), (86, 42), (77, 35), (67, 32), (64, 35), (61, 32), (51, 35), (42, 42), (37, 52), (36, 68)], fill=255),
-         HAIR, shade=(4, 0), light_top=1)
+            part(im, lambda d, x0=x0: d.rectangle(k(x0, 104, x0 + 11, 128), fill=255), APRON, shade=(6, 0))
+        dots(im, [(40, 110), (43, 113), (41, 117), (86, 108), (89, 112)], FLOUR)
+    part(im, lambda d: d.rectangle(k(50, 76, 77, 104), fill=255), SKIN, shade=(10, 0), light_top=0)
     d = ImageDraw.Draw(im)
-    d.line([(64, 16), (64, 33)], fill=HAIR[1] + (255,))
-    for a, b in (((62, 19), (44, 34)), ((60, 23), (39, 47)), ((66, 19), (84, 34)), ((68, 23), (90, 47))):
-        d.line([a, b], fill=HAIR[1] + (255,))
+    d.rectangle(k(51, 80, 76, 86), fill=SKIN[1] + (255,))
+    part(im, lambda d: d.ellipse(k(81, 66, 101, 90), fill=255), HAIR, shade=(6, 0))          # low bun, tucked behind the jaw
+    part(im, lambda d: d.ellipse(k(30, 14, 98, 78), fill=255), HAIR, shade=(8, 0))
+    part(im, lambda d: d.ellipse(k(31, 54, 41, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
+    part(im, lambda d: d.ellipse(k(87, 54, 97, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
+    part(im, lambda d: d.ellipse(k(35, 24, 93, 96), fill=255), SKIN, shade=(12, 0), light_top=0)
+    part(im, lambda d: d.polygon(kp([(31, 68), (30, 46), (35, 30), (46, 20), (58, 15), (70, 15), (82, 20), (93, 30), (98, 46), (97, 68),
+                                     (92, 68), (91, 52), (86, 42), (77, 35), (67, 32), (64, 35), (61, 32), (51, 35), (42, 42), (37, 52), (36, 68)]), fill=255),
+         HAIR, shade=(8, 0), light_top=2)
+    d = ImageDraw.Draw(im)
+    d.line(kp([(64, 16), (64, 33)]), fill=HAIR[1] + (255,), width=2)
+    for a, b in (((62, 19), (44, 34)), ((60, 23), (39, 47)), ((66, 19), (84, 34)), ((68, 23), (90, 47)), ((58, 18), (42, 30)), ((70, 18), (88, 32))):
+        d.line(kp([a, b]), fill=HAIR[1] + (255,), width=2)
     for a, b in (((56, 19), (46, 27)), ((72, 19), (82, 27)), ((51, 27), (38, 42)), ((77, 27), (91, 42))):
-        d.line([a, b], fill=HAIR[3] + (255,))
-    d.line([(38, 50), (40, 60), (38, 72)], fill=HAIR[1] + (255,))   # loose strands
-    d.line([(90, 50), (88, 60), (90, 68)], fill=HAIR[1] + (255,))
-    for cx in (52, 76):
-        part(im, lambda d, cx=cx: d.ellipse((cx - 7, 56, cx + 7, 64), fill=255), ((120, 96, 90), (226, 220, 212), (246, 242, 236), (246, 242, 236)), shade=(0, 0), light_top=0)
-        d.ellipse((cx - 3, 56, cx + 3, 64), fill=IRIS + (255,))
-        d.rectangle((cx - 1, 58, cx + 1, 62), fill=INK + (255,))
-        d.rectangle((cx - 2, 57, cx - 1, 58), fill=(255, 255, 255, 255))
-        d.line([(cx - 8, 55), (cx + 8, 55)], fill=INK + (255,), width=2)
-        put(im, [(cx + 8, 54), (cx + 9, 53)] if cx > 64 else [(cx - 8, 54), (cx - 9, 53)], INK)
-        d.line([(cx - 5, 66), (cx + 5, 66)], fill=SKIN[1] + (255,))
-    bc = HAIR[1] + (255,)
-    if expr == "neutral":
-        d.line([(43, 50), (59, 50)], fill=bc, width=2); d.line([(69, 50), (85, 50)], fill=bc, width=2)
-    elif expr == "stern":
-        d.line([(43, 48), (59, 52)], fill=bc, width=3); d.line([(69, 52), (85, 48)], fill=bc, width=3)
-    else:
-        d.line([(43, 50), (59, 48)], fill=bc, width=2); d.line([(69, 48), (85, 50)], fill=bc, width=2)
-    # nose: only a soft tip, lit from the left (no bridge line)
-    put(im, [(66, 70), (67, 71), (67, 72), (66, 73)], SKIN[1])
-    put(im, [(61, 74), (62, 74), (63, 75), (64, 75), (65, 75), (66, 74)], SKIN[1])
-    put(im, [(63, 71), (63, 72)], SKIN[3])
-    d.ellipse((40, 70, 52, 76), fill=BLUSH + (255,)); d.ellipse((76, 70, 88, 76), fill=BLUSH + (255,))
-    put(im, [(58, 69), (61, 71), (69, 70), (72, 68), (56, 72)], SKIN[1])
+        d.line(kp([a, b]), fill=HAIR[3] + (255,), width=1)
+    d.line(kp([(38, 50), (40, 60), (38, 72)]), fill=HAIR[1] + (255,), width=2)   # loose strands
+    d.line(kp([(90, 50), (88, 60), (90, 68)]), fill=HAIR[1] + (255,), width=2)
+    # eyes: brown, heavy-lidded
+    for cx, right in ((104, False), (152, True)):
+        eye(im, part, cx, 120, 30, 16, IRIS, (78, 50, 32), INK, SKIN, lid=4, crease=True, outer_right=right)
+    # tapered brows per expression (left brow given; right is mirrored)
+    shapes = {
+        "neutral": ((118, 100), (82, 103), 5, 7, 3),
+        "stern":   ((120, 107), (82, 97), 1, 8, 4),
+        "soft":    ((118, 96), (82, 103), 6, 6, 3),
+    }
+    inner, outer, arch, ti, to = shapes[expr]
+    brow(im, inner, outer, arch, ti, to, BROW, HAIR[2])
+    brow(im, mirror(inner), mirror(outer), arch, ti, to, BROW, HAIR[2])
+    # nose: soft tip, lit from the left
+    d = ImageDraw.Draw(im)
+    d.line([(133, 136), (135, 143), (133, 148)], fill=SKIN[1] + (255,), width=2)
+    d.line([(121, 151), (125, 153), (131, 153), (135, 150)], fill=SKIN[1] + (255,), width=2)
+    d.rectangle((123, 150, 124, 151), fill=(186, 124, 98, 255)); d.rectangle((132, 150, 133, 151), fill=(186, 124, 98, 255))
+    d.rectangle((125, 141, 126, 144), fill=SKIN[3] + (255,))
+    d.ellipse(k(40, 70, 52, 76), fill=BLUSH + (255,)); d.ellipse(k(76, 70, 88, 76), fill=BLUSH + (255,))
+    dots(im, [(58, 69), (61, 71), (69, 70), (72, 68), (56, 72), (66, 67)], SKIN[1])
     if apron:
-        put(im, [(42, 78), (44, 77), (43, 80), (46, 79), (45, 81), (41, 81)], FLOUR)
+        dots(im, [(42, 78), (44, 77), (43, 80), (46, 79), (45, 81), (41, 81)], FLOUR)
+    # mouth: upper-lip line + fuller lower lip
     if expr == "neutral":
-        d.line([(57, 84), (71, 84)], fill=MOUTH + (255,)); d.line([(59, 85), (69, 85)], fill=LIP + (255,))
+        d.chord((116, 164, 140, 178), 0, 180, fill=LIP + (255,))
+        d.line([(112, 169), (120, 167), (128, 168), (136, 167), (144, 169)], fill=MOUTH + (255,), width=2)
     elif expr == "stern":
-        d.line([(58, 84), (70, 84)], fill=MOUTH + (255,)); put(im, [(57, 85), (56, 86), (71, 85), (72, 86)], MOUTH)
-        d.line([(60, 86), (68, 86)], fill=LIP + (255,))
+        d.chord((118, 165, 138, 175), 0, 180, fill=LIP + (255,))
+        d.line([(112, 172), (118, 168), (128, 168), (138, 168), (144, 172)], fill=MOUTH + (255,), width=2)
     else:
-        d.line([(59, 85), (69, 85)], fill=MOUTH + (255,)); put(im, [(58, 84), (57, 83), (70, 84), (71, 83)], MOUTH)
-        d.line([(61, 86), (67, 86)], fill=LIP + (255,))
-    bg = Image.new("RGBA", (128, 128), (233, 216, 180, 255))
-    ImageDraw.Draw(bg).rectangle((0, 0, 127, 127), outline=(185, 160, 120))
+        d.chord((116, 166, 140, 180), 0, 180, fill=LIP + (255,))
+        d.line([(110, 165), (118, 169), (128, 170), (138, 169), (146, 165)], fill=MOUTH + (255,), width=2)
+    bg = Image.new("RGBA", (256, 256), (233, 216, 180, 255))
+    ImageDraw.Draw(bg).rectangle((0, 0, 255, 255), outline=(185, 160, 120), width=2)
     if not hat:
         bg.alpha_composite(im)
         return bg
     # felt hat: rounded crown, band with a wheat sprig, wide soft brim
-    part(im, lambda d: d.rounded_rectangle((36, 2, 92, 38), 18, fill=255), HAT, shade=(5, 0), light_top=2)
+    part(im, lambda d: d.rounded_rectangle(k(36, 2, 92, 38), 36, fill=255), HAT, shade=(10, 0), light_top=3)
     d = ImageDraw.Draw(im)
-    d.line([(52, 6), (50, 26)], fill=HAT[1] + (255,)); d.line([(64, 4), (64, 24)], fill=HAT[1] + (255,))
-    part(im, lambda d: d.rectangle((36, 26, 92, 33), fill=255), BAND, shade=(0, 0), light_top=1)
-    for i in range(5):  # wheat sprig
-        put(im, [(84 + i, 22 - i * 3), (85 + i, 23 - i * 3), (86 + i, 21 - i * 3)], WHEAT)
-        put(im, [(83 + i, 24 - i * 3)], WHEAT_D)
-    d.line([(82, 30), (88, 12)], fill=WHEAT_D + (255,))
-    part(im, lambda d: d.ellipse((16, 28, 112, 46), fill=255), HAT, shade=(5, 0), light_top=1)
-    put(im, [(x, 47) for x in range(36, 92)] + [(x, 48) for x in range(40, 88)], SKIN[1])  # brim shadow
+    d.line(kp([(52, 6), (50, 26)]), fill=HAT[1] + (255,), width=2); d.line(kp([(64, 4), (64, 24)]), fill=HAT[1] + (255,), width=2)
+    part(im, lambda d: d.rectangle(k(36, 26, 92, 33), fill=255), BAND, shade=(0, 0), light_top=2)
+    d = ImageDraw.Draw(im)
+    d.line(kp([(82, 31), (89, 10)]), fill=WHEAT_D + (255,), width=2)
+    for i in range(6):  # wheat grains up the stalk
+        x, y = k(84 + i * 0.9, 25 - i * 3)
+        d.ellipse((x - 3, y - 2, x + 1, y + 2), fill=WHEAT + (255,)); d.ellipse((x + 2, y - 3, x + 6, y + 1), fill=WHEAT + (255,))
+    part(im, lambda d: d.ellipse(k(16, 28, 112, 46), fill=255), HAT, shade=(10, 0), light_top=2)
+    d = ImageDraw.Draw(im)
+    d.rectangle(k(36, 47, 92, 48), fill=SKIN[1] + (255,))  # brim shadow
     bg.alpha_composite(im)
     return bg
 
@@ -286,10 +293,10 @@ def save_sheets(fr, ports, tag):
         for c, im in enumerate(fr[name]):
             sheet.paste(im, (c * 32, r * 64))
     sheet.save(OUT / f"mira_hd_{tag}_walk_32x64.png")
-    ps = Image.new("RGBA", (128 * len(ports), 128))
+    ps = Image.new("RGBA", (256 * len(ports), 256))
     for i, p in enumerate(ports):
-        ps.paste(p, (i * 128, 0))
-    ps.save(OUT / f"mira_hd_{tag}_portraits_128.png")
+        ps.paste(p, (i * 256, 0))
+    ps.save(OUT / f"mira_hd_{tag}_portraits_256.png")
     gif = []
     for name in ORDER:
         a, b, c = fr[name]
@@ -323,12 +330,12 @@ def main():
         for c, name in enumerate(["down", "right", "up"]):
             pv.alpha_composite(frames[tag][name][0].resize((96, 192), Image.NEAREST), (x + c * 104, 110))
     y0 = 330
-    d.text((30, y0), "128x128 portraits shown at 2x", font=serif, fill=sub)
+    d.text((30, y0), "256x256 portraits, actual size", font=serif, fill=sub)
     picks = [("outdoor", 0, "outdoors · neutral"), ("indoor", 0, "indoors · neutral"), ("indoor", 1, "indoors · stern"),
              ("indoor_apron", 2, "cooking · soft"), ("outdoor_apron", 2, "outdoors, cooking · soft")]
     for i, (tag, e, label) in enumerate(picks):
         x = 30 + i * 288
-        pv.alpha_composite(ports[tag][e].resize((256, 256), Image.NEAREST), (x, y0 + 28))
+        pv.alpha_composite(ports[tag][e], (x, y0 + 28))
         d.text((x, y0 + 292), label, font=serif, fill=sub)
     pv = pv.crop((0, 0, 1480, 650))
     pv.save(OUT / "mira_hd_preview.png")

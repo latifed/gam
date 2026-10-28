@@ -103,62 +103,71 @@ def sprite_side(step=0):
     return im
 
 
-# ---------------------------------------------------------------- 128x128 portrait
+# ---------------------------------------------------------------- 256x256 portrait
+BROW = (104, 70, 44)
+
+
 def portrait(expr):
-    im = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
-    part(im, lambda d: d.ellipse((14, 102, 114, 172), fill=255), TUNIC, shade=(5, 0))
+    """256x256, laid out on a 128 grid (k() doubles coordinates)."""
+    from portrait_kit import k, kp, mirror, dots, brow, eye
+    im = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+    part(im, lambda d: d.ellipse(k(14, 102, 114, 172), fill=255), TUNIC, shade=(10, 0))
     for x0 in (36, 84):
-        part(im, lambda d, x0=x0: d.rectangle((x0, 106, x0 + 8, 127), fill=255), BAND, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.polygon([(54, 102), (74, 102), (64, 114)], fill=255), LINEN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.rectangle((52, 84, 76, 106), fill=255), SKIN, shade=(5, 0), light_top=0)
-    put(im, [(x, y) for x in range(53, 76) for y in range(88, 93)], SKIN[1])
-    part(im, lambda d: d.ellipse((28, 14, 100, 70), fill=255), HAIR, shade=(4, 0))
-    part(im, lambda d: d.ellipse((25, 54, 39, 76), fill=255), SKIN, shade=(0, 0), light_top=0)   # ears that stick out a bit
-    part(im, lambda d: d.ellipse((89, 54, 103, 76), fill=255), SKIN, shade=(0, 0), light_top=0)
-    put(im, [(30, 62), (31, 64), (31, 66), (97, 62), (96, 64), (96, 66)], SKIN[1])
-    part(im, lambda d: d.ellipse((32, 28, 96, 100), fill=255), SKIN, shade=(6, 0), light_top=0)
-    # messy hair with tufts and a cowlick
-    part(im, lambda d: d.polygon([(30, 62), (28, 44), (32, 30), (40, 21), (50, 16), (56, 6), (62, 15), (70, 4), (74, 14), (84, 17), (94, 26), (100, 40), (100, 60),
-                                  (95, 60), (93, 48), (88, 46), (84, 53), (78, 44), (72, 51), (66, 42), (60, 49), (54, 43), (48, 51), (42, 45), (37, 54), (35, 62)], fill=255),
-         HAIR, shade=(4, 0), light_top=1)
+        part(im, lambda d, x0=x0: d.rectangle(k(x0, 106, x0 + 8, 128), fill=255), BAND, shade=(0, 0), light_top=0)
+    part(im, lambda d: d.polygon(kp([(54, 102), (74, 102), (64, 114)]), fill=255), LINEN, shade=(0, 0), light_top=0)
+    part(im, lambda d: d.rectangle(k(52, 84, 76, 106), fill=255), SKIN, shade=(10, 0), light_top=0)
     d = ImageDraw.Draw(im)
-    for a, b in (((56, 14), (50, 30)), ((70, 12), (68, 30)), ((46, 24), (42, 40)), ((82, 22), (86, 40)), ((62, 22), (60, 40))):
-        d.line([a, b], fill=HAIR[1] + (255,))
-    for a, b in (((52, 18), (46, 28)), ((74, 18), (80, 28)), ((60, 10), (58, 18))):
-        d.line([a, b], fill=HAIR[3] + (255,))
-    # big green eyes, two sparkles each
-    for cx in (50, 78):
-        part(im, lambda d, cx=cx: d.ellipse((cx - 8, 58, cx + 8, 71), fill=255), ((120, 96, 90), (226, 220, 212), (248, 245, 240), (248, 245, 240)), shade=(0, 0), light_top=0)
-        d.ellipse((cx - 5, 58, cx + 5, 71), fill=GREEN + (255,))
-        d.ellipse((cx - 5, 58, cx + 5, 62), fill=GREEN_D + (255,))
-        d.rectangle((cx - 2, 61, cx + 1, 67), fill=INK + (255,))
-        d.rectangle((cx - 3, 60, cx - 1, 62), fill=(255, 255, 255, 255))
-        put(im, [(cx + 2, 67), (cx + 3, 67)], (255, 255, 255))
-        d.line([(cx - 8, 57), (cx + 8, 57)], fill=INK + (255,))
-    bc = HAIR[1] + (255,)
-    if expr == "happy":
-        d.line([(41, 51), (46, 49), (57, 50)], fill=bc, width=2); d.line([(71, 50), (82, 49), (87, 51)], fill=bc, width=2)
-    elif expr == "curious":
-        d.line([(41, 50), (57, 50)], fill=bc, width=2); d.line([(71, 48), (80, 45), (87, 47)], fill=bc, width=2)
-    else:  # worried
-        d.line([(41, 52), (57, 48)], fill=bc, width=2); d.line([(71, 48), (87, 52)], fill=bc, width=2)
-    # button nose, freckles, rosy cheeks, a smudge of dirt
-    put(im, [(66, 77), (67, 78), (63, 79), (64, 80), (65, 80), (66, 79)], SKIN[1]); put(im, [(63, 76)], SKIN[3])
-    d.ellipse((35, 76, 48, 83), fill=BLUSH + (255,)); d.ellipse((80, 76, 93, 83), fill=BLUSH + (255,))
-    put(im, [(55, 74), (58, 76), (61, 73), (70, 74), (73, 76), (68, 72), (44, 74), (84, 74), (52, 77), (76, 77)], SKIN[1])
-    put(im, [(86, 87), (88, 86), (87, 89), (89, 88)], DIRT)
-    if expr == "happy":   # big grin with a missing tooth
-        d.chord((54, 82, 74, 96), 0, 180, fill=MOUTH_D + (255,))
-        d.rectangle((57, 89, 71, 90), fill=(250, 248, 242, 255))
-        put(im, [(64, 89), (65, 89), (64, 90), (65, 90)], MOUTH_D)
-        d.arc((54, 82, 74, 96), 0, 180, fill=MOUTH + (255,))
-        d.line([(54, 89), (74, 89)], fill=MOUTH + (255,))
-    elif expr == "curious":
-        d.ellipse((60, 87, 68, 95), fill=MOUTH_D + (255,)); d.ellipse((60, 87, 68, 95), outline=MOUTH + (255,))
+    d.rectangle(k(53, 88, 75, 92), fill=SKIN[1] + (255,))
+    part(im, lambda d: d.ellipse(k(28, 14, 100, 70), fill=255), HAIR, shade=(8, 0))
+    part(im, lambda d: d.ellipse(k(25, 54, 39, 76), fill=255), SKIN, shade=(0, 0), light_top=0)   # ears that stick out a bit
+    part(im, lambda d: d.ellipse(k(89, 54, 103, 76), fill=255), SKIN, shade=(0, 0), light_top=0)
+    d = ImageDraw.Draw(im)
+    d.arc(k(28, 58, 36, 72), 100, 260, fill=SKIN[1] + (255,), width=2); d.arc(k(92, 58, 100, 72), 280, 80, fill=SKIN[1] + (255,), width=2)
+    part(im, lambda d: d.ellipse(k(32, 28, 96, 100), fill=255), SKIN, shade=(12, 0), light_top=0)
+    # messy hair with tufts and a cowlick
+    part(im, lambda d: d.polygon(kp([(30, 62), (28, 44), (32, 30), (40, 21), (50, 16), (56, 6), (62, 15), (70, 4), (74, 14), (84, 17), (94, 26), (100, 40), (100, 60),
+                                     (95, 58), (93, 44), (88, 41), (84, 47), (78, 39), (72, 45), (66, 37), (60, 44), (54, 38), (48, 45), (42, 40), (37, 48), (35, 60)]), fill=255),
+         HAIR, shade=(8, 0), light_top=2)
+    d = ImageDraw.Draw(im)
+    for a, b in (((56, 14), (50, 30)), ((70, 12), (68, 30)), ((46, 24), (42, 40)), ((82, 22), (86, 40)), ((62, 22), (60, 40)), ((76, 20), (78, 36))):
+        d.line(kp([a, b]), fill=HAIR[1] + (255,), width=2)
+    for a, b in (((52, 18), (46, 28)), ((74, 18), (80, 28)), ((60, 10), (58, 18)), ((88, 26), (92, 36))):
+        d.line(kp([a, b]), fill=HAIR[3] + (255,), width=1)
+    # big green eyes (Edric's)
+    for cx, right in ((100, False), (156, True)):
+        eye(im, part, cx, 128, 32, 26, GREEN, GREEN_D, INK, SKIN, lid=2, lashes=False, outer_right=right)
+    shapes = {  # left brow: inner, outer, arch, thickness in, thickness out
+        "happy":   (((114, 105), (84, 107), 7, 6, 3), None),
+        "curious": (((114, 107), (84, 107), 4, 6, 3), ((142, 99), (174, 103), 9, 6, 3)),
+        "worried": (((114, 100), (84, 108), 2, 6, 3), None),
+    }
+    left, right = shapes[expr]
+    brow(im, *left, BROW, HAIR[3])
+    if right:
+        brow(im, *right, BROW, HAIR[3])
     else:
-        d.line([(58, 91), (61, 89), (64, 90), (67, 89), (70, 91)], fill=MOUTH + (255,))
-    bg = Image.new("RGBA", (128, 128), (233, 216, 180, 255))
-    ImageDraw.Draw(bg).rectangle((0, 0, 127, 127), outline=(185, 160, 120))
+        brow(im, mirror(left[0]), mirror(left[1]), *left[2:], BROW, HAIR[3])
+    # button nose, freckles, rosy cheeks, a smudge of dirt
+    d = ImageDraw.Draw(im)
+    d.arc((122, 146, 136, 160), 300, 70, fill=SKIN[1] + (255,), width=2)
+    d.line([(122, 159), (126, 161), (131, 161), (135, 158)], fill=SKIN[1] + (255,), width=2)
+    d.rectangle((124, 149, 126, 151), fill=SKIN[3] + (255,))
+    d.ellipse(k(35, 76, 48, 83), fill=BLUSH + (255,)); d.ellipse(k(80, 76, 93, 83), fill=BLUSH + (255,))
+    dots(im, [(55, 74), (58, 76), (61, 73), (70, 74), (73, 76), (68, 72), (44, 74), (84, 74), (52, 77), (76, 77), (64, 72), (49, 75), (79, 75)], SKIN[1])
+    dots(im, [(86, 87), (88, 86), (87, 89), (89, 88), (90, 87)], DIRT, size=3)
+    if expr == "happy":   # big grin with a missing tooth
+        d.chord((108, 164, 148, 194), 0, 180, fill=MOUTH_D + (255,))
+        d.rectangle((113, 179, 143, 183), fill=(250, 248, 242, 255))
+        d.rectangle((127, 179, 130, 183), fill=MOUTH_D + (255,))
+        d.chord((118, 184, 138, 194), 0, 180, fill=(196, 104, 100, 255))   # tongue
+        d.arc((108, 164, 148, 194), 0, 180, fill=MOUTH + (255,), width=2)
+        d.line([(106, 178), (150, 178)], fill=MOUTH + (255,), width=2)
+    elif expr == "curious":
+        d.ellipse((120, 172, 136, 190), fill=MOUTH_D + (255,)); d.ellipse((120, 172, 136, 190), outline=MOUTH + (255,), width=2)
+    else:
+        d.line([(114, 184), (120, 179), (128, 181), (136, 179), (142, 184)], fill=MOUTH + (255,), width=2)
+    bg = Image.new("RGBA", (256, 256), (233, 216, 180, 255))
+    ImageDraw.Draw(bg).rectangle((0, 0, 255, 255), outline=(185, 160, 120), width=2)
     bg.alpha_composite(im)
     return bg
 
@@ -181,10 +190,10 @@ def main():
             sheet.paste(im, (c * 32, r * 64))
     sheet.save(OUT / "pip_walk_32x64.png")
     ports = [portrait(e) for e in EXPRS]
-    ps = Image.new("RGBA", (128 * 3, 128))
+    ps = Image.new("RGBA", (256 * 3, 256))
     for i, p in enumerate(ports):
-        ps.paste(p, (i * 128, 0))
-    ps.save(OUT / "pip_portraits_128.png")
+        ps.paste(p, (i * 256, 0))
+    ps.save(OUT / "pip_portraits_256.png")
     gif = []
     for name in ORDER:
         a, b, c = fr[name]
@@ -208,9 +217,9 @@ def main():
             pv.alpha_composite(im.resize((96, 192), Image.NEAREST), (x + c * 98, 110))
         x += 3 * 98 + 20
     y0 = 330
-    d.text((30, y0), "128x128 portraits · shown at 2x", font=serif, fill=sub)
+    d.text((30, y0), "256x256 portraits, actual size", font=serif, fill=sub)
     for i, (p, e) in enumerate(zip(ports, EXPRS)):
-        pv.alpha_composite(p.resize((256, 256), Image.NEAREST), (30 + i * 276, y0 + 28))
+        pv.alpha_composite(p, (30 + i * 276, y0 + 28))
         d.text((30 + i * 276, y0 + 292), e, font=serif, fill=sub)
     mx = 880
     d.text((mx, y0), "with his mother (same scale)", font=serif, fill=sub)
