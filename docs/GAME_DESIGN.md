@@ -306,9 +306,13 @@ Back home, the town is smoking. Doors are broken in, the fields are trampled, th
 Source: [town_map.svg](town_map.svg). The outer line is the town wall, with watchtowers on the corners.
 
 - **Gates:** *Dungeon Gate* (north, road to the dungeon), *Wilds Gate* (west, supply runs), *Old Road Gate* (south; the road now ends in purple grass, a constant reminder that home is gone).
-- **North, fighting quarter:** Guild Hall, Blacksmith & Armorer, Arcanist's Tower, Stables (mule pen). Close to the Dungeon Gate.
-- **Centre:** Town Square with the well and fair grounds; the Gilded Tankard, Provisioner, Counting House and Apothecary around it.
-- **West:** Expedition Yard by the Wilds Gate.
-- **East:** Abbey and Graveyard.
-- **South:** Fields (normal crops), Strange Garden (weird crops), Research Workshop, Granary, Your Manor (starts in ruins), Brewery & Kitchen, Survivors' Cottages.
+- **Districts (v2, rezoned so each quarter has one job):**
+  - **Fighting Quarter** (NW, by the Dungeon Gate): Guild Hall, Blacksmith & Armorer.
+  - **The Odd Quarter** (NE): Arcanist's Tower, Research Workshop, and the **Strange Garden, fenced off** and kept away from homes, since nobody knows what grows there.
+  - **Market** (centre): Town Square, Gilded Tankard with the Brewery & Kitchen behind it, Provisioner, Counting House.
+  - **Gate Yard** (W, by the Wilds Gate): Expedition Yard, Stables (the mules go out on supply runs).
+  - **Abbey Quarter** (E): Abbey, Graveyard, Apothecary (healing in one place).
+  - **Farms** (SW): Fields, Granary, Orchard.
+  - **Homes** (SE): Your Manor, Survivors' Cottages.
+  - **Empty plots** are left for later buildings.
 - Everything starts in ruins and is rebuilt one by one.
