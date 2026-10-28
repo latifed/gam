@@ -1,4 +1,6 @@
-# Adventure Capital — Design Notes (brainstorm v0.1)
+# Adventure Capital — Design Notes (brainstorm v0.2)
+
+> **Platform decision:** a premium (buy-once) **Steam** game, no Web3. The Robinhood Chain notes were dropped in v0.2.
 
 > Status: brainstorm. Anything marked **[?]** is an open question to settle together.
 
@@ -135,54 +137,49 @@ Every tier changes the wall tileset, lighting, props, music and enemies.
 - **Hero level and skills:** small passive tree (Endurance, Brutality, Survival, Greed).
 - **Investor upgrades** (permanent, account-wide): bag capacity, Standing Order slots, shop discounts, offline-progress cap.
 
-## 7. Currencies (draft)
-| Currency | Source | Use | On-chain? |
-|---|---|---|---|
-| **Gold** | loot sold in town | everyday purchases | No (off-chain, keeps the economy tunable) |
-| **Premium** (e.g. "Abbey Favor" / "Writs") | purchase, rare drops, achievements | instant resurrect, speedups, cosmetics | **[?]** |
-| **Relics / rare gear** | boss and deep-floor drops | tradeable top-tier items | Candidate for NFTs |
+## 7. Currencies (Steam version)
+| Currency | Source | Use |
+|---|---|---|
+| **Gold** | loot sold in town | everything day to day |
+| **Abbey Favor** | boss kills, achievements, deep floors (earned only, not bought) | instant resurrect, rerolls, rare shop stock |
+| **Renown** (prestige) | prestige resets | permanent investor upgrades |
 
-Principle: **premium buys time and convenience, not power.** Avoid pay-to-win.
+The death cost is time, gold, or Favor the player has earned. **No real-money microtransactions**; if anything,
+cosmetic DLC or an expansion tier later.
 
-## 8. Web3 on Robinhood Chain: notes
-- **Robinhood Chain** is an EVM-compatible L2 (built on Arbitrum), so standard Solidity, ERC-721/1155/20, and Ethereum tooling (Foundry/Hardhat, viem/wagmi) should work. **To check:** the current network status (testnet vs mainnet), RPC/chain ID, faucet, bridge, and what Robinhood lets games deploy.
-- **Recommended architecture: hybrid.**
-  - Game simulation (combat ticks, idle progress) runs **off-chain**, server-authoritative. Putting every tick on-chain is too slow and too expensive, and gives no benefit.
-  - **On-chain:** ownership and things worth keeping:
-    - **Hero NFT** (ERC-721): your hired adventurer, with level/class/history; a "service record" of tiers cleared.
-    - **Relic gear** (ERC-1155): only rare+ items, minted when banked in town (not while carried, which fits the "only banked loot is safe" rule nicely).
-    - **Premium currency**: either an off-chain balance bought with crypto, or a token **[?]**.
-    - **Boss-kill / tier-clear achievements** as soulbound badges.
-  - Server signs results (EIP-712 vouchers); the player claims/mints when they want. Gas sponsorship plus embedded/smart wallets so non-crypto players can start without a wallet popup.
-- **Risks to keep in mind:**
-  - A tradeable fungible token adds speculation, economy-balance and legal risk. Consider **no fungible token at launch**; start with NFTs for heroes/relics only.
-  - Loot boxes or paid randomness with tradeable outputs can look like gambling in some jurisdictions. Keep paid items deterministic.
-  - Bots in an idle game with tradeable items: server-authoritative sim, rate limits.
-- **Theme fit:** you're literally a capitalist investing in adventurers. Possible gags: a dungeon "stock ticker" on the inn wall, quarterly reports from your hero, "dividends" from shops you invest in.
+## 8. Steam: what changes
+- **Business model:** premium, roughly $5–15 price range **[?]**. Demo / Next Fest build with Tier 1 to build wishlists.
+- **Idle on desktop:** many Steam idlers (*Melvor Idle*, *Idle Champions*, *Nodebuster*, *Rusty's Retirement*) are played in a small window **or docked at the bottom/side of the screen** while you do something else. Idea: a **"tavern window" mode**, a thin always-on-top strip that shows just the tunnel and the HP bar. That suits a game where you watch a hero walk a horizontal tunnel very well.
+- **Offline progress:** computed from timestamps on launch, capped (upgradeable). Single-player, local saves, so cheating doesn't matter much; no server needed.
+- **Steam features:** achievements (boss kills, "never died in Tier 2", "won a fight on Aggressive with 1 HP"), Cloud saves, Steam Deck verified (the menus need to work with a controller), trading cards later.
+- **Leaderboards [?]:** "deepest floor this week", "most gold banked in one run". A weekly **"Dungeon Master's Challenge"** with a fixed seed and modifiers is good for replay value and streams.
+- **Hero memorial / "service record":** what the NFT idea did, but just as fun: a wall in the inn for retired and fallen heroes with their stats and how they died.
 
 ## 9. Tech sketch (proposal)
-- **Client:** TypeScript + **Phaser 3** (or PixiJS) for the 2D tunnel scene; React (or plain DOM) for town/menus/ledger.
-- **Server:** Node/TypeScript; a deterministic combat sim (seeded RNG) shared between client and server so the client can preview and the server can verify; offline progress computed from timestamps and Standing Orders.
-- **Data:** Postgres (players, inventory, runs).
-- **Chain:** Solidity contracts (Hero721, Relic1155, claim vouchers) with Foundry; wagmi/viem on the client.
-- **Art:** pixel art, ~16–32 px characters. One tileset and enemy pack per tier. Start with placeholders.
+- **Engine options:**
+  - **Godot 4**: free, great at 2D, exports to Windows/Linux/macOS/Steam Deck, has GodotSteam for Steam integration. **Recommended.**
+  - Unity: fine, but heavier for a 2D idle game.
+  - Web stack (TypeScript + Phaser/PixiJS) packaged with Electron/Tauri: fast to prototype and fine for idlers, but larger builds and more work on the Steam integration.
+- **Deterministic combat sim** (seeded RNG, fixed tick) kept separate from rendering. The same code runs live, in fast-forward for offline progress, and in balance-testing scripts.
+- **Data-driven content:** enemies, items, tiers and events in JSON/resources so balancing doesn't need code changes.
+- **Art:** pixel art, ~16–32 px characters, one tileset and enemy pack per tier. Start with placeholders.
 
-## 10. MVP scope (proposal)
+## 10. MVP / vertical slice (proposal)
 1. Town with Inn, Healer, Provisioner, Blacksmith, Abbey (simple menus).
 2. One hero, warrior class, 3 stances, HP/stamina, teleport stones, death and resurrection.
 3. **Tier 1 only** (Goblin Warrens, 10 floors, Gnashgut boss), side-scrolling tunnel scene.
 4. 2 Standing Order slots, offline progress.
 5. 3–4 timed events.
-6. Web3 stubbed: wallet login and a Hero NFT mint on Robinhood Chain testnet. Everything else off-chain.
+6. Save/load. No Steam integration yet; that comes with the demo build.
 
 ## 11. Open questions for us
-1. Platform: browser-only, or mobile too (PWA)? Portrait or landscape?
-2. One hero per player at the start, or a roster early on?
-3. On death, lose all carried loot or a percentage?
-4. Premium currency: off-chain only, or a token? Should we have a fungible token at all?
-5. Which items, if any, are tradeable NFTs?
-6. Art direction: pixel art (which resolution?) or hand-drawn 2D?
-7. How "active" should it be: decisions only, or also timing/tap mechanics?
-8. Session length target: check in every 5 minutes, every hour, or a few times a day?
-9. Is the Dungeon Master a recurring character with dialogue (lots of writing) or mostly in the background?
-10. Name of the town, the inn, the hero, and the game.
+1. Engine: Godot (recommended), Unity, or a web stack wrapped for Steam?
+2. Window: a normal window plus a docked "tavern strip" mode, or only one of them?
+3. One hero at the start, or a roster early on? When do other classes unlock?
+4. On death, lose all carried loot or a percentage?
+5. Art direction: pixel art (which resolution?) or hand-drawn 2D?
+6. How "active" should it be: decisions only, or also timing/parry mechanics?
+7. Run length: how long is a typical dive? (proposal: 5–15 min active, hours on Standing Orders)
+8. Is the Dungeon Master a talking character with lots of dialogue, or mostly in the background?
+9. Does the town's Threat meter ever actually punish you (raids that close shops), or is it only flavour?
+10. Names: the town, the inn, the starting warrior, the game.

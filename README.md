@@ -1,6 +1,6 @@
 # gam — working title: *Adventure Capital*
 
-An idle dungeon crawler with an active layer, planned for Robinhood Chain.
+An idle dungeon crawler with an active layer, planned as a premium Steam game.
 You're a rich townsperson who hires adventurers, gears them up and sends them
 into the dungeon that is about to overrun the town, and you take a cut.
 
