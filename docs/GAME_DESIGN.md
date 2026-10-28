@@ -396,3 +396,53 @@ Almost everyone else is dead. **New people come later from outside:** survivors 
 - **The mystery to solve:** *why* is the graveyard soil like this?
   - Proposed answer: the **metal vines in the fields and the strange graveyard soil are the same thing: the dungeon's roots.** The dungeon is a living thing growing under the town. Graveyard soil has been touched by the roots; mixing it in lets the dungeon grow into Hollowmere.
   - That ties together the vines, the soil, the undead and the dungeon, and gives a long-term goal: find a way to **cut the dungeon off at the roots** (maybe a blessed seed bred from a strange crop).
+
+## 17. Pushback and counter-proposals (v0.8)
+
+### 17.1 Pushback
+1. **Scope: this is currently four games.** A cozy farming/crafting sim, a dungeon crawler, a night-defence survival game, and an exploration game (supply runs to other towns), plus a research tree and a mystery. Stardew took one developer ~4 years with *one* of these. We need one spine and everything else in service of it. **Proposal:** the spine is *reclaiming the town*; the dungeon is the late game, the wilds are a light side system.
+2. **It's no longer cozy, so we should decide on purpose.** Everyone dead, the widow scene, a dying friend, undead raids and an Unrest meter that sends monsters at your walls: that's survival drama with farming. That's a fine game, but it contradicts the earlier rule "home is safe". Cozy players quit over stress timers and raids that wreck their work. **Proposal:** threats damage *the graveyard and the soil*, or are telegraphed and opt-in; they never destroy what you built.
+3. **A dead town has nobody to love.** Cozy games live on their villagers (Stardew has ~30). Four survivors and some later refugees is thin, and refugees are strangers. See idea **B** for a fix.
+4. **The player no longer has a stake in the disaster.** When *you* led the expedition, you had guilt and a character arc. Now the Captain made the mistake and died, so you're a passenger. **Proposal:** you were her second-in-command. You had doubts and kept quiet, or you were the one who said "take everyone".
+5. **Resurrection breaks the story.** If the Abbey can raise the dead, why not raise the town? We need a rule: maybe resurrection only works if the body is recovered quickly, only inside the walls, or only for someone the graveyard soil "agrees" to return. Or cut it entirely.
+6. **An accidental soil mix is a frustration trap.** "A cart spills and something terrible happens" punishes bad luck. **Proposal:** mixing is never an accident. It's a deliberate, dangerous craft (idea **D**).
+7. **Eleven blocker types = eleven systems to build.** Variety is right, but each needs art, UI, balance and tutorials. **Proposal:** ~5 systems with different "costumes" (idea **F**).
+8. **The Sleepless Elixir solves a problem we no longer have.** It existed so you could run the town by day and the dungeon by night in an idle game. Now night is already busy (undead, graveyard). **Proposal:** replace it with a clean day/night structure (idea **C**).
+9. **We lost the most distinctive thing: the hook.** "Rebuild a ruined town after a disaster" is Dragon Quest Builders, Sun Haven, Moonlighter's village, Graveyard Keeper... The smug-investor angle was ours. Idea **A** and **E** bring a distinctive hook back.
+10. **We still haven't decided who fights and how.** That decides the engine, the art budget and half the design. It has to be settled before anything else.
+
+### 17.2 New ideas
+**A. "You farm the soil. He farms towns."**
+The Dungeon Master is a farmer. He pulls towns into this world, lets them grow, and **harvests** them. The ruins found in the wilds are towns he has already harvested. The graveyard soil is his fertiliser; the metal vines are his roots. His "Baa-aaa" was never about the Captain's flock: *the whole town* is his flock. That makes the raids his "harvests", and creates tension because the better your town grows, the more tempting it is to him. One theme ties everything together: you are a farmer who finds out you're also a crop.
+
+**B. The townsfolk's ghosts are your cast.**
+The dead of Hollowmere haven't left. They linger, harmless, in their homes and shops: the baker still "kneads" at dawn, the innkeeper still wipes the bar. They're your villagers: you talk to them, learn their stories, do their **unfinished business**, and when you're ready **lay them to rest** in the graveyard (or let them stay as shop spirits who teach recipes). A cozy cast in a dead town. And the stakes are personal: ghosts that are neglected or left unburied for too long slowly **turn into wraiths**. Mira's husband might be among them... or not, which keeps her mystery open.
+
+**C. The Night Choice (instead of the elixir).**
+Day = town work (farming, building, people). At dusk you pick **one** thing for the night:
+- **Watch** the walls (defend, earn trust).
+- **Tend** the graveyard (lowers Unrest, finds things).
+- **Delve** into the dungeon (progress, loot, danger).
+- **Rest** (full energy tomorrow).
+Each choice costs the others. That keeps the day cozy and gives every night one meaningful decision.
+
+**D. The Mixing Bed: dangerous grafting as a feature.**
+Mixing soils is a deliberate experiment in a contained, blessed bed. It produces **hybrid crops** with powerful effects (vine acid, Root Sight, a calming fruit for the ox, ghost-visible flowers) but spikes Unrest and can go wrong in visible, telegraphed ways. A risk/reward toy instead of a punishment.
+
+**E. The Dungeon Master's Offers (the business hook, reversed).**
+The original pitch had *you* as the smug investor. Now **he** is the smug investor and **you** are his asset. At times he slips a contract under your door: *"I'll clear the vines in the Lower Fields tonight. In return, the graveyard keeps one of your crops."* Shortcuts with a price, all optional, all written down in a **Ledger of Debts** in the Counting House. Refusing is always possible. Accepting too many has consequences in the ending. Great moments for streamers.
+
+**F. One disease, many symptoms: the Roots.**
+Every blocked area is blocked by **the same underlying thing**, the dungeon's roots, showing up differently: metal vines in the fields, black water in the well, time fog at the mill, a nest in the granary, undead in the crypt. Each area has a **root node** to find and cut. That gives variety in how it looks and plays, but one system to build and teach. With the hybrid crop **Root Sight**, you can see the roots under the town and plan which area to reclaim next.
+
+**G. Pip's Sketchbook.**
+The quest log and bestiary are **Pip's drawings**: crooked crayon pictures of monsters, plants and "things Mr. [you] did today". It changes as he grows braver (or more scared). Cheap to make, very charming, and gives the boy a real role.
+
+**H. The Captain comes back.**
+Isolde Varr didn't stay dead. She's one of the dungeon's bosses, **the Shepherdess**, turned by the Dungeon Master. She still has her keyring. Her fight is the payoff of the prologue.
+
+### 17.3 What I'd cut or postpone
+- Supply runs / exploring the wilds → postpone to an update; a few scripted trips for the story only.
+- Separate systems for each blocker → merge under the Roots (F).
+- The Sleepless Elixir → replace with the Night Choice (C).
+- Accidental soil mixing → replace with the Mixing Bed (D).
