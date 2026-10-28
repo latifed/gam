@@ -183,3 +183,19 @@ cosmetic DLC or an expansion tier later.
 8. Is the Dungeon Master a talking character with lots of dialogue, or mostly in the background?
 9. Does the town's Threat meter ever actually punish you (raids that close shops), or is it only flavour?
 10. Names: the town, the inn, the starting warrior, the game.
+
+## 12. Competitors and references
+
+| Game | Closest overlap | What to learn / how we differ |
+|---|---|---|
+| **Soda Dungeon 1 & 2** | **Closest match.** A tavern recruits adventurers, the party auto-fights through a side-scrolling dungeon, you decide when to go home. | Proves the concept. It's a party of throwaway recruits and lighter on decisions; we invest in **one hero**, with stances, Standing Orders and the investor fantasy. |
+| **Moonlighter** | You keep loot only if you get out; you pay to teleport out (the pendant); run the shop in town. | Same loot-at-risk loop and teleport-stone idea. It's an action game, not idle. |
+| **Loop Hero** | Hero runs a route by himself; retreating early keeps more resources than dying. | Their split (keep everything at camp, 60% on retreat, 30% on death) is a good reference for our death-loss rule. |
+| **Darkest Dungeon** | Hire heroes in town, push your luck or retreat, upgrade the hamlet, a narrator who comments on everything. | The narrator is a model for the Dungeon Master's voice. Not idle; we're lighter and funnier. |
+| **Melvor Idle** | Buy-once Steam idle game; combat with food, auto-eat, gear progression. | Steam idle players accept deep systems and spreadsheets. Its auto-eat upgrade is a simple version of our Standing Orders. |
+| **Idle Slayer** | Side-scrolling hero, idle with active bursts. | Very close to the look we want; the active part there is reflexes, ours is decisions. |
+| **Idle Champions of the Forgotten Realms** | Idle fantasy party, the biggest name in the genre on Steam. | Free-to-play with heavy monetisation; we're buy-once, single hero, story-driven. |
+| **Rusty's Retirement** (+ desktop pets like Bongo Cat) | Docked idle game in a strip of your desktop. | Shows the "tavern strip" docked-window mode can sell. |
+| **Shop Titans / Recettear** | You profit from adventurers as a shopkeeper. | Similar "businessman, not hero" fantasy. |
+
+**Our edge (draft):** a single hero you're invested in; three stances plus loot that's at risk until he's home (push your luck); Standing Orders as a light way to program the hero; a dockable tunnel window; a town that comes back to life; investor humour and a talking Dungeon Master.
