@@ -507,3 +507,34 @@ The dungeon is the DM's farm, and its levels follow the journey of harvested hop
 ### 18.8 Ending options
 - **Break the chain:** share the hope; free every town; the Dungeon Master starves or is freed himself.
 - **Take his place** (dark ending): if you hoard hope, take too many of his Offers (17.2 E), and let the chain continue, *you* become the next Dungeon Master.
+
+## 19. Captain, dungeon levels, combat (v0.10)
+
+### 19.1 The Captain (overrides "Isolde Varr" in 16 and 17.2 H)
+- **Captain Percival Varr**: a pompous man with black hair and pale skin, fond of speeches, medals and the sound of his own voice. He led the expedition "to end this by supper".
+- **He isn't dead.** The Dungeon Master keeps him in the dungeon as an **appetizer**: every day Percival is given an "escape chance" (a loose bar, a forgotten key, a guard asleep). Every day it's a trap, and his hope is snuffed out.
+- **In the game:**
+  - You meet him on different floors, each time mid-"escape", each time more ragged and less pompous. A recurring tragicomic figure.
+  - It shows the player exactly what the DM does to hope, long before the twist is explained.
+  - He still has the town's keyring (the Counting House vault, the Arcanist's Tower...).
+  - **Rescuing him for real** is a late-game moment. Back in town he's broken; rebuilding *his* hope is a small personal arc (from pompous to humble), and maybe the proof that hope can be given back.
+
+### 19.2 Dungeon levels: story structure + the original look (resolves question 2)
+The **story names** follow the hope (18.7); the **look** keeps the original "puny goblins and dirt walls first, scarier further down" progression:
+
+| Level | Story role | Look (walls) | Enemies |
+|---|---|---|---|
+| 1. **The Roots** | vines suck hope from the ground | dirt tunnels, roots, wooden props, torches | puny goblins, rats, root creatures |
+| 2. **The Granary** | harvested hope is stored | stone vaults, sacks, jars, cobwebs | skeleton keepers, crypt rats, ghouls |
+| 3. **The Press** | hope is crushed | mine shafts, gears, chains, sparks | rust golems, overseers, imps |
+| 4. **The Cellar** | hope ferments into something dark | damp vaults, barrels, fungus, fumes | myconids, the hollowed, cellar trolls |
+| 5. **The Table** | where he dines | a grand black-marble hall, candles, a long table | his servants and the Dungeon Master |
+
+### 19.3 Combat: fight yourself, or lead
+- **Default: you fight yourself.** Real-time combat with your character, with survivors as AI companions.
+- **Lead mode** for players who mostly want the cozy farm: your character stays back and gives orders; the companions fight in your stead.
+  - Orders: **stance** (Defensive / Normal / Aggressive, the original stance idea), focus target, use an item, retreat.
+  - **One combat system, not two:** companions already have AI; Lead mode just puts your character under AI too and gives you the order panel.
+  - **Switchable any time**, like a difficulty/accessibility setting, not a one-time choice at the start.
+  - Lead mode shouldn't be punished hard (cozy players are the ones who pick it). At most: slightly slower or slightly less loot.
+- Open: in Lead mode, can you stay in town while the party goes down? (Careful: that's close to idle, which we dropped.)
