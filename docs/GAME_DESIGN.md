@@ -599,7 +599,7 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 |---|---|---|---|---|
 | Pell | **Hester Pell** (68) | retired midwife | the wilds | Mira's mother, even sharper than Mira; sees through everyone, including the DM. |
 | Pell | Tobias Pell † | fisherman | died years ago | — |
-| Pell | **Father Aldous** (72) | priest | Abbey crypt | Hester's brother. Rescuing him unlocks blessings. |
+| Pell | **Father Aldous** (72) | priest | Abbey crypt | Hester's brother. Steadfast and harsh. Rescuing him unlocks Consecration (§23). |
 | Wainwright | **Mira** (34) | baker | with you | See section 20. |
 | Wainwright | **Edric** (36) | carpenter, toymaker | dungeon: Cellar | See section 20. |
 | Wainwright | **Pip** (7) | — | with you | See section 20. |
@@ -624,7 +624,7 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 | Hammersley | **Bruna Hammersley** (50) | master smith | dungeon: Press | The DM makes her run the Press's machinery. |
 | Hammersley | **Dag Hammersley** (52) | armorer | the wilds | Bruna's husband. |
 | Hammersley | **Oswin** (19) | apprentice | with you (injured) | Their foster son. Relights the forge once he recovers. |
-| Marsh | **Sabine Marsh** (47) | apothecary | Abbey crypt | Ran to the Abbey to tend the wounded and got trapped there. |
+| Marsh | **Sabine Marsh** (47) | herbalist, healer, soothsayer | Abbey crypt | Witch-like, grim; Aldous's enemy since her husband died. Trapped in the crypt with him. Unlocks the Settling rite (§23). |
 | Marsh | Corwin Marsh † | — | died of fever | Why Sabine became a healer. |
 | Marsh | **Linden Marsh** (19) | herb gardener | the wilds | Shy; in love with Tilly and never said so. |
 | Barrow | **Sgt. Holt Barrow** (55) | guard, veteran | the wilds | The one guard Percival left behind. When the raid came, he led everyone he could out of the Wilds Gate. |
@@ -632,6 +632,8 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 | Abbey | **Brother Fennick** (22) | novice | Abbey crypt | Nervous; serves Father Aldous. |
 | You | **You** | the player | — | — |
 | You | **Dorrit** (66) | your housekeeper | Manor cellar | Found when you reclaim your manor (parcel 2). |
+
+**Full personalities, secrets and arcs:** [CHARACTERS.md](CHARACTERS.md). **Sprites for everyone:** [concept-art/town/town_lineup.png](concept-art/town/town_lineup.png).
 
 **Other ties:** Pip & Juniper are best friends · Pip worships the Cobb twins · Linden ♥ Tilly · Gus & Holt are old drinking pals · Cordelia and Hamish are money rivals · Oswin owes Bruna everything.
 
@@ -667,3 +669,26 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 - **Healing comes from the farm:** food and potions you made in town are your healing in the dungeon. Good days in town = safer nights below.
 - Hope gives small buffs; low Hope makes fights harder.
 - Retreating is always possible but costs something (time, loot left behind), never progress.
+
+## 23. The Abbey and the Hedge: two ways to make strange soil safe (v0.14)
+
+**The conflict.** Graveyard soil is the only soil that grows weird crops, and every load raises Graveyard Unrest (§16.4). Two people in town know how to make it safe, and they hate each other:
+
+- **Father Aldous** (priest, steadfast and harsh): the soil must be **Consecrated**. The dead belong to God; the Church decides what is holy.
+- **Sabine Marsh** (herbalist, healer, soothsayer, witch-like and grim): the soil must be **Settled**. The dead aren't angry because they're unholy; they're angry because you took from them without asking.
+
+Twenty years ago Aldous forbade Sabine's fever remedies and her husband Corwin died. They were trapped together in the Abbey crypt during the raid and kept each other alive, and neither will speak of it. (Characters: [CHARACTERS.md](CHARACTERS.md).)
+
+| | **Consecration** (Aldous) | **Settling** (Sabine) |
+|---|---|---|
+| How | Holy water, prayers, a blessed border. Done at the Abbey, by day. | Speaking the names of the dead, offerings at the old graves, salt, iron and ash lines. Done at the Old Graveyard, at dusk. |
+| Cost | Time (Aldous's daily prayer slots), candles, Hope. | Ingredients (herbs, salt, iron), a visit to the graveyard, your own time. |
+| Unrest | **Big, fast drop.** | Smaller drop, but **lasting**: Settled graves stay calm longer. |
+| Effect on the soil | Soil is safe but **tamed**: strange crops grow reliably but weaker. | Soil keeps its **strangeness**: stronger, odder crops, more surprises (good and bad). |
+| Story | Aldous gains authority; Sabine's people feel pushed out. | Sabine gains trust; Aldous calls it witchcraft and preaches against it. |
+
+**How it plays:**
+- You choose per plot or per load of soil. Townsfolk notice: some side with the Abbey (Nell, Winnie, Fennick out loud), some with the Hedge (Hester, Linden, Fennick in secret). Favouring one side raises its friendship and costs some with the other. Never so much that it locks you out.
+- **The Double Rite** (late game): once Aldous and Sabine are reconciled (a questline that runs through Fennick), both rites can be performed together: the biggest Unrest drop, *and* strange crops at full strength. Also a story beat about shared hope: two enemies holding one ritual.
+- **The reconciliation questline** (draft beats): Fennick admits he's been trading notes with Sabine → a night when Consecration alone fails and the dead rise anyway → Sabine Settles the graves while Aldous holds the border → Aldous asks for her help, in public, badly → the Double Rite.
+- **Mixing soils** (§18.5) is still small trouble; *who* you ask to clean it up matters: Aldous scolds you, Sabine charges you.
