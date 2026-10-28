@@ -159,7 +159,7 @@ def sprite_side(step=0, apron=False, hat=True):
     part(im, lambda d: d.ellipse((6, 3 + by, 22, 19 + by), fill=255), HAIR)
     part(im, lambda d: d.ellipse((4, 12 + by, 11, 20 + by), fill=255), HAIR, shade=(0, 0))      # low bun
     put(im, [(10, 13 + by), (10, 14 + by), (10, 15 + by)], BAND[2])                               # ribbon
-    part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((24, 15 + by, 24, 16 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
+    part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((24, 14 + by, 25, 17 + by), fill=255), d.point((26, 16 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.polygon([(7, 15 + by), (6, 8 + by), (9, 4 + by), (14, 3 + by), (20, 4 + by), (23, 7 + by), (24, 10 + by), (21, 9 + by),
                                   (18, 9 + by), (16, 11 + by), (15, 15 + by), (12, 16 + by), (9, 16 + by)], fill=255), HAIR, shade=(0, 0))
     put(im, [(16, 12 + by), (16, 13 + by), (17, 13 + by), (16, 14 + by)], SKIN[1])  # ear

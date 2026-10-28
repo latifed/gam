@@ -92,7 +92,7 @@ def sprite_side(step=0):
     part(im, lambda d: d.ellipse((13 + sw, 40 + by, 17 + sw, 44 + by), fill=255), SKIN, light_top=0)
     part(im, lambda d: d.rectangle((14, 29 + by, 18, 33 + by), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((7, 13 + by, 22, 29 + by), fill=255), HAIR)
-    part(im, lambda d: (d.ellipse((9, 15 + by, 23, 32 + by), fill=255), d.rectangle((24, 24 + by, 24, 25 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
+    part(im, lambda d: (d.ellipse((9, 15 + by, 23, 32 + by), fill=255), d.rectangle((23, 24 + by, 24, 26 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.polygon([(7, 26 + by), (6, 18 + by), (9, 14 + by), (13, 13 + by), (13, 9 + by), (16, 13 + by), (21, 14 + by), (24, 18 + by),
                                   (24, 20 + by), (21, 19 + by), (19, 21 + by), (17, 19 + by), (15, 23 + by), (14, 27 + by), (10, 28 + by)], fill=255), HAIR, shade=(0, 0))
     put(im, [(15, 23 + by), (15, 24 + by), (16, 24 + by), (15, 25 + by)], SKIN[1])  # ear
