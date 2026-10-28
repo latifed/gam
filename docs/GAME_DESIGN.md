@@ -1,5 +1,7 @@
 # Adventure Capital — Design Notes (brainstorm v0.2)
 
+> **v0.5 decision: no idle mechanics.** The dungeon is played actively; idle-only parts (offline progress, Standing Orders as AFK play, the tavern strip) are on hold. Sections 2–3 still describe the old idle design and need a rewrite.
+>
 > **Platform decision:** a premium (buy-once) **Steam** game, no Web3. The Robinhood Chain notes were dropped in v0.2.
 
 > Status: brainstorm. Anything marked **[?]** is an open question to settle together.
@@ -296,3 +298,17 @@ Back home, the town is smoking. Doors are broken in, the fields are trampled, th
 - **No permanent loss in normal play:** heroes are resurrected, missing villagers are found, raids at worst damage walls (never crops or homes).
 - The prologue does the heavy lifting, then the tone shifts to rebuilding, humour, and small wins.
 - References for "dark story, cozy play": *Graveyard Keeper*, *Dredge*, *Spiritfarer*, *Cult of the Lamb*.
+
+## 15. Town plan (v0.5)
+
+![Hollowmere town plan](town_map.png)
+
+Source: [town_map.svg](town_map.svg). The outer line is the town wall, with watchtowers on the corners.
+
+- **Gates:** *Dungeon Gate* (north, road to the dungeon), *Wilds Gate* (west, supply runs), *Old Road Gate* (south; the road now ends in purple grass, a constant reminder that home is gone).
+- **North, fighting quarter:** Guild Hall, Blacksmith & Armorer, Arcanist's Tower, Stables (mule pen). Close to the Dungeon Gate.
+- **Centre:** Town Square with the well and fair grounds; the Gilded Tankard, Provisioner, Counting House and Apothecary around it.
+- **West:** Expedition Yard by the Wilds Gate.
+- **East:** Abbey and Graveyard.
+- **South:** Fields (normal crops), Strange Garden (weird crops), Research Workshop, Granary, Your Manor (starts in ruins), Brewery & Kitchen, Survivors' Cottages.
+- Everything starts in ruins and is rebuilt one by one.

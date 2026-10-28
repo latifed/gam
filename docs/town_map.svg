@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1000" viewBox="0 0 1300 1000" font-family="Georgia, serif">
+<rect width="100%" height="100%" fill="#d9cde6"/>
+<text x="24" y="44" font-size="28" font-weight="bold" fill="#3a2a1a">Hollowmere: town plan (draft)</text>
+<text x="24" y="70" font-size="15" fill="#4a3a5a" font-style="italic">Purple ground = the strange world outside the walls</text>
+<polygon points="210,190 650,140 1090,190 1170,520 1090,850 650,900 210,850 130,520" fill="#f3ead6" stroke="#6b5b4b" stroke-width="14" stroke-linejoin="round"/>
+<line x1="650" y1="130" x2="650" y2="80" stroke="#7a6a5a" stroke-width="4" stroke-dasharray="10 8"/>
+<path d="M600,80 A50,45 0 0 1 700,80 Z" fill="#2b2233"/>
+<text x="715" y="60" font-size="17" font-weight="bold" fill="#2b2233">The Dungeon</text>
+<text x="715" y="80" font-size="13" fill="#2b2233">(1 hour walk north)</text>
+<line x1="120" y1="520" x2="20" y2="520" stroke="#7a6a5a" stroke-width="4" stroke-dasharray="10 8"/>
+<text x="14" y="490" font-size="15" font-weight="bold" fill="#3a2a1a">◀ The Wilds</text>
+<text x="14" y="507" font-size="12" fill="#3a2a1a">(supply runs)</text>
+<line x1="650" y1="910" x2="650" y2="965" stroke="#7a6a5a" stroke-width="4" stroke-dasharray="10 8"/>
+<text x="665" y="960" font-size="14" font-style="italic" fill="#3a2a1a">Old Road: ends in purple grass</text>
+<line x1="650" y1="150" x2="650" y2="890" stroke="#ddc89c" stroke-width="26"/>
+<line x1="140" y1="520" x2="650" y2="520" stroke="#ddc89c" stroke-width="26"/>
+<circle cx="650" cy="520" r="78" fill="#e6d3a8" stroke="#8a7a5a" stroke-width="3"/>
+<circle cx="650" cy="520" r="14" fill="#7fa7c9" stroke="#556" stroke-width="2"/>
+<text x="650" y="490" font-size="15" font-weight="bold" text-anchor="middle" fill="#3a2a1a">Town Square</text>
+<text x="650" y="560" font-size="12" text-anchor="middle" fill="#3a2a1a">Well · Fair Grounds</text>
+<rect x="440" y="225" width="170" height="80" rx="8" fill="#d99a85" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="525.0" y="262.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Guild Hall</text>
+<text x="525.0" y="279.0" font-size="12" text-anchor="middle" fill="#3a2a1a">barracks · training</text>
+<rect x="690" y="225" width="180" height="80" rx="8" fill="#f0c987" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="780.0" y="262.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Blacksmith</text>
+<text x="780.0" y="279.0" font-size="12" text-anchor="middle" fill="#3a2a1a">&amp; Armorer</text>
+<rect x="905" y="235" width="120" height="80" rx="8" fill="#f0c987" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="965.0" y="272.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Arcanist's</text>
+<text x="965.0" y="289.0" font-size="12" text-anchor="middle" fill="#3a2a1a">Tower</text>
+<rect x="285" y="255" width="125" height="70" rx="8" fill="#d99a85" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="347.5" y="287.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Stables</text>
+<text x="347.5" y="304.0" font-size="12" text-anchor="middle" fill="#3a2a1a">mule pen</text>
+<rect x="185" y="430" width="145" height="72" rx="8" fill="#d99a85" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="257.5" y="463.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Expedition Yard</text>
+<text x="257.5" y="480.0" font-size="12" text-anchor="middle" fill="#3a2a1a">supply depot</text>
+<rect x="400" y="420" width="170" height="78" rx="8" fill="#9cc3e6" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="485.0" y="456.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Gilded Tankard</text>
+<text x="485.0" y="473.0" font-size="12" text-anchor="middle" fill="#3a2a1a">the inn</text>
+<rect x="400" y="548" width="170" height="70" rx="8" fill="#f0c987" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="485.0" y="580.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Provisioner</text>
+<text x="485.0" y="597.0" font-size="12" text-anchor="middle" fill="#3a2a1a">food · torches · rope</text>
+<rect x="745" y="420" width="150" height="72" rx="8" fill="#9cc3e6" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="820.0" y="453.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Counting House</text>
+<text x="820.0" y="470.0" font-size="12" text-anchor="middle" fill="#3a2a1a">town ledger</text>
+<rect x="745" y="548" width="150" height="70" rx="8" fill="#f0c987" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="820.0" y="580.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Apothecary</text>
+<text x="820.0" y="597.0" font-size="12" text-anchor="middle" fill="#3a2a1a">healer · potions</text>
+<rect x="930" y="415" width="160" height="110" rx="8" fill="#c7b3e3" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="1010.0" y="467.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Abbey</text>
+<text x="1010.0" y="484.0" font-size="12" text-anchor="middle" fill="#3a2a1a">resurrection · blessings</text>
+<rect x="950" y="550" width="125" height="60" rx="8" fill="#c7b3e3" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="1012.5" y="585.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Graveyard</text>
+<rect x="215" y="650" width="200" height="125" rx="8" fill="#a8d58f" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="315.0" y="709.5" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Fields</text>
+<text x="315.0" y="726.5" font-size="12" text-anchor="middle" fill="#3a2a1a">normal crops</text>
+<rect x="435" y="650" width="170" height="110" rx="8" fill="#a8d58f" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="520.0" y="702.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Strange Garden</text>
+<text x="520.0" y="719.0" font-size="12" text-anchor="middle" fill="#3a2a1a">weird crops</text>
+<rect x="435" y="778" width="170" height="58" rx="8" fill="#a8d58f" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="520.0" y="804.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Research Workshop</text>
+<text x="520.0" y="821.0" font-size="12" text-anchor="middle" fill="#3a2a1a">study the strange</text>
+<rect x="245" y="790" width="140" height="42" rx="8" fill="#a8d58f" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="315.0" y="816.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Granary</text>
+<rect x="745" y="645" width="180" height="90" rx="8" fill="#9cc3e6" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="835.0" y="687.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Your Manor</text>
+<text x="835.0" y="704.0" font-size="12" text-anchor="middle" fill="#3a2a1a">in ruins, to restore</text>
+<rect x="950" y="645" width="120" height="80" rx="8" fill="#f0c987" stroke="#4a3a2a" stroke-width="2.5"/>
+<text x="1010.0" y="682.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a1a0a">Brewery</text>
+<text x="1010.0" y="699.0" font-size="12" text-anchor="middle" fill="#3a2a1a">&amp; Kitchen</text>
+<rect x="700" y="765" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M697,765 L719,753 L741,765 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="750" y="765" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M747,765 L769,753 L791,765 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="800" y="765" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M797,765 L819,753 L841,765 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="850" y="765" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M847,765 L869,753 L891,765 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="725" y="808" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M722,808 L744,796 L766,808 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="775" y="808" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M772,808 L794,796 L816,808 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<rect x="825" y="808" width="38" height="30" rx="4" fill="#e8dcc4" stroke="#4a3a2a" stroke-width="2"/>
+<path d="M822,808 L844,796 L866,808 Z" fill="#a86f4f" stroke="#4a3a2a" stroke-width="1.5"/>
+<text x="935" y="800" font-size="13" font-weight="bold" fill="#2a1a0a">Survivors'</text>
+<text x="935" y="816" font-size="13" font-weight="bold" fill="#2a1a0a">Cottages</text>
+<circle cx="210" cy="190" r="20" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="1090" cy="190" r="20" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="1170" cy="520" r="20" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="1090" cy="850" r="20" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="210" cy="850" r="20" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="608" cy="140" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="692" cy="140" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<rect x="624" y="129" width="52" height="22" fill="#5a3a22" stroke="#2a1a0a" stroke-width="2"/>
+<text x="580" y="128" font-size="14" font-weight="bold" text-anchor="end" fill="#2a1a0a">Dungeon Gate</text>
+<circle cx="130" cy="478" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="130" cy="562" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<rect x="119" y="494" width="22" height="52" fill="#5a3a22" stroke="#2a1a0a" stroke-width="2"/>
+<text x="150" y="585" font-size="14" font-weight="bold" text-anchor="start" fill="#2a1a0a">Wilds Gate</text>
+<circle cx="608" cy="900" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<circle cx="692" cy="900" r="16" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="3"/>
+<rect x="624" y="889" width="52" height="22" fill="#5a3a22" stroke="#2a1a0a" stroke-width="2"/>
+<text x="580" y="935" font-size="14" font-weight="bold" text-anchor="end" fill="#2a1a0a">Old Road Gate</text>
+<rect x="1015" y="20" width="270" height="150" rx="8" fill="#f8f2e4" stroke="#6b5b4b" stroke-width="2"/>
+<rect x="1029" y="30" width="22" height="15" rx="3" fill="#9cc3e6" stroke="#4a3a2a"/>
+<text x="1061" y="42" font-size="13" fill="#2a1a0a">Story · you</text>
+<rect x="1029" y="52" width="22" height="15" rx="3" fill="#f0c987" stroke="#4a3a2a"/>
+<text x="1061" y="64" font-size="13" fill="#2a1a0a">Shops &amp; crafting</text>
+<rect x="1029" y="74" width="22" height="15" rx="3" fill="#a8d58f" stroke="#4a3a2a"/>
+<text x="1061" y="86" font-size="13" fill="#2a1a0a">Farming &amp; research</text>
+<rect x="1029" y="96" width="22" height="15" rx="3" fill="#d99a85" stroke="#4a3a2a"/>
+<text x="1061" y="108" font-size="13" fill="#2a1a0a">Expeditions &amp; fighters</text>
+<rect x="1029" y="118" width="22" height="15" rx="3" fill="#c7b3e3" stroke="#4a3a2a"/>
+<text x="1061" y="130" font-size="13" fill="#2a1a0a">Abbey</text>
+<circle cx="1040" cy="147" r="9" fill="#8c7c6c" stroke="#4a3a2a" stroke-width="2"/>
+<text x="1061" y="152" font-size="13" fill="#2a1a0a">Watchtower</text>
+</svg>
