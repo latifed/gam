@@ -588,9 +588,9 @@ Mira's line is the theme of the game in one sentence: she's *right* that hope ge
 
 ![Hollowmere townsfolk](townsfolk.png)
 
-Source: [townsfolk.svg](townsfolk.svg). 34 living people in 10 family groups (+3 who died years before the game).
+Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3 who died years before the game).
 
-**Where everyone is at the start:** 5 with you · 11 hiding in town · 12 fled to the wilds · 6 taken into the dungeon.
+**Where everyone is at the start:** 5 with you · 12 hiding in town · 12 fled to the wilds · 6 taken into the dungeon.
 
 | Family | Person | Role | At the start | Hook |
 |---|---|---|---|---|
@@ -609,6 +609,7 @@ Source: [townsfolk.svg](townsfolk.svg). 34 living people in 10 family groups (+3
 | Brannock | **Tilly Brannock** (16) | barmaid | dungeon: Granary | Quick-witted; plans her own escape. |
 | Varr | Lord Aurelian Varr † | old money | died years ago | Percival grew up in his shadow. |
 | Varr | **Capt. Percival Varr** (40) | captain | dungeon: everywhere | See 19.1. |
+| Varr | **Winnie Crane** (29) | the Varrs' maid, **hireable** | Counting House | See 21.1. |
 | Varr | **Cordelia Varr** (37) | town treasurer | the wilds | Ran the Counting House and took the town ledger with her. Cold but fair. |
 | Thorne | **Ignatius Thorne** (80) | arcanist | sealed in his tower | Locked in by the DM's glyphs; alive, absent-minded, delighted by the strange world. |
 | Thorne | **Rowan Thorne** (39) | farmer | dungeon: Roots | Loves the land; the roots feed on it. |
@@ -630,5 +631,20 @@ Source: [townsfolk.svg](townsfolk.svg). 34 living people in 10 family groups (+3
 | You | **Dorrit** (66) | your housekeeper | Manor cellar | Found when you reclaim your manor (parcel 2). |
 
 **Other ties:** Pip & Juniper are best friends · Pip worships the Cobb twins · Linden ♥ Tilly · Gus & Holt are old drinking pals · Cordelia and Hamish are money rivals · Oswin owes Bruna everything.
+
+### 21.1 Winnie Crane, the Varrs' maid (hireable)
+- **Who:** 29, the Varr household's maid for twelve years. Quick, tidy, bone-dry humour. She is loyal to the *household*, not to Percival's ego, and has heard every one of his speeches. *"The Captain practised that one on the stairs. Twice."*
+- **At the start:** hiding in the Counting House front office, guarding the Varr silver out of habit. Found when you clear the rubble there.
+- **Hiring her (the business hook comes back):** she won't leave the Varrs' service for free. Percival owes her **three months' wages**. Pay his debt (or promise to bring him home and pay later, which goes into the Ledger) and she works for you.
+- **What she does:** a **hireable helper** you assign to a building or job:
+  - Your house: breakfast in the morning (energy boost), tidies and sorts your storage.
+  - Ruins: clears rubble and debris faster than anyone ("I've cleaned up after the Captain's parties").
+  - The Tankard or bakery: extra hands on festival days (more Hope from events).
+- **Story value:**
+  - She knows the Varrs' secrets, including **where the spare keys are hidden**, which gives a second way into the Counting House vault besides Percival's keyring.
+  - She's the only one who has seen Percival without his medals. She makes him human before you ever meet him in the dungeon.
+  - When Percival comes home broken, it's Winnie who looks after him, and their roles quietly flip.
+  - Comic rivalry with **Dorrit**, your own housekeeper: old-school vs. fancy-house manners.
+- **Hiring as a system:** Winnie can be the first of a few **hireable helpers** (paid weekly in gold). It brings back the original "you pay people to do the work" idea in a cozy way.
 
 **To do:** Mira's **bakery** and Edric's **workshop** aren't on the town map yet.
