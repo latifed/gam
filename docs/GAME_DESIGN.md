@@ -538,3 +538,48 @@ The **story names** follow the hope (18.7); the **look** keeps the original "pun
   - **Switchable any time**, like a difficulty/accessibility setting, not a one-time choice at the start.
   - Lead mode shouldn't be punished hard (cozy players are the ones who pick it). At most: slightly slower or slightly less loot.
 - Open: in Lead mode, can you stay in town while the party goes down? (Careful: that's close to idle, which we dropped.)
+
+## 20. The Wainwrights: Mira, Pip and Edric (v0.11)
+
+### 20.1 Who they are
+| | Who | Personality | In the game |
+|---|---|---|---|
+| **Mira Wainwright** | The town **baker**, your next-door neighbour | Practical, sharp-tongued, tough. Refuses to hope: *"Hope is a debt. Someone always comes to collect."* | Reopening her **bakery** gives daily bread: an energy boost and, shared, a **hope anchor**. |
+| **Pip Wainwright** | Her son, about 7 | Curious, brave in the wrong moments, unafraid of the strange world. Has more hope than anyone in town. | His **sketchbook** is the quest log (17.2 G). His drawings of his dad quietly change with the town's Hope. |
+| **Edric Wainwright** | Mira's husband, carpenter and **toymaker** | Warm, a dreamer, always whistling. Went on the expedition at the back of the column, carrying supplies. | Missing. Alive in the dungeon. His rescue is the turning point of the game. |
+
+Mira's line is the theme of the game in one sentence: she's *right* that hope gets collected, and the game proves her wrong in the end, because shared hope isn't a debt; it's a gift.
+
+### 20.2 Their story
+
+**Beginning (Act 1)**
+- **The doorstep.** Mira asks if you saw Edric. You didn't, and you don't know what happened. She nods, closes the door, and the next morning she's clearing rubble as if nothing happened.
+- **Pip's lantern.** Every night Pip puts a lantern in the window "so Dad can find the way home". This is the **first hope anchor** the player sees, and how the anchor mechanic is taught. If the lantern goes out, Pip relights it, again and again.
+- Mira won't let anyone talk about Edric in front of Pip: *"Don't you dare tell my son his father is coming back."*
+- **Sprout.** Pip befriends a tiny root creature that crawled out of the Strange Garden and names it Sprout. Mira hates it. Sprout turns out to be a piece of the dungeon's roots that has "gone wrong" and loves the boy. (Later, Sprout can sense root nodes and lead you through the Roots level.)
+- **Reopening the bakery** is Mira's quest: flour (Granary), a working oven (rubble, the forge), water (the well). When the bakery opens, she bakes for everyone, but still won't hope.
+
+**Middle (Acts 2–3)**
+- **The letters.** While cutting metal vines you find a letter tangled in the roots, in Edric's handwriting: *"I'm alive. Tell Pip to keep the lantern lit."* Pip is overjoyed. Mira burns it.
+- More letters come, some through the roots, some found in the dungeon. **Some are forgeries by the Dungeon Master**, made to raise hope and then crush it. **Mini-game:** you and Pip check each letter against things only the real Edric would know (the name of Pip's wooden horse, the song he whistles, the knot in the kitchen table). Mira secretly starts reading them.
+- **The toy trail.** In the dungeon you find little wooden toys Edric whittled and left behind as a trail: a horse, a boat, a lantern. They're collectibles that lead to him, and each one you bring home goes on Pip's shelf.
+- **Percival knows him.** On one of his failed "escapes", the Captain mentions *"the carpenter in the Cellar who never stops whistling"*. The DM's prized guest.
+- **Harvest night: Pip in the graveyard.** On a Harvest night, Pip hears his father's voice calling from the Old Graveyard and slips out through the Postern. A night chase through the graveyard to find him. Sprout protects Pip until you arrive. Afterwards, Mira finally breaks down and talks about Edric.
+
+**The turning point (end of Act 3)**
+- **Edric is in the Cellar.** The Dungeon Master isn't draining him like Percival; he's **aging him like fine wine**, keeping him hopeful so his hope gets richer. He let the letters through so Edric believed his family would come.
+- **The DM's real plan:** the reunion. The moment the family is together, their hope peaks, and that's when he means to harvest it.
+- **How you beat it:** the reunion happens **in town, inside anchors**: the Abbey bell rings, Mira's bakery bakes for everyone, the whole town is at the Square, Pip's lantern is lit. The hope is **shared**, and shared hope can't be harvested. For the first time, the Harvest fails.
+- This is where the player (and the Dungeon Master) learn how he can be beaten. It sets up the ending.
+
+**After**
+- Edric reopens his **workshop**: carpentry and building upgrades, and toys (gifts that raise Hope).
+- He knows the Cellar from the inside and helps plan the way down.
+- He still whistles, a little more quietly.
+- Mira, finally, says it: *"Fine. I hope. Don't make me regret it."*
+
+### 20.3 Why their story matters for the design
+- Teaches the **anchors** (Pip's lantern) early and naturally.
+- Shows the **Hope Farm** from the inside: Percival is the appetizer, Edric the main course.
+- The rescue proves the **shared-hope** counter, which is the game's ending in miniature.
+- Gives the cozy side real emotional stakes without anyone dying.
