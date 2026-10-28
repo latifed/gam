@@ -199,3 +199,43 @@ cosmetic DLC or an expansion tier later.
 | **Shop Titans / Recettear** | You profit from adventurers as a shopkeeper. | Similar "businessman, not hero" fantasy. |
 
 **Our edge (draft):** a single hero you're invested in; three stances plus loot that's at risk until he's home (push your luck); Standing Orders as a light way to program the hero; a dockable tunnel window; a town that comes back to life; investor humour and a talking Dungeon Master.
+
+## 13. Inspirations and the cozy direction (v0.3)
+
+Reference games the player loves: **Majesty**, **Dungeon Siege**, **Stardew Valley**, **Graveyard Keeper**.
+
+### 13.1 From Majesty: indirect control and gold that flows back to you
+- In Majesty you never command heroes. You place **bounty flags** and they decide for themselves, depending on personality and greed.
+- Heroes **spend their pay in your town's shops**, so you earn it back. That's exactly the investor fantasy: hire, equip, take a cut, and then sell the hero his own potions.
+- Ideas:
+  - **Bounty board** at the inn ("100g for Gnashgut's head", "50g per goblin ear").
+  - **Hero personality** (brave, greedy, cautious, drunk) decides how well he follows your stance and Standing Orders. A greedy hero ignores retreat orders when there's a chest nearby.
+  - Later, a **roster** of heroes with Majesty-style classes who choose their own bounties.
+
+### 13.2 From Dungeon Siege: fun to just watch
+- The fun is **watching** them fight: readable combat, visible gear on the character, satisfying hits, loot popping out.
+- **Pack mule**: a donkey that follows the hero and carries the loot. Bag capacity is literally the mule. Upgrade or name the mule; if the mule dies or panics, the loot is dropped. The mule could walk loot back to town by itself (an alternative to teleport stones).
+- Every new item you buy **shows on the hero's sprite**.
+- The world feels continuous: the tunnel goes deeper without loading screens and the walls change as you descend.
+
+### 13.3 From Stardew / Graveyard Keeper: the cozy "non-idle" loop
+**Big idea:** the active part of the game is **your own life in town** while the hero idles in the dungeon. You actually walk around Hollowmere as the investor.
+
+- **Your stuff:** a house or a run-down manor you restore, and a **brewery / kitchen / garden** where you make the provisions and ale the hero eats (cheaper and better than buying them).
+- **Townsfolk with relationships:** the innkeeper, the blacksmith, the abbess, the locksmith's apprentice. Gifts and favours unlock discounts, recipes and side quests. Heart events.
+- **Day/night cycle:** the hero works in the dungeon while you work in town. At **night** monsters get bolder (more Threat in town, better loot down below).
+- **Graveyard Keeper's dark humour** fits the cynical-investor tone perfectly: you profit from a disaster, and the Abbey charges for resurrections.
+- **Seasons / festivals:** a Harvest Fair, the "Day of the Fallen Heroes", a festival when you beat a dungeon boss. The town decorates as it recovers.
+- **Restoring the town** = Stardew's community center: shops reopen (blacksmith, arcanist, guild hall) as you clear tiers and invest.
+- **Fixed-camera window**: you can always see the hero in the dungeon in a frame (a picture-in-picture "tavern scrying glass"), so you watch him while you farm.
+
+### 13.4 What this changes
+- The game moves from "idle with menus" to a **cozy town sim plus idle dungeon**. It's more original and fits the Steam cozy audience (which is large), but it's **much bigger to build**.
+- How do we keep the idle part meaningful? Proposal: in-game days are short (~10–15 real minutes), and the hero's progress and your town progress feed each other (his loot → your crafting materials; your food/ale → his buffs).
+- Offline: the hero keeps working on Standing Orders, but the town (your crops, your brewery) doesn't progress, or only partly.
+
+### 13.5 Open questions (cozy direction)
+1. Does the player walk around town in top-down Stardew style while the dungeon is shown side-on in a window? Or is the whole thing side-on?
+2. How much farming/crafting do we want: a small garden + brewery, or a full Stardew-size crafting system?
+3. One hero you're attached to (Dungeon Siege), or many heroes acting on their own (Majesty)? Or one hero at first and the Majesty system later?
+4. Real-time idle (progress while the game is closed) vs. in-game days (like Stardew)? Both together is possible but needs careful design.
