@@ -244,6 +244,8 @@ Reference games the player loves: **Majesty**, **Dungeon Siege**, **Stardew Vall
 
 ## 14. Story draft (v0.4)
 
+> **Partly superseded by section 16 (v0.7):** a separate arrogant leader leads the expedition and dies, almost everyone else in town is dead, and you come home through the Old Graveyard.
+
 ### 14.1 One-line premise
 *One night the whole town of Hollowmere is pulled into a strange, hostile world. You lead everyone into the nearby dungeon to end the threat quickly, get ambushed, and come home to ruins. Now you rebuild, slowly and properly.*
 
@@ -333,3 +335,64 @@ Source: [town_map.svg](town_map.svg). The outer line is the town wall, with watc
   - What happens if they mix (a cart spills, a border fades)? Normal crops mutate, weird weeds spread, or something wakes up. A danger and also a way to discover new crops.
   - Are the night wraiths connected to the graveyard? (Disturbed dead, angry that you're taking their soil?) This would tie the two mysteries together.
   - Abbey upgrades: stronger blessings, a bigger Strange Garden, blessed tools.
+
+## 16. Prologue v2, the starting state, and what blocks the town (v0.7)
+
+### 16.1 Prologue v2
+1. **Harvest Fair night**, then **the Shift** (as in 14.2).
+2. **The expedition** is led by **Captain Isolde Varr**, arrogant and loud, who takes almost every able-bodied person to "end this before supper". You go along.
+3. **The ambush.** The Dungeon Master mocks the Captain ("Baa-aaa... the shepherd took the whole flock for a walk, and left the gate open"). **The Captain dies.** You and a few others break out and run.
+4. **The way home goes through the Old Graveyard.** The road to the south gate is swarming, so you circle round through the graveyard outside the walls. Something stirs in the soil. You squeeze in through the **Postern**.
+5. **Home.** The town is dead and silent. Only your street, your house, the house next door and a small garden can be reached.
+6. **Next door:** a woman and her child are hiding. She asks about her husband. You have to tell her you didn't see him and don't know what happened to him. (He's an open thread for later.)
+7. **The injured one:** one of the expedition survivors is badly hurt. You put them in a bed in your house and bandage them as best you can. They can't do anything for a while.
+8. **The small garden** behind your house has gone strange. You mark it as the **Strange Garden**. Once it's cleared and blessed (first with a makeshift rite, properly when the priest is found), it grows your first food.
+9. Later, **Father Aldous** (once rescued) proposes moving your "whimsical soil experiments" next to the Abbey "so the Lord can keep an eye on them". That's when the proper Strange Garden by the Abbey opens.
+
+### 16.2 Survivors at the start (draft names)
+| Who | Role | Notes |
+|---|---|---|
+| **You** | the player | — |
+| **Oswin** | blacksmith's apprentice, **badly injured** | Bedridden at first. Needs medicine + time. When he recovers he **relights the forge**, which is the key to cutting the metal vines. |
+| **Wren** | hunter, expedition survivor | Your first able helper. |
+| **Mira** and her son **Pip** | the neighbours | Mira's husband **Edric** is missing. Pip is curious about the strange plants. |
+| **Father Aldous** | priest | **Not with you at the start.** Trapped in the Abbey crypt; rescuing him unlocks proper blessings. |
+
+Almost everyone else is dead. **New people come later from outside:** survivors of *other* towns the Dungeon Master pulled into this world (found on supply runs). That's how the town fills up again.
+
+### 16.3 What blocks the rest of town: different mechanics, not one grind
+**Rules:**
+- Every area is blocked by a **different kind** of problem.
+- Every unlock gives you **a new verb or system**, not just more space.
+- Every area has **one memorable moment** (a reveal, a boss, a person, a story beat). Grind is short; the moment is the reward.
+- Blockers chain together: solving one gives you the tool for another.
+
+| Blocker type | How it plays | Example area | What it unlocks |
+|---|---|---|---|
+| **Rubble** (physical work) | Clear it with tools; heavy pieces need a winch or an animal. Quick, satisfying. | Streets near your house, the Tankard | The Tankard (story hub, cooking) |
+| **Injured person** (time + care) | Feed, medicine, bandage changes. A small daily ritual. | Oswin | The forge |
+| **Forge / crafting** | Recovered Oswin + materials make tools. | Blacksmith | **Vine cutters**, tools, gear |
+| **Metal vines** (research puzzle) | Cutting them normally makes them grow back thicker. Research what kills the roots: forge heat, an acid from a strange crop, or a counter-plant. | Overgrown Fields, Lower Fields | Normal farming |
+| **Undead at night** (combat) | Fight wraiths, zombies and skeletons. Light and blessings make an area permanently safe. | Abbey crypt, Lower Fields | **Rescue Father Aldous** → blessings |
+| **Locked doors and keys** (exploration) | Find keys out in the world. The Captain's keyring is on her body, back on the road to the dungeon. | Counting House vault, Arcanist's Tower | Money and records; magic |
+| **Dungeon Master's glyphs** (riddle) | Seals carved by the DM. Collect fragments of his writing to read them. Lore delivered as a puzzle. | Arcanist's Tower, Gatehouse | Arcane research; story about the DM |
+| **Fouled water** (purify) | The town well runs black. Purify it (strange crop + blessing). Until then, water is carried in by hand. | Town Square well | Watering, brewing, the Square |
+| **Animal** (tame, don't kill) | A frightened, half-changed ox is loose in the stables. Calm it with food from the Strange Garden. | Stables | A draught animal: heavy rubble, carts, supply runs |
+| **Nest** (mini boss) | Something has made a nest in the grain stores. | Granary | Food storage |
+| **Strange anomaly** (mystery) | A fog where time behaves wrongly; walking in costs you hours. Find out why. | Old Mill | Mystery payoff, a unique building |
+| **Fortify** (build project) | A big multi-stage build, the last stop before the dungeon. | Gatehouse Yard | Ready to take on the dungeon |
+
+### 16.4 Graveyard Unrest: the cost of strange soil
+- Every load of graveyard soil you take raises **Graveyard Unrest**. It goes up faster if you take a lot quickly or without safeguards.
+- **When Unrest is high**, the dead rise at night: **wraiths** first, then **zombies**, then **skeletons**. They try to get through the Postern and over the wall.
+- **Safeguards** that lower Unrest or let you take more soil safely:
+  - Blessings from Father Aldous (have to rescue him first).
+  - Research: sealing the soil, boundary stones, salt and iron lines.
+  - **Tending the graveyard:** reburying disturbed graves, mending headstones, leaving offerings. A quiet, Graveyard Keeper-style chore that calms the dead.
+- So pushing hard for weird crops is a choice with a visible cost, which keeps it interesting.
+
+### 16.5 If the soils mix
+- If strange soil touches normal soil (a cart spills, a blessed border fades, a flood), **something terrible happens**: the normal crops rot or turn, and the strange growth **spreads tile by tile**. At night something grows out of it.
+- **The mystery to solve:** *why* is the graveyard soil like this?
+  - Proposed answer: the **metal vines in the fields and the strange graveyard soil are the same thing: the dungeon's roots.** The dungeon is a living thing growing under the town. Graveyard soil has been touched by the roots; mixing it in lets the dungeon grow into Hollowmere.
+  - That ties together the vines, the soil, the undead and the dungeon, and gives a long-term goal: find a way to **cut the dungeon off at the roots** (maybe a blessed seed bred from a strange crop).
