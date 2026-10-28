@@ -583,3 +583,52 @@ Mira's line is the theme of the game in one sentence: she's *right* that hope ge
 - Shows the **Hope Farm** from the inside: Percival is the appetizer, Edric the main course.
 - The rescue proves the **shared-hope** counter, which is the game's ending in miniature.
 - Gives the cozy side real emotional stakes without anyone dying.
+
+## 21. The townsfolk (v0.12)
+
+![Hollowmere townsfolk](townsfolk.png)
+
+Source: [townsfolk.svg](townsfolk.svg). 34 living people in 10 family groups (+3 who died years before the game).
+
+**Where everyone is at the start:** 5 with you · 11 hiding in town · 12 fled to the wilds · 6 taken into the dungeon.
+
+| Family | Person | Role | At the start | Hook |
+|---|---|---|---|---|
+| Pell | **Hester Pell** (68) | retired midwife | the wilds | Mira's mother, even sharper than Mira; sees through everyone, including the DM. |
+| Pell | Tobias Pell † | fisherman | died years ago | — |
+| Pell | **Father Aldous** (72) | priest | Abbey crypt | Hester's brother. Rescuing him unlocks blessings. |
+| Wainwright | **Mira** (34) | baker | with you | See section 20. |
+| Wainwright | **Edric** (36) | carpenter, toymaker | dungeon: Cellar | See section 20. |
+| Wainwright | **Pip** (7) | — | with you | See section 20. |
+| Cobb | **Martha Cobb** (38) | seamstress, town gossip | the wilds | Mira's older sister: warm, chatty, everything Mira isn't. |
+| Cobb | **Hamish Cobb** (42) | provisioner | Granary | Barricaded himself in the Granary "to protect the stock", with the nest. Comic miser. |
+| Cobb | **Kit & Kat Cobb** (12) | twins | the wilds | Troublemakers; Pip worships them. |
+| Dunmore | **Ambrose & Hilde Dunmore** (70s) | millers | Old Mill fog | Stuck in the time fog; for them it's still Harvest Fair night. |
+| Brannock | **Gus Brannock** (48) | innkeeper | Tankard cellar | The man who first tells you how bad things are. Big, loud, kind. |
+| Brannock | **Nell Brannock** (45) | brewer, cook | Tankard cellar | Runs the Brewery & Kitchen. The Dunmores' daughter. |
+| Brannock | **Tilly Brannock** (16) | barmaid | dungeon: Granary | Quick-witted; plans her own escape. |
+| Varr | Lord Aurelian Varr † | old money | died years ago | Percival grew up in his shadow. |
+| Varr | **Capt. Percival Varr** (40) | captain | dungeon: everywhere | See 19.1. |
+| Varr | **Cordelia Varr** (37) | town treasurer | the wilds | Ran the Counting House and took the town ledger with her. Cold but fair. |
+| Thorne | **Ignatius Thorne** (80) | arcanist | sealed in his tower | Locked in by the DM's glyphs; alive, absent-minded, delighted by the strange world. |
+| Thorne | **Rowan Thorne** (39) | farmer | dungeon: Roots | Loves the land; the roots feed on it. |
+| Thorne | **Elsa Thorne** (36) | farmer, orchard | the wilds | Keeps the family together. |
+| Thorne | **Juniper** (10), **Bram** (baby) | — | the wilds | Juniper has a spark of magic and becomes Pip's best friend. |
+| Fletcher | **Garrick Fletcher** (62) | stablemaster | stables loft | Hiding above the frightened ox he can't calm. |
+| Fletcher | **Wren Fletcher** (26) | hunter | with you | Your first able helper. |
+| Fletcher | **Tam Fletcher** (17) | — | dungeon: Press | Snuck onto the expedition to prove himself. |
+| Hammersley | **Bruna Hammersley** (50) | master smith | dungeon: Press | The DM makes her run the Press's machinery. |
+| Hammersley | **Dag Hammersley** (52) | armorer | the wilds | Bruna's husband. |
+| Hammersley | **Oswin** (19) | apprentice | with you (injured) | Their foster son. Relights the forge once he recovers. |
+| Marsh | **Sabine Marsh** (47) | apothecary | Abbey crypt | Ran to the Abbey to tend the wounded and got trapped there. |
+| Marsh | Corwin Marsh † | — | died of fever | Why Sabine became a healer. |
+| Marsh | **Linden Marsh** (19) | herb gardener | the wilds | Shy; in love with Tilly and never said so. |
+| Barrow | **Sgt. Holt Barrow** (55) | guard, veteran | the wilds | The one guard Percival left behind. When the raid came, he led everyone he could out of the Wilds Gate. |
+| Barrow | **Lewin Barrow** (50) | teacher, scribe | the wilds | Holt's husband. Helps with research. |
+| Abbey | **Brother Fennick** (22) | novice | Abbey crypt | Nervous; serves Father Aldous. |
+| You | **You** | the player | — | — |
+| You | **Dorrit** (66) | your housekeeper | Manor cellar | Found when you reclaim your manor (parcel 2). |
+
+**Other ties:** Pip & Juniper are best friends · Pip worships the Cobb twins · Linden ♥ Tilly · Gus & Holt are old drinking pals · Cordelia and Hamish are money rivals · Oswin owes Bruna everything.
+
+**To do:** Mira's **bakery** and Edric's **workshop** aren't on the town map yet.
