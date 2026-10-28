@@ -299,20 +299,37 @@ Back home, the town is smoking. Doors are broken in, the fields are trampled, th
 - The prologue does the heavy lifting, then the tone shifts to rebuilding, humour, and small wins.
 - References for "dark story, cozy play": *Graveyard Keeper*, *Dredge*, *Spiritfarer*, *Cult of the Lamb*.
 
-## 15. Town plan (v0.5)
+## 15. Town plan (v0.6)
 
 ![Hollowmere town plan](town_map.png)
 
 Source: [town_map.svg](town_map.svg). The outer line is the town wall, with watchtowers on the corners.
 
-- **Gates:** *Dungeon Gate* (north, road to the dungeon), *Wilds Gate* (west, supply runs), *Old Road Gate* (south; the road now ends in purple grass, a constant reminder that home is gone).
-- **Districts (v2, rezoned so each quarter has one job):**
-  - **Fighting Quarter** (NW, by the Dungeon Gate): Guild Hall, Blacksmith & Armorer.
-  - **The Odd Quarter** (NE): Arcanist's Tower, Research Workshop, and the **Strange Garden, fenced off** and kept away from homes, since nobody knows what grows there.
-  - **Market** (centre): Town Square, Gilded Tankard with the Brewery & Kitchen behind it, Provisioner, Counting House.
-  - **Gate Yard** (W, by the Wilds Gate): Expedition Yard, Stables (the mules go out on supply runs).
-  - **Abbey Quarter** (E): Abbey, Graveyard, Apothecary (healing in one place).
-  - **Farms** (SW): Fields, Granary, Orchard.
-  - **Homes** (SE): Your Manor, Survivors' Cottages.
-  - **Empty plots** are left for later buildings.
-- Everything starts in ruins and is rebuilt one by one.
+### 15.1 Layout
+- **The dungeon is to the south.** *Dungeon Gate* (south), *Wilds Gate* (west, supply runs), *Old Road Gate* (north; the road ends in purple grass), and a small *Postern* (north-east) for soil carts to and from the Old Graveyard.
+- **North half = the safe core** you start in: Town Square (your tent next to it at first), Gilded Tankard + Brewery & Kitchen, Counting House, Provisioner, Arcanist's Tower, Research Workshop, Apothecary, Herb Garden, Abbey, Strange Garden, Expedition Yard, Stables.
+- **Front line**, just above the barricade: Guild Hall and Blacksmith & Armorer, facing the dungeon side.
+- **Houses are scattered all over town**, including inside the locked parcels (survivors may be hiding there).
+- **Day barricade:** a palisade across the middle of town. It moves south as you reclaim parcels.
+
+### 15.2 Southern parcels (locked, reclaimed one by one during the day)
+| # | Parcel | Side | What blocks it / what you get |
+|---|---|---|---|
+| 1 | **Overgrown Fields** | SW | Covered in **metal-like vines**. Needs a way to cut or dissolve them (research + blacksmith). Unlocks normal farming. |
+| 2 | **Your Manor** | SE | In ruins. Restore it and move out of the tent. |
+| 3 | **Granary & Orchard** | SW | Food storage, fruit trees. |
+| 4 | **Old Mill** | SE | Unexplored; a mystery. |
+| 5 | **Lower Fields** | SW | More vines, plus **wraiths that come out at night**. The big farming area. |
+| 6 | **Gatehouse Yard** | SE | Next to the Dungeon Gate. Fortify it before going after the dungeon. |
+
+- **Day:** clear vines, rebuild, farm. **Night:** wraiths come out and you deal with them (defend, or hunt them to make a parcel safe).
+- A parcel opens when its blocker is solved: the vines cleared and its wraiths dealt with.
+
+### 15.3 Strange soil and the Old Graveyard
+- The town's **Old Graveyard lies outside the walls** (north-east). The strange world has changed its soil; it's the only place that grows the **weird crops**.
+- You haul **graveyard soil** into town through the Postern to the **Strange Garden**, next to the Abbey.
+- **Never mix strange and normal soil.** The Strange Garden is fenced by a **blessed border** that the Abbey has to consecrate (and maybe renew from time to time). Every load of graveyard soil must be blessed before it comes in.
+- Ideas:
+  - What happens if they mix (a cart spills, a border fades)? Normal crops mutate, weird weeds spread, or something wakes up. A danger and also a way to discover new crops.
+  - Are the night wraiths connected to the graveyard? (Disturbed dead, angry that you're taking their soil?) This would tie the two mysteries together.
+  - Abbey upgrades: stronger blessings, a bigger Strange Garden, blessed tools.
