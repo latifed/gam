@@ -648,3 +648,19 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 - **Hiring as a system:** Winnie can be the first of a few **hireable helpers** (paid weekly in gold). It brings back the original "you pay people to do the work" idea in a cozy way.
 
 **To do:** Mira's **bakery** and Edric's **workshop** aren't on the town map yet.
+
+## 22. Locked decisions (v0.13)
+| Topic | Decision |
+|---|---|
+| Camera | **Top-down** for both town and dungeon. |
+| Look & feel | **Pixel art**, in the style of *Stardew Valley* / *Graveyard Keeper*, both visually and in how it plays. (Note: Graveyard Keeper's art is much more detailed, so more expensive, than Stardew's; pick a level of detail we can sustain.) |
+| A day | ~12–15 real minutes: town by day, one Night Choice at dusk. |
+| Combat | Simple and readable (attack, dodge, one skill, companion stances), but **harder**: telegraphed but hard-hitting enemies, stamina, limited healing. **Lead mode** stays the cozy option. |
+| Engine | **Open**: Godot 4, Unity or GameMaker (see chat comparison). |
+
+**"Harder" combat, draft rules:**
+- Enemies hit hard and telegraph clearly (a wind-up you can read and dodge).
+- Stamina for attacks and dodges; no button-mashing.
+- **Healing comes from the farm:** food and potions you made in town are your healing in the dungeon. Good days in town = safer nights below.
+- Hope gives small buffs; low Hope makes fights harder.
+- Retreating is always possible but costs something (time, loot left behind), never progress.
