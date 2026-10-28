@@ -1,0 +1,20 @@
+# Unity text assets: let git merge them as text
+*.cs        text diff=csharp
+*.unity     text merge=unityyamlmerge eol=lf
+*.prefab    text merge=unityyamlmerge eol=lf
+*.asset     text merge=unityyamlmerge eol=lf
+*.meta      text merge=unityyamlmerge eol=lf
+*.controller text merge=unityyamlmerge eol=lf
+*.anim      text merge=unityyamlmerge eol=lf
+*.mat       text merge=unityyamlmerge eol=lf
+
+# Game art and audio go through Git LFS (only inside the Unity project, not docs/)
+Hollowmere/**/*.png      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.psd      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.aseprite filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.ase      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.wav      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.ogg      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.mp3      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.ttf      filter=lfs diff=lfs merge=lfs -text
+Hollowmere/**/*.otf      filter=lfs diff=lfs merge=lfs -text
