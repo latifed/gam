@@ -446,3 +446,64 @@ Isolde Varr didn't stay dead. She's one of the dungeon's bosses, **the Shepherde
 - Separate systems for each blocker → merge under the Roots (F).
 - The Sleepless Elixir → replace with the Night Choice (C).
 - Accidental soil mixing → replace with the Mixing Bed (D).
+
+## 18. Core theme: the Hope Farm (v0.9)
+
+### 18.1 Decisions (override earlier notes)
+- **Almost no one is dead.** The townsfolk are scattered, hidden or taken, not killed. (Overrides 16.2 "almost everyone else is dead"; drops idea 17.2 **B**, the ghost cast.)
+- **Soil mixing causes small problems**, not disasters. (Overrides 16.5.)
+- **Night raids cost energy/mood/time; they never send progress back.** (Overrides 16.4's attacks on the walls.)
+- **The Dungeon Master farms hope.** He *wants* you to take over the town, rebuild and lead people, because a town full of hope is a crop. Then he harvests it and kills it. **Your goal is to break the chain**: stop him farming the hope and good feelings of the towns he has farmed, including the ones before you.
+
+### 18.2 The twist, told simply
+- The Dungeon Master pulls towns into his world. He doesn't want them dead: he wants them **hopeful**. Hope is his crop.
+- He picks a **shepherd** to lead each town. The Captain was meant to be Hollowmere's; she was all pride and no hope, so he discarded her in the ambush.
+- **He spares you on purpose.** Last line of the ambush: *"Go home, little shepherd. Grow something for me."* The player doesn't understand it yet.
+- The ruined towns out in the wilds aren't dead either. Their people are alive but **hollow**: empty, listless, no will left. That's what a harvested town looks like. *(Hollowmere is a fitting name.)*
+- **The chain:** maybe every Dungeon Master was once a shepherd whose town was harvested, and became the next one. Breaking the chain = ending that cycle.
+
+### 18.3 Hope as the core resource
+- **Hope** is the town's main stat. It goes up when you rebuild buildings, find and bring home townsfolk, cook good meals, hold festivals, help people.
+- **Hope powers the town:** people work better, blessings are stronger, survivors fight better in the dungeon.
+- **The tension:** you need hope to win, and hope is exactly what he wants. Doing well always has a shadow.
+- **To make sure success never feels pointless:** hope can be **anchored**.
+  - Loose hope glows gold and slowly drifts down the roots at night (you can see it).
+  - **Anchors** keep hope safe in town: lit hearths, the Abbey bell, a memorial, festivals, shared meals, gifts, blessed places. Anchored hope is yours for good.
+  - So you can see your wins, and protecting what you've built is a goal in itself.
+- **The big idea for the end:** hope that is **shared** can't be harvested. Giving hope away (to the hollow towns, to each other) is how you starve him.
+
+### 18.4 The Harvest and night raids
+- **Night raids** (undead from the graveyard, the DM's creatures): they cost **energy for the next day, mood, a bit of loose Hope, time** (an injured helper rests a day). **Never** buildings, crops or unlocked areas.
+- **Harvest nights** are big, telegraphed story events (e.g. every season's end) where the DM tries to take the town's loose Hope. Preparing for them (anchoring, guarding, a festival the same night) is a mini-goal each season.
+
+### 18.5 Soil mixing: small problems
+If strange and normal soil mix, the result is annoying and odd, not disastrous:
+- Weeds that need pulling; the plot needs re-blessing.
+- A day of growth lost on that plot.
+- Harmless odd critters, or crops that whisper or glow at night and keep people awake (small energy cost).
+- Sometimes a curious new seed: a small reward for a small mistake.
+
+### 18.6 Where are the townsfolk?
+- **Hiding in town:** cellars, the Abbey crypt (Father Aldous), behind the locked areas. Found as you reclaim.
+- **Scattered in the wilds:** fled during the raid; found on trips outside.
+- **Taken into the dungeon:** the DM keeps some as "seed stock". Here's the dark irony: he **lets** you rescue them, because every rescue makes hope.
+- Every person found = a new helper, a skill, a building that opens, and a jump in Hope.
+- Mira's husband Edric is still missing; his story can be the biggest rescue.
+
+### 18.7 The dungeon follows the hope (proposal)
+The dungeon is the DM's farm, and its levels follow the journey of harvested hope:
+
+| Tier | Name | What it is |
+|---|---|---|
+| 1 | **The Roots** | Tunnels of metal vines that suck hope out of the ground. Goblins, root creatures. |
+| 2 | **The Granary** | Where harvested hope is stored in sacks and jars. Mice-goblins, keepers. |
+| 3 | **The Press** | Where hope is crushed and pressed. Machinery, workers. |
+| 4 | **The Cellar** | Hope ferments into something dark. Barrels, fumes, the hollowed. |
+| 5 | **The Table** | Where the Dungeon Master dines. The final confrontation. |
+
+- Each stolen town's hope is stored somewhere in the dungeon. **Freeing it brings that hollow town back to life** in the overworld: its people become your allies, traders and new villagers. That fills the world with people again.
+- (The earlier tier themes, from goblin warrens to the Obsidian Forge, can be kept as the look of these floors, or replaced.)
+
+### 18.8 Ending options
+- **Break the chain:** share the hope; free every town; the Dungeon Master starves or is freed himself.
+- **Take his place** (dark ending): if you hoard hope, take too many of his Offers (17.2 E), and let the chain continue, *you* become the next Dungeon Master.
