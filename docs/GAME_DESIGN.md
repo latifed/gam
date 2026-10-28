@@ -677,7 +677,7 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 - **Father Aldous** (priest, steadfast and harsh): the soil must be **Consecrated**. The dead belong to God; the Church decides what is holy.
 - **Sabine Marsh** (herbalist, healer, soothsayer, witch-like and grim): the soil must be **Settled**. The dead aren't angry because they're unholy; they're angry because you took from them without asking.
 
-Twenty years ago Aldous forbade Sabine's fever remedies and her husband Corwin died. They were trapped together in the Abbey crypt during the raid and kept each other alive, and neither will speak of it. (Characters: [CHARACTERS.md](CHARACTERS.md).)
+Eighteen years ago Aldous forbade Sabine's fever remedies and her husband Corwin died. They were trapped together in the Abbey crypt during the raid and kept each other alive, and neither will speak of it. (Characters: [CHARACTERS.md](CHARACTERS.md).)
 
 | | **Consecration** (Aldous) | **Settling** (Sabine) |
 |---|---|---|

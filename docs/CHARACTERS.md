@@ -27,7 +27,7 @@ These run through many people at once. They're where most of the drama comes fro
 - **Personality:** Steadfast, severe, tireless. He doesn't comfort; he commands. He believes order is mercy: rules keep people alive when feelings won't. He's harsh with everyone, and hardest on himself.
 - **Wants:** To hold Hollowmere under God's order in a world that has no God in it.
 - **Fears:** That his prayers don't reach anyone here. The blessings still *work*, but they feel different, colder, and he doesn't know who is answering.
-- **Contradiction / secret:** Twenty years ago he forbade Sabine's fever remedies and told Corwin Marsh to trust in prayer. Corwin died. Aldous says it was God's will. Privately he keeps a small book with the name of every soul he couldn't save, and Corwin's name is underlined.
+- **Contradiction / secret:** Eighteen years ago he forbade Sabine's fever remedies and told Corwin Marsh to trust in prayer. Corwin died. Aldous says it was God's will. Privately he keeps a small book with the name of every soul he couldn't save, and Corwin's name is underlined.
 - **Ties:** Younger brother of **Hester**, who raised him and says he grew up "exactly like our father". **Brother Fennick**, his novice, gets the worst of his temper. **Sabine** is his enemy. **Winnie** grew up in his Abbey orphanage and still flinches at his voice.
 - **Arc:** From rigid to humble, but never soft. The turning point is the night his blessing alone isn't enough and he has to ask Sabine, in front of the town, to stand with him. He does it badly and means it.
 - **In the game:** Rescuing him unlocks **Consecration** (blessed soil, blessed borders, the Abbey bell as a hope anchor). He insists the Strange Garden be moved next to the Abbey "so it stays where God and I can watch it".
@@ -349,7 +349,7 @@ The first child to say a word in the new world. It's "light". The whole town hea
 - **In the game:** Medicine (Oswin's recovery), the **Settling** rite for the graveyard soil (GAME_DESIGN.md §23), and soothsaying: hints about coming Harvest nights and where the roots will strike next.
 - **Voice:** *"Your priest blesses the ground. I ask it what it wants. One of us is listening."*
 
-### Corwin Marsh † (died 20 years ago)
+### Corwin Marsh † (died 18 years ago, when Linden was a baby)
 Sabine's husband, a gentle, devout weaver. During the fever year he chose Aldous's counsel over his wife's remedies, and died. Both of them have been fighting over his memory ever since.
 
 ### Linden Marsh: Herb gardener (19) · in the wilds
