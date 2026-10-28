@@ -104,14 +104,24 @@ def sprite_front(step=0, back=False, apron=False, hat=True):
     part(im, lambda d: d.rectangle((13, 18 + by, 18, 23 + by), fill=255), SKIN, shade=(0, 0), light_top=0)
     put(im, [(x, 19 + by) for x in range(14, 18)] + [(x, 20 + by) for x in range(14, 18)], SKIN[1])
     if back:
-        part(im, lambda d: d.ellipse((5, 3 + by, 26, 26 + by), fill=255), HAIR)
-        put(im, [(x, y + by) for x in (11, 16, 21) for y in range(13, 22)], HAIR[1])
-    else:  # bob: crown plus straight locks beside the face (none under the chin)
-        part(im, lambda d: (d.ellipse((5, 3 + by, 26, 19 + by), fill=255), d.rectangle((5, 10 + by, 9, 21 + by), fill=255), d.rectangle((22, 10 + by, 26, 21 + by), fill=255)), HAIR)
+        # hair pulled back into a low bun at the nape
+        part(im, lambda d: d.ellipse((6, 3 + by, 25, 21 + by), fill=255), HAIR)
+        dr = ImageDraw.Draw(im)
+        for a, b in (((10, 7), (13, 17)), ((15, 5), (15, 16)), ((21, 7), (18, 17))):
+            dr.line([(a[0], a[1] + by), (b[0], b[1] + by)], fill=HAIR[1] + (255,))
+        part(im, lambda d: d.ellipse((11, 15 + by, 20, 23 + by), fill=255), HAIR, shade=(2, 0))
+        put(im, [(x, 15 + by) for x in range(13, 19)], BAND[2])  # ribbon
+        put(im, [(14, 18 + by), (16, 17 + by), (17, 20 + by)], HAIR[3])
+    else:
+        # centre parting, hair swept back over the ears into a low bun (hidden from the front)
+        part(im, lambda d: d.ellipse((6, 3 + by, 25, 17 + by), fill=255), HAIR)
         part(im, lambda d: d.ellipse((8, 5 + by, 23, 23 + by), fill=255), SKIN, shade=(3, 0), light_top=0)
-        part(im, lambda d: (d.chord((5, 3 + by, 26, 19 + by), 180, 360, fill=255),
-                            d.polygon([(7, 9 + by), (24, 9 + by), (24, 12 + by), (21, 11 + by), (18, 13 + by), (15, 11 + by), (12, 13 + by), (9, 11 + by), (7, 14 + by)], fill=255)),
-             HAIR, shade=(3, 0))
+        part(im, lambda d: d.polygon([(6, 15 + by), (6, 8 + by), (9, 4 + by), (13, 3 + by), (18, 3 + by), (22, 4 + by), (25, 8 + by), (25, 15 + by),
+                                      (23, 15 + by), (22, 10 + by), (19, 8 + by), (16, 8 + by), (15, 8 + by), (12, 8 + by), (9, 10 + by), (8, 15 + by)], fill=255),
+             HAIR, shade=(2, 0))
+        put(im, [(15, 4 + by), (15, 5 + by), (15, 6 + by), (16, 7 + by)], HAIR[1])            # parting
+        put(im, [(11, 5 + by), (19, 4 + by), (21, 5 + by), (10, 7 + by)], HAIR[3])             # shine
+        put(im, [(8, 16 + by), (8, 17 + by), (9, 18 + by)], HAIR[1])                           # loose strand
         y = 13 + by
         for ex in (11, 19):
             put(im, [(ex, y), (ex + 1, y), (ex, y + 1), (ex + 1, y + 1), (ex, y + 2), (ex + 1, y + 2)], INK)
@@ -125,9 +135,6 @@ def sprite_front(step=0, back=False, apron=False, hat=True):
     if hat:
         hat_front(im, by, back)
         put(im, [(x, 12 + by) for x in range(9, 23)] if not back else [], SKIN[1])  # shadow under the brim
-    else:
-        put(im, [(10, 6 + by), (13, 4 + by), (18, 4 + by), (21, 6 + by), (12, 7 + by), (19, 7 + by)], HAIR[3])
-        put(im, [(15, 4 + by), (15, 5 + by), (16, 6 + by)], HAIR[1])  # parting
     return im
 
 
@@ -149,12 +156,15 @@ def sprite_side(step=0, apron=False, hat=True):
     part(im, lambda d: d.rectangle((13 + sw // 2, 32 + by, 16 + sw // 2, 41 + by), fill=255), SKIN, light_top=0)
     part(im, lambda d: d.ellipse((12 + sw, 39 + by, 17 + sw, 44 + by), fill=255), SKIN, light_top=0)
     part(im, lambda d: d.rectangle((14, 18 + by, 18, 23 + by), fill=255), SKIN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.ellipse((6, 3 + by, 23, 25 + by), fill=255), HAIR)
+    part(im, lambda d: d.ellipse((6, 3 + by, 22, 19 + by), fill=255), HAIR)
+    part(im, lambda d: d.ellipse((4, 12 + by, 11, 20 + by), fill=255), HAIR, shade=(0, 0))      # low bun
+    put(im, [(10, 13 + by), (10, 14 + by), (10, 15 + by)], BAND[2])                               # ribbon
     part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((23, 13 + by, 25, 15 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
-    part(im, lambda d: (d.chord((6, 3 + by, 25, 21 + by), 180, 360, fill=255),
-                        d.polygon([(9, 9 + by), (24, 9 + by), (24, 11 + by), (21, 12 + by), (18, 10 + by), (15, 12 + by), (12, 11 + by), (12, 18 + by), (9, 16 + by)], fill=255)),
-         HAIR, shade=(3, 0))
-    put(im, [(14, 13 + by), (14, 14 + by), (15, 15 + by)], SKIN[1])  # ear hint
+    part(im, lambda d: d.polygon([(7, 15 + by), (6, 8 + by), (9, 4 + by), (14, 3 + by), (20, 4 + by), (23, 7 + by), (24, 10 + by), (21, 9 + by),
+                                  (18, 9 + by), (16, 11 + by), (15, 15 + by), (12, 16 + by), (9, 16 + by)], fill=255), HAIR, shade=(0, 0))
+    put(im, [(16, 12 + by), (16, 13 + by), (17, 13 + by), (16, 14 + by)], SKIN[1])  # ear
+    put(im, [(12, 5 + by), (16, 4 + by), (19, 5 + by), (9, 8 + by)], HAIR[3])
+    put(im, [(13, 8 + by), (12, 11 + by), (11, 13 + by)], HAIR[1])
     put(im, [(20, 13 + by), (21, 13 + by), (20, 14 + by), (21, 14 + by), (20, 15 + by), (21, 15 + by)], INK)
     put(im, [(21, 13 + by)], (255, 255, 255))
     put(im, [(19, 12 + by), (22, 12 + by)], INK)
@@ -166,8 +176,6 @@ def sprite_side(step=0, apron=False, hat=True):
         part(im, lambda d: d.ellipse((4, 7 + by, 28, 11 + by), fill=255), HAT, shade=(3, 0), light_top=0)
         put(im, [(9, 3 + by), (8, 2 + by), (7, 1 + by), (9, 5 + by)], WHEAT)
         put(im, [(x, 12 + by) for x in range(17, 24)], SKIN[1])
-    else:
-        put(im, [(11, 5 + by), (14, 4 + by), (18, 5 + by), (9, 9 + by), (13, 7 + by)], HAIR[3])
     return im
 
 
@@ -184,16 +192,23 @@ def portrait(expr, apron=False, hat=True):
         put(im, [(40, 110), (43, 113), (41, 117), (86, 108), (89, 112)], FLOUR)
     part(im, lambda d: d.rectangle((50, 76, 77, 104), fill=255), SKIN, shade=(5, 0), light_top=0)
     put(im, [(x, y) for x in range(51, 77) for y in range(80, 86)], SKIN[1])
-    part(im, lambda d: (d.ellipse((24, 18, 104, 98), fill=255), d.rectangle((24, 58, 36, 94), fill=255), d.rectangle((92, 58, 104, 90), fill=255)), HAIR, shade=(4, 0))
+    part(im, lambda d: d.ellipse((81, 66, 101, 90), fill=255), HAIR, shade=(3, 0))          # low bun, tucked behind the jaw
+    part(im, lambda d: d.ellipse((30, 14, 98, 78), fill=255), HAIR, shade=(4, 0))
     part(im, lambda d: d.ellipse((31, 54, 41, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((87, 54, 97, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((35, 24, 93, 96), fill=255), SKIN, shade=(6, 0), light_top=0)
-    part(im, lambda d: (d.chord((26, 14, 102, 70), 180, 360, fill=255),
-                        d.polygon([(36, 36), (92, 36), (94, 46), (88, 43), (82, 50), (76, 42), (68, 47), (60, 41), (52, 48), (46, 42), (40, 50), (35, 47)], fill=255)),
-         HAIR, shade=(4, 0), light_top=0)
+    # centre parting, hair swept back over the ears
+    part(im, lambda d: d.polygon([(31, 68), (30, 46), (35, 30), (46, 20), (58, 15), (70, 15), (82, 20), (93, 30), (98, 46), (97, 68),
+                                  (92, 68), (91, 52), (86, 42), (77, 35), (67, 32), (64, 35), (61, 32), (51, 35), (42, 42), (37, 52), (36, 68)], fill=255),
+         HAIR, shade=(4, 0), light_top=1)
     d = ImageDraw.Draw(im)
-    for a, b in (((50, 40), (46, 42)), ((62, 40), (60, 41)), ((74, 40), (76, 42)), ((86, 40), (88, 43))):
+    d.line([(64, 16), (64, 33)], fill=HAIR[1] + (255,))
+    for a, b in (((62, 19), (44, 34)), ((60, 23), (39, 47)), ((66, 19), (84, 34)), ((68, 23), (90, 47))):
         d.line([a, b], fill=HAIR[1] + (255,))
+    for a, b in (((56, 19), (46, 27)), ((72, 19), (82, 27)), ((51, 27), (38, 42)), ((77, 27), (91, 42))):
+        d.line([a, b], fill=HAIR[3] + (255,))
+    d.line([(38, 50), (40, 60), (38, 72)], fill=HAIR[1] + (255,))   # loose strands
+    d.line([(90, 50), (88, 60), (90, 68)], fill=HAIR[1] + (255,))
     for cx in (52, 76):
         part(im, lambda d, cx=cx: d.ellipse((cx - 7, 56, cx + 7, 64), fill=255), ((120, 96, 90), (226, 220, 212), (246, 242, 236), (246, 242, 236)), shade=(0, 0), light_top=0)
         d.ellipse((cx - 3, 56, cx + 3, 64), fill=IRIS + (255,))
@@ -224,11 +239,6 @@ def portrait(expr, apron=False, hat=True):
     else:
         d.line([(59, 85), (69, 85)], fill=MOUTH + (255,)); put(im, [(58, 84), (57, 83), (70, 84), (71, 83)], MOUTH)
         d.line([(61, 86), (67, 86)], fill=LIP + (255,))
-    if not hat:
-        # crown of the head: parting and highlights
-        d.line([(66, 20), (62, 34)], fill=HAIR[1] + (255,))
-        for a, b in (((44, 30), (54, 22)), ((48, 34), (58, 26)), ((74, 24), (86, 32)), ((76, 30), (88, 38))):
-            d.line([a, b], fill=HAIR[3] + (255,))
     bg = Image.new("RGBA", (128, 128), (233, 216, 180, 255))
     ImageDraw.Draw(bg).rectangle((0, 0, 127, 127), outline=(185, 160, 120))
     if not hat:
