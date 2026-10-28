@@ -557,7 +557,7 @@ Mira's line is the theme of the game in one sentence: she's *right* that hope ge
 - **Pip's lantern.** Every night Pip puts a lantern in the window "so Dad can find the way home". This is the **first hope anchor** the player sees, and how the anchor mechanic is taught. If the lantern goes out, Pip relights it, again and again.
 - Mira won't let anyone talk about Edric in front of Pip: *"Don't you dare tell my son his father is coming back."*
 - **Sprout.** Pip befriends a tiny root creature that crawled out of the Strange Garden and names it Sprout. Mira hates it. Sprout turns out to be a piece of the dungeon's roots that has "gone wrong" and loves the boy. (Later, Sprout can sense root nodes and lead you through the Roots level.)
-- **Her look tells her arc:** at the start she wears a plain belted dress and a worn felt hat (with a wheat sprig in the band, a hint of who she was). **No apron.** The day she agrees to bake again, she ties on her old apron, and keeps it on for the rest of the game. A small visual sign of hope returning.
+- **Her look tells her arc:** a plain town dress, no belt; a worn felt hat outdoors (with a wheat sprig in the band, a hint of who she was), hatless indoors. **No apron** at the start. The day she agrees to bake again, she ties on her old apron, and keeps it on for the rest of the game. A small visual sign of hope returning.
 - **Reopening the bakery** is Mira's quest: flour (Granary), a working oven (rubble, the forge), water (the well). When the bakery opens, she bakes for everyone, but still won't hope.
 
 **Middle (Acts 2–3)**

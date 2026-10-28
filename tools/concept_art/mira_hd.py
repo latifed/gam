@@ -1,6 +1,7 @@
 """Higher-resolution concept art for Mira Wainwright: 32x64 walk sprites and 128x128 portraits.
 
-Two outfits: everyday (felt hat, belted dress) and baker (same + apron, once she agrees to bake again).
+Variants: felt hat outdoors / hatless indoors, and the apron once she decides to cook again.
+Plain dress, no belt: she's a town baker, not an adventurer.
 
 Run: python3 tools/concept_art/mira_hd.py   (writes to docs/concept-art/mira/)
 Built from shaded, outlined shapes (each material has its own outline colour). Concept quality.
@@ -75,7 +76,7 @@ def hat_front(im, by, back=False):
         put(im, [(21, 5 + by), (24, 2 + by)], WHEAT_D)
 
 
-def sprite_front(step=0, back=False, apron=False):
+def sprite_front(step=0, back=False, apron=False, hat=True):
     im = Image.new("RGBA", (32, 64), (0, 0, 0, 0))
     by = 1 if step else 0          # body bob on step frames
     lb, rb = (step, -step)         # boot offsets
@@ -89,11 +90,8 @@ def sprite_front(step=0, back=False, apron=False):
         part(im, lambda d, x0=x0, x1=x1: d.rectangle((x0 + 1, 32 + by, x1 - 1, 41 + by + sw), fill=255), SKIN, light_top=0)
         part(im, lambda d, x0=x0, x1=x1: d.ellipse((x0, 39 + by + sw, x1, 44 + by + sw), fill=255), SKIN, light_top=0)
     part(im, lambda d: d.rounded_rectangle((9, 22 + by, 22, 36 + by), 3, fill=255), DRESS)
-    part(im, lambda d: d.rectangle((9, 33 + by, 22, 35 + by), fill=255), BELT, shade=(0, 0), light_top=0)
     if not back:
-        put(im, [(15, 34 + by), (16, 34 + by)], (196, 168, 96))                      # buckle
         part(im, lambda d: d.polygon([(12, 22 + by), (19, 22 + by), (15, 27 + by)], fill=255), LINEN, shade=(0, 0), light_top=0)
-        put(im, [(15, 28 + by), (15, 30 + by)], DRESS[0])                             # laces
     if apron and not back:
         part(im, lambda d: d.polygon([(10, 35 + by), (21, 35 + by), (23, 53 + by), (8, 53 + by)], fill=255), APRON, shade=(2, 0))
         part(im, lambda d: d.rectangle((11, 25 + by, 20, 35 + by), fill=255), APRON)
@@ -111,7 +109,9 @@ def sprite_front(step=0, back=False, apron=False):
     else:  # bob: crown plus straight locks beside the face (none under the chin)
         part(im, lambda d: (d.ellipse((5, 3 + by, 26, 19 + by), fill=255), d.rectangle((5, 10 + by, 9, 21 + by), fill=255), d.rectangle((22, 10 + by, 26, 21 + by), fill=255)), HAIR)
         part(im, lambda d: d.ellipse((8, 5 + by, 23, 23 + by), fill=255), SKIN, shade=(3, 0), light_top=0)
-        part(im, lambda d: d.polygon([(7, 9 + by), (24, 9 + by), (24, 12 + by), (21, 11 + by), (18, 13 + by), (15, 11 + by), (12, 13 + by), (9, 11 + by), (7, 14 + by)], fill=255), HAIR, light_top=0)
+        part(im, lambda d: (d.chord((5, 3 + by, 26, 19 + by), 180, 360, fill=255),
+                            d.polygon([(7, 9 + by), (24, 9 + by), (24, 12 + by), (21, 11 + by), (18, 13 + by), (15, 11 + by), (12, 13 + by), (9, 11 + by), (7, 14 + by)], fill=255)),
+             HAIR, shade=(3, 0))
         y = 13 + by
         for ex in (11, 19):
             put(im, [(ex, y), (ex + 1, y), (ex, y + 1), (ex + 1, y + 1), (ex, y + 2), (ex + 1, y + 2)], INK)
@@ -122,12 +122,16 @@ def sprite_front(step=0, back=False, apron=False):
         put(im, [(10, 17 + by), (11, 17 + by), (20, 17 + by), (21, 17 + by)], BLUSH)
         if apron:
             put(im, [(9, 18 + by), (10, 19 + by)], FLOUR)
-    hat_front(im, by, back)
-    put(im, [(x, 12 + by) for x in range(9, 23)] if not back else [], SKIN[1])  # shadow under the brim
+    if hat:
+        hat_front(im, by, back)
+        put(im, [(x, 12 + by) for x in range(9, 23)] if not back else [], SKIN[1])  # shadow under the brim
+    else:
+        put(im, [(10, 6 + by), (13, 4 + by), (18, 4 + by), (21, 6 + by), (12, 7 + by), (19, 7 + by)], HAIR[3])
+        put(im, [(15, 4 + by), (15, 5 + by), (16, 6 + by)], HAIR[1])  # parting
     return im
 
 
-def sprite_side(step=0, apron=False):
+def sprite_side(step=0, apron=False, hat=True):
     """Facing right."""
     im = Image.new("RGBA", (32, 64), (0, 0, 0, 0))
     by = 1 if step else 0
@@ -137,7 +141,6 @@ def sprite_side(step=0, apron=False):
     part(im, lambda d: d.polygon([(10, 33 + by), (21, 33 + by), (24, 57 + by), (8, 57 + by)], fill=255), DRESS)
     put(im, [(15, y + by) for y in range(41, 55)], DRESS[1])
     part(im, lambda d: d.rounded_rectangle((10, 22 + by, 21, 36 + by), 3, fill=255), DRESS)
-    part(im, lambda d: d.rectangle((10, 33 + by, 21, 35 + by), fill=255), BELT, shade=(0, 0), light_top=0)
     if apron:
         part(im, lambda d: d.polygon([(19, 35 + by), (22, 35 + by), (25, 53 + by), (20, 53 + by)], fill=255), APRON, shade=(0, 0))
         part(im, lambda d: d.rectangle((19, 24 + by, 21, 35 + by), fill=255), APRON, shade=(0, 0))
@@ -148,30 +151,33 @@ def sprite_side(step=0, apron=False):
     part(im, lambda d: d.rectangle((14, 18 + by, 18, 23 + by), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((6, 3 + by, 23, 25 + by), fill=255), HAIR)
     part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((23, 13 + by, 25, 15 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.polygon([(9, 9 + by), (24, 9 + by), (24, 11 + by), (21, 12 + by), (18, 10 + by), (15, 12 + by), (12, 11 + by), (12, 18 + by), (9, 16 + by)], fill=255), HAIR, light_top=0)
+    part(im, lambda d: (d.chord((6, 3 + by, 25, 21 + by), 180, 360, fill=255),
+                        d.polygon([(9, 9 + by), (24, 9 + by), (24, 11 + by), (21, 12 + by), (18, 10 + by), (15, 12 + by), (12, 11 + by), (12, 18 + by), (9, 16 + by)], fill=255)),
+         HAIR, shade=(3, 0))
     put(im, [(14, 13 + by), (14, 14 + by), (15, 15 + by)], SKIN[1])  # ear hint
     put(im, [(20, 13 + by), (21, 13 + by), (20, 14 + by), (21, 14 + by), (20, 15 + by), (21, 15 + by)], INK)
     put(im, [(21, 13 + by)], (255, 255, 255))
     put(im, [(19, 12 + by), (22, 12 + by)], INK)
     put(im, [(21, 19 + by), (22, 19 + by)], MOUTH)
     put(im, [(18, 17 + by), (19, 17 + by)], BLUSH)
-    part(im, lambda d: d.rounded_rectangle((8, 0 + by, 22, 9 + by), 5, fill=255), HAT, shade=(3, 0))
-    part(im, lambda d: d.rectangle((8, 6 + by, 22, 8 + by), fill=255), BAND, shade=(0, 0), light_top=0)
-    part(im, lambda d: d.ellipse((4, 7 + by, 28, 11 + by), fill=255), HAT, shade=(3, 0), light_top=0)
-    put(im, [(9, 3 + by), (8, 2 + by), (7, 1 + by), (9, 5 + by)], WHEAT)
-    put(im, [(x, 12 + by) for x in range(17, 24)], SKIN[1])
+    if hat:
+        part(im, lambda d: d.rounded_rectangle((8, 0 + by, 22, 9 + by), 5, fill=255), HAT, shade=(3, 0))
+        part(im, lambda d: d.rectangle((8, 6 + by, 22, 8 + by), fill=255), BAND, shade=(0, 0), light_top=0)
+        part(im, lambda d: d.ellipse((4, 7 + by, 28, 11 + by), fill=255), HAT, shade=(3, 0), light_top=0)
+        put(im, [(9, 3 + by), (8, 2 + by), (7, 1 + by), (9, 5 + by)], WHEAT)
+        put(im, [(x, 12 + by) for x in range(17, 24)], SKIN[1])
+    else:
+        put(im, [(11, 5 + by), (14, 4 + by), (18, 5 + by), (9, 9 + by), (13, 7 + by)], HAIR[3])
     return im
 
 
 # ---------------------------------------------------------------- 128x128 portrait
-def portrait(expr, apron=False):
+def portrait(expr, apron=False, hat=True):
     im = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
     part(im, lambda d: d.ellipse((8, 100, 120, 176), fill=255), DRESS, shade=(5, 0))
     part(im, lambda d: d.polygon([(46, 100), (82, 100), (64, 122)], fill=255), LINEN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.polygon([(52, 100), (76, 100), (64, 114)], fill=255), SKIN, shade=(0, 0), light_top=0)
     d = ImageDraw.Draw(im)
-    for i in range(3):  # laces on the bodice
-        d.line([(60, 118 + i * 3), (68, 120 + i * 3)], fill=BAND[1] + (255,))
     if apron:
         for x0 in (36, 80):
             part(im, lambda d, x0=x0: d.rectangle((x0, 104, x0 + 11, 127), fill=255), APRON, shade=(3, 0))
@@ -182,7 +188,9 @@ def portrait(expr, apron=False):
     part(im, lambda d: d.ellipse((31, 54, 41, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((87, 54, 97, 70), fill=255), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.ellipse((35, 24, 93, 96), fill=255), SKIN, shade=(6, 0), light_top=0)
-    part(im, lambda d: d.polygon([(33, 36), (95, 36), (95, 46), (88, 43), (82, 50), (76, 42), (68, 47), (60, 41), (52, 48), (46, 42), (40, 50), (33, 56)], fill=255), HAIR, shade=(3, 0), light_top=0)
+    part(im, lambda d: (d.chord((26, 14, 102, 70), 180, 360, fill=255),
+                        d.polygon([(36, 36), (92, 36), (94, 46), (88, 43), (82, 50), (76, 42), (68, 47), (60, 41), (52, 48), (46, 42), (40, 50), (35, 47)], fill=255)),
+         HAIR, shade=(4, 0), light_top=0)
     d = ImageDraw.Draw(im)
     for a, b in (((50, 40), (46, 42)), ((62, 40), (60, 41)), ((74, 40), (76, 42)), ((86, 40), (88, 43))):
         d.line([a, b], fill=HAIR[1] + (255,))
@@ -216,6 +224,16 @@ def portrait(expr, apron=False):
     else:
         d.line([(59, 85), (69, 85)], fill=MOUTH + (255,)); put(im, [(58, 84), (57, 83), (70, 84), (71, 83)], MOUTH)
         d.line([(61, 86), (67, 86)], fill=LIP + (255,))
+    if not hat:
+        # crown of the head: parting and highlights
+        d.line([(66, 20), (62, 34)], fill=HAIR[1] + (255,))
+        for a, b in (((44, 30), (54, 22)), ((48, 34), (58, 26)), ((74, 24), (86, 32)), ((76, 30), (88, 38))):
+            d.line([a, b], fill=HAIR[3] + (255,))
+    bg = Image.new("RGBA", (128, 128), (233, 216, 180, 255))
+    ImageDraw.Draw(bg).rectangle((0, 0, 127, 127), outline=(185, 160, 120))
+    if not hat:
+        bg.alpha_composite(im)
+        return bg
     # felt hat: rounded crown, band with a wheat sprig, wide soft brim
     part(im, lambda d: d.rounded_rectangle((36, 2, 92, 38), 18, fill=255), HAT, shade=(5, 0), light_top=2)
     d = ImageDraw.Draw(im)
@@ -227,23 +245,28 @@ def portrait(expr, apron=False):
     d.line([(82, 30), (88, 12)], fill=WHEAT_D + (255,))
     part(im, lambda d: d.ellipse((16, 28, 112, 46), fill=255), HAT, shade=(5, 0), light_top=1)
     put(im, [(x, 47) for x in range(36, 92)] + [(x, 48) for x in range(40, 88)], SKIN[1])  # brim shadow
-    bg = Image.new("RGBA", (128, 128), (233, 216, 180, 255))
-    ImageDraw.Draw(bg).rectangle((0, 0, 127, 127), outline=(185, 160, 120))
     bg.alpha_composite(im)
     return bg
 
 
-def walk_frames(apron):
+def walk_frames(apron, hat):
     fr = {
-        "down": [sprite_front(0, apron=apron), sprite_front(1, apron=apron), sprite_front(-1, apron=apron)],
-        "up": [sprite_front(0, True, apron), sprite_front(-1, True, apron), sprite_front(1, True, apron)],
-        "right": [sprite_side(0, apron), sprite_side(1, apron), sprite_side(-1, apron)],
+        "down": [sprite_front(st, False, apron, hat) for st in (0, 1, -1)],
+        "up": [sprite_front(st, True, apron, hat) for st in (0, -1, 1)],
+        "right": [sprite_side(st, apron, hat) for st in (0, 1, -1)],
     }
     fr["left"] = [im.transpose(Image.FLIP_LEFT_RIGHT) for im in fr["right"]]
     return fr
 
 
 ORDER = ["down", "left", "right", "up"]
+EXPRS = ["neutral", "stern", "soft"]
+OUTFITS = [  # tag, label, apron, hat
+    ("outdoor", "Outdoors", False, True),
+    ("indoor", "Indoors (no hat)", False, False),
+    ("outdoor_apron", "Outdoors, cooking", True, True),
+    ("indoor_apron", "Indoors, cooking", True, False),
+]
 
 
 def save_sheets(fr, ports, tag):
@@ -268,40 +291,35 @@ def save_sheets(fr, ports, tag):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for old in ("mira_hd_walk_32x64.png", "mira_hd_portraits_128.png", "mira_hd_walk.gif"):
-        (OUT / old).unlink(missing_ok=True)
-    exprs = ["neutral", "stern", "soft"]
-    every = walk_frames(False)
-    baker = walk_frames(True)
-    every_p = [portrait(e) for e in exprs]
-    baker_p = [portrait(e, apron=True) for e in exprs]
-    save_sheets(every, every_p, "everyday")
-    save_sheets(baker, baker_p, "baker")
+    for old in OUT.glob("mira_hd_*"):
+        old.unlink()
+    frames, ports = {}, {}
+    for tag, _, apron, hat in OUTFITS:
+        frames[tag] = walk_frames(apron, hat)
+        ports[tag] = [portrait(e, apron, hat) for e in EXPRS]
+        save_sheets(frames[tag], ports[tag], tag)
 
     serif_b = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 22)
     serif = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", 15)
     ink, sub = (58, 42, 26), (90, 74, 58)
-    pv = Image.new("RGBA", (1620, 760), (243, 234, 214, 255))
+    pv = Image.new("RGBA", (1480, 760), (243, 234, 214, 255))
     d = ImageDraw.Draw(pv)
-    d.text((30, 20), "Mira Wainwright: felt hat, everyday and baker outfits", font=serif_b, fill=ink)
-    d.text((30, 52), "Everyday outfit: 32x64 walk cycle (idle, step, step) in 4 directions · shown at 4x", font=serif, fill=sub)
-    x = 30
-    for name in ORDER:
-        d.text((x, 85), name, font=serif, fill=sub)
-        for c, im in enumerate(every[name]):
-            pv.alpha_composite(im.resize((128, 256), Image.NEAREST), (x + c * 128, 110))
-        x += 3 * 128 + 10
-    y0 = 400
-    d.text((30, y0), "Everyday portraits (128x128, shown at 2x)", font=serif, fill=sub)
-    for i, (p, e) in enumerate(zip(every_p, exprs)):
-        pv.alpha_composite(p.resize((256, 256), Image.NEAREST), (30 + i * 270, y0 + 28))
-        d.text((30 + i * 270, y0 + 292), e, font=serif, fill=sub)
-    bx = 860
-    d.text((bx, y0), "Baker outfit: the apron goes on when she agrees to bake again", font=serif, fill=sub)
-    for c, name in enumerate(["down", "right", "up"]):
-        pv.alpha_composite(baker[name][0].resize((128, 256), Image.NEAREST), (bx + c * 128, y0 + 28))
-    pv.alpha_composite(baker_p[2].resize((256, 256), Image.NEAREST), (bx + 400, y0 + 28))
-    d.text((bx + 400, y0 + 292), "soft, with flour", font=serif, fill=sub)
+    d.text((30, 20), "Mira Wainwright: hat outdoors, hatless indoors, apron once she cooks again", font=serif_b, fill=ink)
+    d.text((30, 52), "32x64 sprites (front, side, back) shown at 3x · plain dress, no belt", font=serif, fill=sub)
+    for i, (tag, label, _, _) in enumerate(OUTFITS):
+        x = 30 + i * 360
+        d.text((x, 85), label, font=serif, fill=sub)
+        for c, name in enumerate(["down", "right", "up"]):
+            pv.alpha_composite(frames[tag][name][0].resize((96, 192), Image.NEAREST), (x + c * 104, 110))
+    y0 = 330
+    d.text((30, y0), "128x128 portraits shown at 2x", font=serif, fill=sub)
+    picks = [("outdoor", 0, "outdoors · neutral"), ("indoor", 0, "indoors · neutral"), ("indoor", 1, "indoors · stern"),
+             ("indoor_apron", 2, "cooking · soft"), ("outdoor_apron", 2, "outdoors, cooking · soft")]
+    for i, (tag, e, label) in enumerate(picks):
+        x = 30 + i * 288
+        pv.alpha_composite(ports[tag][e].resize((256, 256), Image.NEAREST), (x, y0 + 28))
+        d.text((x, y0 + 292), label, font=serif, fill=sub)
+    pv = pv.crop((0, 0, 1480, 650))
     pv.save(OUT / "mira_hd_preview.png")
 
 
