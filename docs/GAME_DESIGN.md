@@ -656,7 +656,7 @@ Source: [townsfolk.svg](townsfolk.svg). 35 living people in 10 family groups (+3
 | Look & feel | **Pixel art**, in the style of *Stardew Valley* / *Graveyard Keeper*, both visually and in how it plays. (Note: Graveyard Keeper's art is much more detailed, so more expensive, than Stardew's; pick a level of detail we can sustain.) |
 | A day | ~12–15 real minutes: town by day, one Night Choice at dusk. |
 | Combat | Simple and readable (attack, dodge, one skill, companion stances), but **harder**: telegraphed but hard-hitting enemies, stamina, limited healing. **Lead mode** stays the cozy option. |
-| Engine | **Open**: Godot 4, Unity or GameMaker (see chat comparison). |
+| Engine | **Open**: leaning between **Unity** (official Claude Code plugin with editor control since Sept 2026; *Graveyard Keeper* was made in Unity) and **Godot 4** (free, plain-text project files, community MCP servers). To check before deciding: what Unity's AI tools cost, and whether it's comfortable to work with Claude Code on the local machine where the editor runs. |
 
 **"Harder" combat, draft rules:**
 - Enemies hit hard and telegraph clearly (a wind-up you can read and dodge).
