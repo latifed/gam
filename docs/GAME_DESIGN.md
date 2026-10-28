@@ -239,3 +239,60 @@ Reference games the player loves: **Majesty**, **Dungeon Siege**, **Stardew Vall
 2. How much farming/crafting do we want: a small garden + brewery, or a full Stardew-size crafting system?
 3. One hero you're attached to (Dungeon Siege), or many heroes acting on their own (Majesty)? Or one hero at first and the Majesty system later?
 4. Real-time idle (progress while the game is closed) vs. in-game days (like Stardew)? Both together is possible but needs careful design.
+
+## 14. Story draft (v0.4)
+
+### 14.1 One-line premise
+*One night the whole town of Hollowmere is pulled into a strange, hostile world. You lead everyone into the nearby dungeon to end the threat quickly, get ambushed, and come home to ruins. Now you rebuild, slowly and properly.*
+
+### 14.2 Prologue (playable intro, ~10 minutes)
+
+**Beat 1: An ordinary evening.**
+Harvest Fair night in Hollowmere. You're the town's richest and proudest resident, enjoying an ale at the *Gilded Tankard*. Short tutorial: walk around, talk to a few townsfolk (the innkeeper, the blacksmith, the abbess, a kid). Just enough that you'll miss them later.
+
+**Beat 2: The Shift.**
+A green flash and a deep hum. In the morning the fields end in purple grass, the sky has the wrong colour, and the forest whispers.
+> **Innkeeper:** "The road's gone. The *river's* gone. Where in the Nine Hells are we?"
+
+**Beat 3: The hole.**
+Scouts find a huge cave mouth an hour's walk away. At night things crawl out of it and scratch at the fences.
+> **Innkeeper:** "Every night there's more of them. We won't last a month."
+> **You** *(smiling)*: "Then we don't wait a month. We go in, we end it, and we're home by supper."
+
+**Beat 4: The expedition.**
+You gather everyone who can hold a pitchfork. A short, easy fight with goblins at the entrance makes the player feel strong.
+
+**Beat 5: The ambush.**
+The tunnel goes dark. A huge, amused voice:
+> **Dungeon Master:** "Baa-aaa. Look at the little shepherd, taking his whole flock for a walk... and leaving the gate wide open."
+
+Monsters pour in from all sides. People get hurt and scattered; some are dragged into the dark. You barely escape with a few others.
+
+**Beat 6: Ruins.**
+Back home, the town is smoking. Doors are broken in, the fields are trampled, the Tankard's sign hangs from one nail. The innkeeper sits on the steps.
+> **Innkeeper:** "They came while we were gone. Every last one of us was gone."
+> **You:** "...Then we start again. Properly this time."
+
+**Gameplay begins:** a tent, a campfire, one plot of strange soil, and a list of missing names.
+
+### 14.3 The acts (main story)
+| Act | Name | What happens | New mechanics |
+|---|---|---|---|
+| 1 | **Ashes** | Clear the rubble, find survivors hiding in town and nearby, plant the first crops (normal + strange), patch the fence. | Farming, building, research, survivors as workers |
+| 2 | **Supply Runs** | Send survivors out into the hostile world. Discover the **ruins of other towns** the Dungeon Master pulled here before you. | Expeditions (idle), map, new materials and recipes |
+| 3 | **The Strike** | Send your best fighters to kill the Dungeon Master. **They fail**, but come back with a key piece of knowledge: the dungeon can only be taken **section by section**, and it's weakest **at night**. | Idle dungeon runs with stances, heroes, Abbey |
+| 4 | **Night Shift** | You find the **Sleepless Elixir**. Day: run the town. Night: go to the dungeon with your party. Each section you clear, you **wall off and claim** (mushroom farm in the Fungal Depths, a forge in the Obsidian Forge...). | Day/night split, claiming dungeon sections |
+| 5 | **The Seal** | Reach the Sanctum, face the Dungeon Master, seal the dungeon for good. | Finale |
+
+### 14.4 Story ideas to keep
+- **Most missing villagers are taken, not dead.** Finding them in the dungeon and in the wilds (and the reunion scenes) is a big emotional reward, and much cozier than permanent deaths.
+- **Other lost towns:** you are not the first town the Dungeon Master pulled here. Their ruins hold recipes, diaries, tools, and maybe survivors. Mystery: why does he collect towns?
+- **The player's arc:** from proud and reckless to a real leader. Keep some vanity for humour; the survivors tease you about the "supper" line.
+- **The Sleepless Elixir** should have a light, funny side effect (you start hearing the Dungeon Master's commentary at night, plants grow toward you...).
+- **Ending:** the dungeon sealed, and Hollowmere stays in the strange world, because it is home now. Possible secret ending: the way back home opens and you choose.
+
+### 14.5 Keeping it cozy
+- Darkness lives in the **story and in the dungeon**; the **town is safe**. Once the walls are up, home is never destroyed again.
+- **No permanent loss in normal play:** heroes are resurrected, missing villagers are found, raids at worst damage walls (never crops or homes).
+- The prologue does the heavy lifting, then the tone shifts to rebuilding, humour, and small wins.
+- References for "dark story, cozy play": *Graveyard Keeper*, *Dredge*, *Spiritfarer*, *Cult of the Lamb*.
