@@ -224,9 +224,10 @@ def portrait(expr, apron=False, hat=True):
         d.line([(43, 48), (59, 52)], fill=bc, width=3); d.line([(69, 52), (85, 48)], fill=bc, width=3)
     else:
         d.line([(43, 50), (59, 48)], fill=bc, width=2); d.line([(69, 48), (85, 50)], fill=bc, width=2)
-    d.line([(66, 60), (67, 72)], fill=SKIN[1] + (255,))
-    put(im, [(61, 74), (62, 75), (67, 75), (68, 74), (64, 76), (65, 76)], SKIN[1])
-    put(im, [(63, 66), (63, 67), (63, 68)], SKIN[3])
+    # nose: only a soft tip, lit from the left (no bridge line)
+    put(im, [(66, 70), (67, 71), (67, 72), (66, 73)], SKIN[1])
+    put(im, [(61, 74), (62, 74), (63, 75), (64, 75), (65, 75), (66, 74)], SKIN[1])
+    put(im, [(63, 71), (63, 72)], SKIN[3])
     d.ellipse((40, 70, 52, 76), fill=BLUSH + (255,)); d.ellipse((76, 70, 88, 76), fill=BLUSH + (255,))
     put(im, [(58, 69), (61, 71), (69, 70), (72, 68), (56, 72)], SKIN[1])
     if apron:
