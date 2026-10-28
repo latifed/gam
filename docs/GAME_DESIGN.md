@@ -548,6 +548,8 @@ The **story names** follow the hope (18.7); the **look** keeps the original "pun
 | **Pip Wainwright** | Her son, about 7 | Curious, brave in the wrong moments, unafraid of the strange world. Has more hope than anyone in town. | His **sketchbook** is the quest log (17.2 G). His drawings of his dad quietly change with the town's Hope. |
 | **Edric Wainwright** | Mira's husband, carpenter and **toymaker** | Warm, a dreamer, always whistling. Went on the expedition at the back of the column, carrying supplies. | Missing. Alive in the dungeon. His rescue is the turning point of the game. |
 
+**Looks:** Mira has light brown hair and brown eyes; Edric has green eyes; Pip got his mother's light brown hair and his father's green eyes.
+
 Mira's line is the theme of the game in one sentence: she's *right* that hope gets collected, and the game proves her wrong in the end, because shared hope isn't a debt; it's a gift.
 
 ### 20.2 Their story

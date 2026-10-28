@@ -13,7 +13,7 @@ OUT = Path(__file__).resolve().parents[2] / "docs" / "concept-art" / "mira"
 
 # material ramps: outline, shadow, base, light
 SKIN = ((126, 72, 58), (208, 148, 118), (236, 190, 158), (248, 212, 186))
-HAIR = ((52, 26, 20), (86, 44, 33), (116, 62, 45), (152, 88, 62))
+HAIR = ((74, 48, 30), (128, 88, 56), (160, 116, 76), (192, 150, 106))   # light brown (Pip has it too)
 SCARF = ((108, 72, 22), (172, 124, 44), (208, 158, 66), (232, 194, 108))
 DRESS = ((34, 56, 60), (58, 90, 92), (80, 122, 118), (112, 154, 146))
 APRON = ((146, 130, 106), (210, 197, 172), (240, 232, 214), (252, 249, 240))
@@ -23,7 +23,7 @@ MOUTH = (160, 82, 70)
 LIP = (204, 126, 108)
 BLUSH = (228, 160, 140)
 FLOUR = (250, 247, 240)
-IRIS = (104, 122, 74)
+IRIS = (112, 74, 48)   # brown; Pip's green eyes come from Edric
 HAT = ((56, 26, 32), (94, 44, 52), (124, 60, 68), (156, 86, 92))
 BAND = ((40, 24, 16), (66, 42, 28), (88, 58, 38), (110, 76, 52))
 BELT = BAND
@@ -127,7 +127,7 @@ def sprite_front(step=0, back=False, apron=False, hat=True):
             put(im, [(ex, y), (ex + 1, y), (ex, y + 1), (ex + 1, y + 1), (ex, y + 2), (ex + 1, y + 2)], INK)
             put(im, [(ex, y)], (255, 255, 255))
             put(im, [(ex - 1, y - 1), (ex + 2, y - 1)], INK)  # heavy upper lid
-        put(im, [(16, 16 + by), (16, 17 + by)], SKIN[1])
+        put(im, [(16, 17 + by)], SKIN[1])  # nose: one shadow pixel
         put(im, [(14, 19 + by), (15, 19 + by), (16, 19 + by), (17, 19 + by)], MOUTH)
         put(im, [(10, 17 + by), (11, 17 + by), (20, 17 + by), (21, 17 + by)], BLUSH)
         if apron:
@@ -159,7 +159,7 @@ def sprite_side(step=0, apron=False, hat=True):
     part(im, lambda d: d.ellipse((6, 3 + by, 22, 19 + by), fill=255), HAIR)
     part(im, lambda d: d.ellipse((4, 12 + by, 11, 20 + by), fill=255), HAIR, shade=(0, 0))      # low bun
     put(im, [(10, 13 + by), (10, 14 + by), (10, 15 + by)], BAND[2])                               # ribbon
-    part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((23, 13 + by, 25, 15 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
+    part(im, lambda d: (d.ellipse((10, 5 + by, 24, 23 + by), fill=255), d.rectangle((24, 15 + by, 24, 16 + by), fill=255)), SKIN, shade=(0, 0), light_top=0)
     part(im, lambda d: d.polygon([(7, 15 + by), (6, 8 + by), (9, 4 + by), (14, 3 + by), (20, 4 + by), (23, 7 + by), (24, 10 + by), (21, 9 + by),
                                   (18, 9 + by), (16, 11 + by), (15, 15 + by), (12, 16 + by), (9, 16 + by)], fill=255), HAIR, shade=(0, 0))
     put(im, [(16, 12 + by), (16, 13 + by), (17, 13 + by), (16, 14 + by)], SKIN[1])  # ear
