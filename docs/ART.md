@@ -75,7 +75,7 @@ Concept: [tankard_states.png](concept-art/world/tankard_states.png), generated b
 | Decor (bunting, flowers, wheat / strange plants, charms) | festival set | | new-normal set |
 | Props (barrels, benches, crates / rubble) | ✓ | rubble set | ✓ |
 | Lights (windows, lanterns, Hope glow) | warm | off | warm + gold |
-| Colour grading | warm, +saturation | cold, −saturation | neutral-warm |
+| Colour grading | warm, ~80% saturation | cold, ~30% saturation | neutral-warm, ~70% saturation |
 | People, smoke, birds, cats | many | none | grows with population |
 
 **Per-building progress between states:** Ruined → **Cleared** (rubble gone) → **Patched** (boards, temporary roof, people can use it) → **Reclaimed** (decorated, lit) → optional **Upgrades**. Each step is an overlay toggle, usually one or two new sprites, not a new building.
@@ -98,7 +98,7 @@ Concept: [tankard_states.png](concept-art/world/tankard_states.png), generated b
 | Openings | small square windows, painted shutters, round-topped plank door | **pointed arches** on the ground floor, leaded diamond-pane casements upstairs | great pointed portal, rose window, stained-glass lancets |
 | Details | woodpile, bread oven, wattle fence, veg patch | wrought-iron sign bracket, flower boxes, hops garland, rain barrel, chalkboard | gargoyles, carved stone cross, herb beds |
 
-**Keeping it lively:** limewash in warm tints (ochre, cream, pale rose, sage), painted shutters and doors (green, blue, red), flowers in every window box, bunting and lanterns, smoke from chimneys.
+**Muted, not garish (Graveyard Keeper, not a cartoon):** the palette is earthy and slightly desaturated: olive grass, weathered terracotta, oat-coloured limewash, grey-green and slate-blue paint, dusty reds. Liveliness comes from **detail, warm light, smoke, flowers, bunting and people**, not from saturated colour. Even the Harvest Fair (the brightest the town ever looks) stays muted; the ruined state drops to near-grey; the reclaimed state sits in between.
 
 **Detail and shadows (the Tankard is the reference):** light comes from the **top left**. Every protruding thing casts a soft shadow down and to the right:
 - eaves shadow on the upper wall, a deep shadow under the jetty, shadows under brackets, sills and flower boxes;
