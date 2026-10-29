@@ -692,3 +692,12 @@ Eighteen years ago Aldous forbade Sabine's fever remedies and her husband Corwin
 - **The Double Rite** (late game): once Aldous and Sabine are reconciled (a questline that runs through Fennick), both rites can be performed together: the biggest Unrest drop, *and* strange crops at full strength. Also a story beat about shared hope: two enemies holding one ritual.
 - **The reconciliation questline** (draft beats): Fennick admits he's been trading notes with Sabine → a night when Consecration alone fails and the dead rise anyway → Sabine Settles the graves while Aldous holds the border → Aldous asks for her help, in public, badly → the Double Rite.
 - **Mixing soils** (§18.5) is still small trouble; *who* you ask to clean it up matters: Aldous scolds you, Sabine charges you.
+
+## 24. How the world looks over time (v0.15)
+
+- **Before** (prologue only): the liveliest Hollowmere ever looks. Harvest Fair: colour, crowds, music. The player should feel what's about to be lost.
+- **The Shift:** the colour drains out of everything. The town starts the game **Ruined**: cold, grey, empty, with the strange world's purple creeping in.
+- **Reclaiming:** each building goes Ruined → Cleared → Patched → Reclaimed (→ Upgraded). The town comes back **changed, not restored**: patched roofs, strange plants, charms on doors, Hope lanterns. It ends up lively in a new way, never quite the Harvest Fair again.
+- **Hope drives the whole town's look:** colour saturation, warm light, smoke from chimneys, birds, cats, laundry lines, how many people are out, the music. Players *see* their progress across the whole town, not just in a menu.
+- **Harvest nights:** while the Dungeon Master tries to harvest, the colour visibly drains toward grey and comes back as you protect your loose Hope. A visual for an invisible threat.
+- Art approach (base + overlays + grading, so not 3 full sets): [ART.md §6](ART.md).
