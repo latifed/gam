@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import town  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[2] / "docs" / "concept-art" / "world"
-W, H = 256, 232
+W, H = 256, 264
 INK = (43, 29, 26)
 
 
@@ -31,195 +31,299 @@ def grade(im, sat=1.0, bright=1.0, tint=(1.0, 1.0, 1.0)):
             px[x, y] = (int(min(255, r2 * 255 * tint[0])), int(min(255, g2 * 255 * tint[1])), int(min(255, b2 * 255 * tint[2])), a)
 
 
+SHADOW = (34, 22, 46)
+
+
+def veil(im, draw, color=SHADOW, alpha=90):
+    """Draw translucent shapes (shadow or light) onto im. draw(d, rgba)."""
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    draw(ImageDraw.Draw(layer), color + (alpha,))
+    im.alpha_composite(layer)
+
+
+def band(im, x0, x1, y0, y1, a0, a1, color=SHADOW):
+    """Vertical gradient band from alpha a0 at y0 to a1 at y1."""
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ld = ImageDraw.Draw(layer)
+    for i, y in enumerate(range(y0, y1)):
+        t = i / max(1, y1 - y0 - 1)
+        ld.line([(x0, y), (x1, y)], fill=color + (int(a0 + (a1 - a0) * t),))
+    im.alpha_composite(layer)
+
+
+def gothic_arch(x0, x1, y_spring, y_bottom):
+    """Points for a pointed (lancet) arch opening: springs at y_spring, apex above it."""
+    w = x1 - x0
+    apex = y_spring - int(w * 0.62)
+    pts = [(x0, y_bottom), (x0, y_spring)]
+    for t in (0.18, 0.38, 0.6, 0.82):
+        pts.append((x0 + int(w * 0.5 * t), y_spring - int((y_spring - apex) * (1 - (1 - t) ** 2))))
+    pts.append(((x0 + x1) // 2, apex))
+    for t in (0.82, 0.6, 0.38, 0.18):
+        pts.append((x1 - int(w * 0.5 * t), y_spring - int((y_spring - apex) * (1 - (1 - t) ** 2))))
+    pts += [(x1, y_spring), (x1, y_bottom)]
+    return pts
+
+
+def glass_pane(im, shape, glass, lead, frame):
+    """Diamond-pane leaded glass inside any polygon (clipped to it)."""
+    xs, ys = [p[0] for p in shape], [p[1] for p in shape]
+    x0, y0, x1, y1 = min(xs), min(ys), max(xs), max(ys)
+    w, h = x1 - x0 + 1, y1 - y0 + 1
+    pane = Image.new("RGBA", (w, h), glass + (255,))
+    pd = ImageDraw.Draw(pane)
+    for k in range(-h, w + h, 5):
+        pd.line([(k, h), (k + h, 0)], fill=lead); pd.line([(k, 0), (k + h, h)], fill=lead)
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).polygon([(x - x0, y - y0) for x, y in shape], fill=255)
+    im.paste(pane, (x0, y0), mask)
+    ImageDraw.Draw(im).polygon(shape, outline=frame)
+
+
 def scene(state):
     rnd = random.Random(7)
     im = Image.new("RGBA", (W, H), (0, 0, 0, 255))
     d = ImageDraw.Draw(im)
     ruined, before, after = state == "ruined", state == "before", state == "reclaimed"
 
-    # ---------------- ground
+    # ---------------- ground and cobbles
     grass = (110, 168, 80) if not ruined else (120, 112, 104)
     d.rectangle((0, 0, W, H), fill=grass)
-    for _ in range(900):
+    for _ in range(1000):
         x, y = rnd.randrange(W), rnd.randrange(H)
         c = shade(grass, rnd.choice([0.85, 0.92, 1.08]))
         if ruined and rnd.random() < 0.3:
-            c = (96, 84, 76)                                                         # dead patches
-        if after and y > 196 and (x < 40 or x > 216) and rnd.random() < 0.5:
+            c = (96, 84, 76)
+        if after and y > 236 and (x < 50 or x > 206) and rnd.random() < 0.5:
             c = rnd.choice([(150, 110, 170), (176, 136, 196)])                      # tamed purple border
-        d.point((x, y), fill=c)
-        if rnd.random() < 0.3:
-            d.point((x, y - 1), fill=c)
-    # path to the door
-    path = (196, 170, 120) if not ruined else (150, 132, 110)
-    d.polygon([(108, 182), (148, 182), (164, H), (92, H)], fill=path)
-    for _ in range(80):
-        x, y = rnd.randrange(96, 160), rnd.randrange(184, H)
-        d.point((x, y), fill=shade(path, rnd.choice([0.85, 1.1])))
+        d.point((x, y), fill=c); d.point((x, y - 1), fill=c)
+    cob = (168, 160, 148) if not ruined else (128, 122, 116)
+    d.polygon([(96, 206), (160, 206), (182, H), (74, H)], fill=shade(cob, 0.7))
+    for yy in range(208, H, 6):                                                    # irregular cobbles
+        for xx in range(70 + (yy // 6 % 2) * 4, 190, 8):
+            t = (yy - 206) / (H - 206)
+            if 96 - 22 * t < xx < 158 + 22 * t:
+                d.rounded_rectangle((xx, yy, xx + rnd.randrange(5, 8), yy + 4), 2, fill=shade(cob, rnd.choice([0.92, 1.0, 1.08])))
 
-    # ---------------- building
-    plaster = (238, 224, 190) if not ruined else (186, 176, 160)
-    beam = (96, 64, 44) if not ruined else (70, 52, 42)
-    stone = (150, 146, 140)
-    roof = (168, 72, 56) if not ruined else (120, 64, 56)
+    # ---------------- palette: limewashed ochre plaster, dark oak, red clay tiles, rubble stone
+    plaster = (232, 204, 146) if not ruined else (176, 164, 140)
+    oak = (84, 56, 38) if not ruined else (62, 48, 40)
+    stone = (152, 142, 128)
+    roof = (172, 70, 52) if not ruined else (118, 64, 54)
+    shutter = (70, 120, 96)
+
     # chimney
-    d.rectangle((176, 6, 194, 40), fill=stone, outline=INK)
-    for y in range(10, 40, 6):
-        d.line([(177, y), (193, y)], fill=shade(stone, 0.8))
-    # walls
-    d.rectangle((40, 64, 216, 178), fill=plaster, outline=INK)
-    d.rectangle((40, 150, 216, 178), fill=stone, outline=INK)                     # stone footing
-    for y in range(154, 178, 6):
-        for x in range(42 + (y // 6 % 2) * 6, 216, 12):
-            d.rectangle((x, y, x + 10, y + 4), outline=shade(stone, 0.78))
-    for x in (40, 84, 128, 172, 216):                                              # timber frame
-        d.rectangle((x - 2, 64, x + 2, 150), fill=beam)
-    for y in (64, 110, 148):
-        d.rectangle((40, y - 2, 216, y + 2), fill=beam)
-    for x0 in (40, 172):
-        d.line([(x0 + 2, 108), (x0 + 42, 68)], fill=beam, width=3)
-    # windows (upper and lower)
-    lit = (255, 214, 110)
-    for (x0, y0) in ((52, 74), (176, 74), (52, 118), (176, 118)):
-        w, h = 28, 26
-        glass = lit if before or after else (40, 34, 40)
-        d.rectangle((x0, y0, x0 + w, y0 + h), fill=glass, outline=INK)
-        d.line([(x0 + w // 2, y0), (x0 + w // 2, y0 + h)], fill=beam, width=2)
-        d.line([(x0, y0 + h // 2), (x0 + w, y0 + h // 2)], fill=beam, width=2)
-        if ruined:
-            d.polygon([(x0 + 2, y0 + 2), (x0 + 9, y0 + 2), (x0 + 4, y0 + 10)], fill=(150, 170, 180))   # jagged glass
-            d.polygon([(x0 + w - 2, y0 + h - 2), (x0 + w - 10, y0 + h - 2), (x0 + w - 3, y0 + h - 9)], fill=(150, 170, 180))
-            if (x0, y0) in ((52, 118), (176, 74)):                                   # boarded up
-                for i, dy in enumerate((6, 14, 20)):
-                    d.line([(x0 - 3, y0 + dy + i), (x0 + w + 3, y0 + dy - 3 + i)], fill=(140, 100, 64), width=4)
-        if after and (x0, y0) == (52, 118):
-            d.rectangle((x0 - 1, y0 - 1, x0 + w + 1, y0 + h + 1), outline=(176, 132, 84), width=2)   # new frame, fresh wood
-        # flower boxes under the lower windows
-        if y0 == 118:
-            box = (120, 84, 50) if not ruined else (80, 60, 44)
-            d.rectangle((x0 - 2, y0 + h + 1, x0 + w + 2, y0 + h + 6), fill=box, outline=INK)
-            if before:
-                for i in range(6):
-                    d.ellipse((x0 + i * 5, y0 + h - 3, x0 + i * 5 + 4, y0 + h + 1), fill=rnd.choice([(220, 60, 60), (240, 200, 70), (230, 120, 160)]))
-            if after:  # strange plants: glowing bulbs
-                for i in range(5):
-                    d.line([(x0 + 3 + i * 6, y0 + h + 1), (x0 + 3 + i * 6, y0 + h - 5)], fill=(70, 120, 80))
-                    d.ellipse((x0 + 1 + i * 6, y0 + h - 9, x0 + 5 + i * 6, y0 + h - 5), fill=rnd.choice([(170, 120, 230), (110, 210, 200)]))
-    # upper middle round window
-    d.ellipse((116, 76, 140, 100), fill=lit if not ruined else (40, 34, 40), outline=INK)
-    d.line([(128, 76), (128, 100)], fill=beam, width=2); d.line([(116, 88), (140, 88)], fill=beam, width=2)
-    # door
+    d.rectangle((182, 6, 200, 50), fill=stone, outline=INK)
+    for y in range(10, 50, 5):
+        d.line([(183, y), (199, y)], fill=shade(stone, 0.8))
+    d.rectangle((180, 2, 202, 7), fill=shade(stone, 0.9), outline=INK)
+
+    # ground floor: rubble stone
+    d.rectangle((48, 152, 208, 204), fill=stone, outline=INK)
+    for y in range(154, 204, 6):
+        x = 50 + (y // 6 % 2) * 5
+        while x < 206:
+            w = rnd.randrange(7, 14)
+            d.rounded_rectangle((x, y, min(206, x + w), y + 4), 1, outline=shade(stone, 0.75), fill=shade(stone, rnd.choice([0.95, 1.0, 1.05])))
+            x += w + 2
+    # pointed-arch door with stone voussoirs and iron strap hinges
+    d.polygon(gothic_arch(108, 148, 172, 204), fill=shade(stone, 1.15), outline=INK)
+    door = gothic_arch(113, 143, 174, 204)
     if ruined:
-        d.rectangle((110, 124, 146, 178), fill=(30, 24, 26), outline=INK)            # dark doorway
-        d.polygon([(146, 124), (160, 132), (160, 182), (146, 178)], fill=(110, 70, 44), outline=INK)   # door hanging off
+        d.polygon(door, fill=(28, 22, 24), outline=INK)
+        d.polygon([(143, 176), (158, 186), (158, 210), (143, 204)], fill=(100, 64, 40), outline=INK)
     else:
-        d.rectangle((110, 124, 146, 178), fill=(120, 76, 44), outline=INK)
-        for x in (118, 128, 138):
-            d.line([(x, 126), (x, 176)], fill=(96, 60, 36))
-        d.ellipse((139, 150, 142, 153), fill=(214, 176, 80))
-    d.rectangle((102, 178, 154, 184), fill=shade(stone, 1.05), outline=INK)       # step
+        d.polygon(door, fill=(118, 74, 42), outline=INK)
+        for x in (120, 128, 136):
+            d.line([(x, 166), (x, 203)], fill=(92, 58, 34))
+        for y in (178, 194):
+            d.line([(114, y), (138, y)], fill=(40, 36, 36), width=2); d.point((139, y - 1), fill=(40, 36, 36))
+        d.ellipse((137, 186, 140, 189), fill=(60, 56, 56))
+    d.rectangle((100, 204, 156, 210), fill=shade(stone, 1.08), outline=INK)
+    # pointed ground-floor windows with painted shutters
+    for x0 in (62, 166):
+        arch = gothic_arch(x0, x0 + 26, 176, 196)
+        d.polygon(gothic_arch(x0 - 3, x0 + 29, 176, 198), fill=shade(stone, 1.15), outline=INK)
+        if ruined:
+            d.polygon(arch, fill=(36, 30, 34), outline=INK)
+            d.polygon([(x0 + 2, 186), (x0 + 9, 186), (x0 + 4, 194)], fill=(150, 170, 180))
+            d.polygon([(x0 - 12, 178), (x0 - 2, 182), (x0 - 4, 204), (x0 - 14, 200)], fill=shade(shutter, 0.7), outline=INK)  # shutter fallen
+        else:
+            glass_pane(im, arch, (255, 214, 110), (150, 110, 60), INK)
+            sh = shutter if not (after and x0 == 62) else (196, 160, 110)        # one fresh, unpainted shutter
+            d.rectangle((x0 - 12, 170, x0 - 3, 198), fill=sh, outline=INK); d.rectangle((x0 + 29, 170, x0 + 38, 198), fill=shutter, outline=INK)
+            for xx in (x0 - 9, x0 + 32):
+                d.line([(xx, 174), (xx, 194)], fill=shade(sh, 0.8))
+    # ivy up the left corner
+    ivy = (70, 130, 60) if not ruined else (110, 90, 60)
+    for _ in range(70):
+        x, y = rnd.randrange(44, 62), rnd.randrange(130, 204)
+        d.rectangle((x, y, x + 2, y + 1), fill=rnd.choice([ivy, shade(ivy, 0.8)]))
+    if after:
+        for _ in range(6):
+            x, y = rnd.randrange(46, 60), rnd.randrange(140, 200)
+            d.point((x, y), fill=(190, 150, 240))
 
-    # ---------------- roof
-    d.polygon([(26, 70), (230, 70), (204, 18), (52, 18)], fill=roof, outline=INK)
-    for i, y in enumerate(range(22, 70, 7)):
-        t = (y - 18) / 52
-        xl, xr = 52 - 26 * t, 204 + 26 * t
+    # jettied upper floor: overhangs the stone ground floor
+    d.rectangle((38, 100, 218, 150), fill=plaster, outline=INK)
+    d.rectangle((38, 148, 218, 153), fill=oak, outline=INK)                       # jetty beam
+    for bx in (48, 92, 164, 208):
+        sag = 3 if ruined and bx == 208 else 0
+        d.polygon([(bx - 3, 153), (bx + 3, 153), (bx, 160 + sag)], fill=oak, outline=INK)   # brackets
+    d.rectangle((40, 154, 216, 156), fill=(60, 44, 34))                            # shadow under the jetty
+    for x in (38, 74, 104, 152, 182, 218):                                         # posts
+        d.rectangle((x - 2, 100, x + 2, 150), fill=oak)
+    d.rectangle((38, 99, 218, 102), fill=oak)
+    for (x0, x1) in ((104, 152),):                                                 # St Andrew's cross panel
+        d.line([(x0 + 2, 102), (x1 - 2, 148)], fill=oak, width=3); d.line([(x1 - 2, 102), (x0 + 2, 148)], fill=oak, width=3)
+    d.line([(76, 146), (102, 104)], fill=oak, width=3); d.line([(154, 104), (180, 146)], fill=oak, width=3)   # braces
+    # leaded casement windows, flower boxes
+    for x0 in (46, 186):
+        box = (x0, 112, x0 + 24, 134)
+        if ruined:
+            d.rectangle(box, fill=(36, 30, 34), outline=INK)
+            if x0 == 186:
+                for i, dy in enumerate((4, 11, 17)):
+                    d.line([(x0 - 3, 112 + dy + i), (x0 + 27, 112 + dy - 3 + i)], fill=(140, 100, 64), width=4)
+        else:
+            glass_pane(im, [(box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3])], (255, 214, 110), (150, 110, 60), oak)
+            d.rectangle(box, outline=oak, width=2)
+        bc = (120, 84, 50) if not ruined else (80, 60, 44)
+        d.rectangle((x0 - 3, 135, x0 + 27, 140), fill=bc, outline=INK)
+        if before:
+            for i in range(6):
+                d.ellipse((x0 - 2 + i * 5, 131, x0 + 2 + i * 5, 135), fill=rnd.choice([(220, 60, 60), (240, 200, 70), (230, 120, 160)]))
+        if after:
+            for i in range(5):
+                d.line([(x0 + 1 + i * 6, 135), (x0 + 1 + i * 6, 129)], fill=(70, 120, 80))
+                d.ellipse((x0 - 1 + i * 6, 125, x0 + 3 + i * 6, 129), fill=rnd.choice([(170, 120, 230), (110, 210, 200)]))
+
+    # ---------------- steep roof with a pointed front gable (wall dormer)
+    d.polygon([(26, 104), (230, 104), (202, 22), (54, 22)], fill=roof, outline=INK)
+    for i, y in enumerate(range(28, 104, 6)):
+        t = (y - 22) / 82
+        xl, xr = 54 - 28 * t, 202 + 28 * t
         d.line([(xl, y), (xr, y)], fill=shade(roof, 0.75))
-        for x in range(int(xl) + (i % 2) * 6, int(xr), 12):
-            d.line([(x, y), (x, y + 6)], fill=shade(roof, 0.8))
-    d.line([(52, 18), (204, 18)], fill=shade(roof, 1.25), width=2)
-    if ruined:  # hole in the roof with broken rafters
-        d.polygon([(110, 26), (150, 30), (156, 52), (120, 58), (100, 44)], fill=(24, 20, 22), outline=INK)
-        for x0, x1 in ((112, 140), (106, 150)):
-            d.line([(x0, 38), (x1, 44)], fill=(90, 60, 40), width=2)
-        for _ in range(14):
-            x, y = rnd.randrange(60, 200), rnd.randrange(24, 66)
-            d.rectangle((x, y, x + 3, y + 2), fill=(24, 20, 22))
-    if after:  # patched with mismatched new shingles and a slate patch
-        d.polygon([(110, 26), (150, 30), (156, 52), (120, 58), (100, 44)], fill=(120, 110, 140), outline=INK)
-        for y in range(30, 58, 6):
-            d.line([(104, y), (154, y)], fill=(96, 88, 118))
-        d.rectangle((60, 40, 76, 50), fill=(196, 96, 72), outline=INK)
-
-    # ---------------- sign: a tankard on a board
-    d.line([(40, 126), (18, 126)], fill=INK, width=3)
-    if ruined:   # hanging by one chain
-        d.line([(20, 126), (16, 140)], fill=(120, 120, 126))
-        d.polygon([(6, 140), (30, 146), (26, 168), (2, 160)], fill=(140, 96, 60), outline=INK)
+        for x in range(int(xl) + (i % 2) * 5, int(xr), 10):
+            d.line([(x, y), (x, y + 5)], fill=shade(roof, 0.82))
+    d.line([(54, 22), (202, 22)], fill=shade(roof, 1.25), width=2)
+    for _ in range(40 if not ruined else 90):                                     # moss on the old tiles
+        x = rnd.randrange(34, 222); y = rnd.randrange(80, 103)
+        d.point((x, y), fill=(98, 124, 60))
+    # front gable: half-timbered, pointed window, carved bargeboards, finial
+    d.polygon([(100, 104), (156, 104), (128, 36)], fill=plaster, outline=INK)
+    d.line([(128, 40), (128, 104)], fill=oak, width=3)
+    d.line([(104, 100), (152, 100)], fill=oak, width=3)
+    win = gothic_arch(119, 137, 78, 96)
+    if ruined:
+        d.polygon(win, fill=(36, 30, 34), outline=INK)
     else:
-        d.line([(20, 126), (20, 132)], fill=(120, 120, 126)); d.line([(36, 126), (36, 132)], fill=(120, 120, 126))
-        board = (150, 104, 64) if before else (110, 140, 120)
-        d.rectangle((14, 132, 42, 156), fill=board, outline=INK)
-        d.rectangle((22, 138, 32, 152), fill=(220, 180, 80) if before else (240, 220, 170), outline=INK)
-        d.rectangle((32, 141, 35, 148), outline=INK)
+        d.polygon(win, fill=(255, 214, 110), outline=INK)
+        d.line([(128, 68), (128, 96)], fill=oak, width=2)
+    for side in (-1, 1):
+        d.line([(128, 32), (128 + side * 32, 108)], fill=(70, 46, 30), width=5)    # bargeboards
+        for k in range(4):
+            px = 128 + side * (8 + k * 7); py = 32 + int((8 + k * 7) * 76 / 32)
+            d.point((px, py + 3), fill=(120, 84, 50))
+    d.polygon([(125, 32), (131, 32), (128, 22)], fill=(60, 56, 60), outline=INK)   # iron finial
+    d.line([(128, 22), (128, 16)], fill=(60, 56, 60))
 
-    # ---------------- props
-    # barrels by the door
+    if ruined:  # roof hole with broken rafters
+        d.polygon([(150, 34), (192, 40), (200, 70), (166, 80), (146, 62)], fill=(24, 20, 22), outline=INK)
+        for x0, x1 in ((152, 186), (150, 196)):
+            d.line([(x0, 52), (x1, 60)], fill=(90, 60, 40), width=2)
+        for _ in range(16):
+            x, y = rnd.randrange(60, 200), rnd.randrange(26, 98)
+            d.rectangle((x, y, x + 3, y + 2), fill=(24, 20, 22))
+    if after:   # patched with slate and a few new tiles
+        d.polygon([(150, 34), (192, 40), (200, 70), (166, 80), (146, 62)], fill=(118, 110, 138), outline=INK)
+        for y in range(40, 78, 5):
+            d.line([(148, y), (198, y)], fill=(96, 88, 118))
+        d.rectangle((66, 60, 82, 70), fill=(200, 100, 74), outline=INK)
+
+    # ---------------- wrought-iron sign bracket with a scroll, hanging board
+    iron = (44, 40, 44)
+    d.line([(48, 158), (16, 158)], fill=iron, width=3)
+    d.line([(48, 170), (30, 158)], fill=iron, width=2)
+    d.arc((14, 150, 24, 160), 90, 360, fill=iron, width=2)
+    if ruined:
+        d.line([(20, 158), (14, 172)], fill=(120, 120, 126))
+        d.polygon([(2, 172), (26, 178), (22, 198), (0, 192)], fill=(140, 96, 60), outline=INK)
+    else:
+        d.line([(20, 158), (20, 164)], fill=(120, 120, 126)); d.line([(40, 158), (40, 164)], fill=(120, 120, 126))
+        board = (150, 104, 64) if before else (110, 140, 120)
+        d.rectangle((14, 164, 46, 190), fill=board, outline=INK)
+        d.rectangle((23, 170, 33, 185), fill=(220, 180, 80) if before else (240, 220, 170), outline=INK)
+        d.rectangle((33, 173, 36, 181), outline=INK)
+
+    # ---------------- props: barrels, trough, bench, rubble
     for bx in (186, 202):
         c = (140, 96, 58) if not ruined else (96, 70, 50)
-        d.rectangle((bx, 160, bx + 14, 182), fill=c, outline=INK)
-        for yy in (164, 177):
+        if ruined and bx == 202:
+            d.rectangle((204, 222, 228, 234), fill=c, outline=INK)
+            continue
+        d.rectangle((bx, 192, bx + 14, 214), fill=c, outline=INK)
+        for yy in (196, 209):
             d.line([(bx, yy), (bx + 14, yy)], fill=(80, 80, 86), width=2)
-    if ruined:   # second barrel tipped over, rubble, scorch
-        d.rectangle((200, 186, 222, 198), fill=(96, 70, 50), outline=INK)
-        for _ in range(24):
-            x, y = rnd.randrange(44, 230), rnd.randrange(176, 220)
-            if 96 < x < 160 and y < 190:
+    d.rectangle((10, 216, 42, 228), fill=(120, 84, 50) if not ruined else (80, 60, 44), outline=INK)   # water trough
+    d.rectangle((13, 218, 39, 222), fill=(110, 160, 210) if not ruined else (70, 60, 80))
+    if not ruined:
+        d.rectangle((60, 206, 96, 210), fill=(140, 96, 58), outline=INK)
+        d.rectangle((62, 210, 65, 218), fill=(110, 76, 46)); d.rectangle((91, 210, 94, 218), fill=(110, 76, 46))
+    if ruined:
+        for _ in range(28):
+            x, y = rnd.randrange(44, 236), rnd.randrange(208, 256)
+            if 92 < x < 164 and y < 222:
                 continue
             d.rectangle((x, y, x + rnd.randrange(3, 7), y + rnd.randrange(2, 5)), fill=rnd.choice([(150, 146, 140), (120, 116, 110), (140, 100, 64)]), outline=INK)
-        for (cx, cy, r) in ((70, 100, 14), (190, 136, 12), (150, 70, 10)):
+        for (cx, cy, r) in ((70, 124, 14), (196, 170, 12), (140, 120, 10)):
             d.ellipse((cx - r, cy - r // 2, cx + r, cy + r // 2), fill=(60, 54, 52))
-    # bench
-    if not ruined:
-        d.rectangle((48, 170, 92, 174), fill=(140, 96, 58), outline=INK)
-        d.rectangle((50, 174, 53, 182), fill=(110, 76, 46)); d.rectangle((87, 174, 90, 182), fill=(110, 76, 46))
-
-    # lanterns either side of the door
-    for lx in (100, 152):
+        d.ellipse((172, 12, 182, 20), fill=(40, 40, 52)); d.ellipse((168, 9, 174, 15), fill=(40, 40, 52)); d.point((167, 12), fill=(210, 170, 70))
+    # iron lanterns either side of the door
+    for lx in (98, 158):
         if ruined:
-            d.rectangle((lx - 3, 140, lx + 3, 148), outline=(70, 66, 64))
+            d.rectangle((lx - 3, 172, lx + 3, 180), outline=(70, 66, 64))
             continue
-        glow = (255, 214, 110) if before else (255, 200, 90)
         if after:
-            d.ellipse((lx - 9, 133, lx + 9, 155), fill=(255, 226, 150))            # gold Hope glow (anchor)
-        d.rectangle((lx - 3, 140, lx + 3, 148), fill=glow, outline=INK)
-
+            d.ellipse((lx - 9, 165, lx + 9, 187), fill=(255, 226, 150))
+        d.rectangle((lx - 3, 172, lx + 3, 180), fill=(255, 214, 110) if before else (255, 200, 90), outline=INK)
+        d.polygon([(lx - 4, 172), (lx + 4, 172), (lx, 168)], fill=iron)
     # chimney smoke
     if not ruined:
-        for i, (sx, sy, r) in enumerate(((186, 2, 5), (180, -6, 6), (190, -12, 4))):
+        for (sx, sy, r) in ((192, -2, 5), (186, -8, 6)):
             d.ellipse((sx - r, sy - r, sx + r, sy + r), fill=(226, 226, 230))
-
     # harvest fair decorations
     if before:
-        for i, x in enumerate(range(30, 226, 10)):                                 # bunting along the eaves
-            y = 74 + int(6 * ((x - 128) / 98) ** 2) * -1 + 6
+        for i, x in enumerate(range(30, 226, 10)):
+            y = 156 + int(4 * abs((x - 128) / 98))
             d.polygon([(x, y), (x + 8, y), (x + 4, y + 7)], fill=[(220, 60, 60), (240, 200, 70), (70, 130, 200), (90, 170, 90)][i % 4])
-        for wx in (96, 158):                                                       # wheat sheaves
+        for wx in (92, 164):
             for k in range(5):
-                d.line([(wx + k - 2, 182), (wx + k * 2 - 4, 166)], fill=(214, 176, 80))
-            d.ellipse((wx - 6, 160, wx + 6, 170), fill=(226, 190, 96))
-            d.line([(wx - 4, 174), (wx + 4, 174)], fill=(176, 50, 44), width=2)
-        d.rectangle((60, 186, 80, 198), fill=(196, 150, 96), outline=INK)          # crate of apples
+                d.line([(wx + k - 2, 214), (wx + k * 2 - 4, 198)], fill=(214, 176, 80))
+            d.ellipse((wx - 6, 192, wx + 6, 202), fill=(226, 190, 96))
+            d.line([(wx - 4, 206), (wx + 4, 206)], fill=(176, 50, 44), width=2)
+        d.rectangle((196, 228, 218, 240), fill=(196, 150, 96), outline=INK)
         for k in range(4):
-            d.ellipse((62 + k * 4, 182, 66 + k * 4, 186), fill=(210, 50, 50))
-    if after:   # both sides of the soil feud on the door: Abbey ribbon and Sabine's bone charm
-        d.line([(114, 130), (114, 142)], fill=(240, 236, 228), width=2); d.point((114, 143), fill=(214, 176, 80))
-        d.line([(142, 128), (142, 136)], fill=(90, 70, 50)); d.rectangle((141, 136, 143, 140), fill=(232, 224, 200))
-        for _ in range(16):                                                        # gold hope motes
-            x, y = rnd.randrange(30, 230), rnd.randrange(60, 200)
+            d.ellipse((198 + k * 4, 224, 202 + k * 4, 228), fill=(210, 50, 50))
+    if after:
+        d.line([(116, 180), (116, 192)], fill=(240, 236, 228), width=2); d.point((116, 193), fill=(214, 176, 80))
+        d.line([(140, 178), (140, 186)], fill=(90, 70, 50)); d.rectangle((139, 186, 141, 190), fill=(232, 224, 200))
+        for _ in range(18):
+            x, y = rnd.randrange(30, 230), rnd.randrange(60, 240)
             d.point((x, y), fill=(255, 226, 140)); d.point((x, y - 1), fill=(255, 240, 190))
-    if ruined:   # a crow on the roof
-        d.ellipse((168, 12, 178, 20), fill=(40, 40, 52)); d.ellipse((164, 9, 170, 15), fill=(40, 40, 52)); d.point((163, 12), fill=(210, 170, 70))
 
-    # ---------------- people (32x64 sprites, for scale)
+    detail_pass(im, state, rnd)
+
+    # ---------------- people, for scale
     byname = {c["name"]: c for c in town.TOWN}
-    people = {"before": [("Gus Brannock", 120, 150), ("Tilly Brannock", 66, 158), ("Kit Cobb", 170, 166), ("Hamish Cobb", 20, 160)],
+    people = {"before": [("Gus Brannock", 112, 178), ("Tilly Brannock", 60, 188), ("Kit Cobb", 176, 196), ("Hamish Cobb", 6, 192)],
               "ruined": [],
-              "reclaimed": [("Gus Brannock", 120, 150), ("Pip Wainwright", 62, 166), ("Mira Wainwright", 170, 160)]}[state]
+              "reclaimed": [("Gus Brannock", 112, 178), ("Pip Wainwright", 60, 196), ("Mira Wainwright", 176, 190)]}[state]
     for name, x, y in people:
         c = dict(byname[name])
         if name == "Mira Wainwright" and after:
             c["over"] = [("apron",)]
+        veil(im, lambda d, col, x=x, y=y: d.ellipse((x + 7, y + 59, x + 30, y + 66), fill=col), alpha=80)   # contact shadow
         im.alpha_composite(town.character(c), (x, y))
 
     # ---------------- mood grading
@@ -232,21 +336,131 @@ def scene(state):
     if ruined:  # the strange world creeping in stays vivid against the grey
         d = ImageDraw.Draw(im)
         prnd = random.Random(11)
-        for _ in range(700):
+        for _ in range(800):
             x, y = prnd.randrange(W), prnd.randrange(H)
-            near_wall = 172 < y < 186 and 36 < x < 220
-            if not (y > 184 or x < 36 or x > 220 or near_wall) or (96 < x < 160 and y > 182 and prnd.random() < 0.7):
+            if not (y > 212 or x < 36 or x > 220) or (90 < x < 166 and y > 206 and prnd.random() < 0.7):
                 continue
             c = prnd.choice([(150, 100, 180), (124, 84, 160), (176, 130, 206)])
             d.point((x, y), fill=c); d.point((x, y - 1), fill=c)
     return im
 
 
+def detail_pass(im, state, rnd):
+    """Shadows, texture and small lived-in details on top of the Tankard. Light comes from the top left."""
+    ruined, before, after = state == "ruined", state == "before", state == "reclaimed"
+    d = ImageDraw.Draw(im)
+    oak = (84, 56, 38) if not ruined else (62, 48, 40)
+    # plaster texture between the beams (limewash is never flat)
+    for _ in range(500):
+        x, y = rnd.randrange(40, 216), rnd.randrange(103, 148)
+        r, g, b, a = im.getpixel((x, y))
+        if r > 160:
+            f = rnd.choice([0.94, 0.97, 1.03])
+            d.point((x, y), fill=(int(r * f), int(g * f), int(b * f)))
+    if ruined:   # cracks and water stains
+        for x0, y0 in ((60, 104), (160, 112), (110, 130)):
+            pts = [(x0, y0)]
+            for _ in range(6):
+                pts.append((pts[-1][0] + rnd.choice([-2, -1, 1, 2]), pts[-1][1] + 3))
+            d.line(pts, fill=(96, 88, 80))
+        veil(im, lambda dd, c: (dd.rectangle((130, 104, 150, 146), fill=c), dd.rectangle((182, 104, 196, 140), fill=c)), color=(70, 60, 50), alpha=50)
+    # wood grain and a highlight on the left edge of every post
+    for x in (38, 74, 104, 152, 182, 218):
+        for _ in range(10):
+            y = rnd.randrange(102, 146)
+            d.line([(x - 1 + rnd.choice([0, 1]), y), (x - 1 + rnd.choice([0, 1]), y + 3)], fill=shade(oak, 0.75))
+        d.line([(x - 2, 102), (x - 2, 148)], fill=shade(oak, 1.35))
+    # roof: tile highlights, colour variation, chimney shadow on the tiles
+    roof = (172, 70, 52) if not ruined else (118, 64, 54)
+    in_gable = lambda x, y: y >= 34 + abs(x - 128) * 72 / 30
+    patch = lambda x, y: (after or ruined) and 144 < x < 202 and 32 < y < 82
+    for i, y in enumerate(range(28, 104, 6)):
+        t = (y - 22) / 82
+        xl, xr = int(54 - 28 * t), int(202 + 28 * t)
+        for x in range(xl + 2 + (i % 2) * 5, xr - 9, 10):
+            if in_gable(x, y) or in_gable(x + 8, y) or patch(x, y):
+                continue
+            if rnd.random() < 0.3:
+                d.rectangle((x + 1, y + 1, x + 8, y + 4), fill=shade(roof, rnd.choice([0.9, 1.07])))
+            d.line([(x + 1, y + 1), (x + 7, y + 1)], fill=shade(roof, 1.12))
+    veil(im, lambda dd, c: dd.polygon([(200, 50), (214, 58), (214, 74), (200, 66)], fill=c), alpha=90)
+    # cast shadow of the eaves on the upper wall, and of the bargeboards on the gable
+    band(im, 38, 218, 104, 116, 150, 0)
+    veil(im, lambda dd, c: (dd.line([(129, 38), (157, 106)], fill=c, width=5), dd.line([(100, 108), (127, 44)], fill=c, width=2)), alpha=70)
+    # shadow under the jetty on the stone ground floor (deep), and under the brackets
+    band(im, 48, 208, 157, 172, 160, 0)
+    for bx in (48, 92, 164, 208):
+        veil(im, lambda dd, c, bx=bx: dd.polygon([(bx + 1, 160), (bx + 5, 160), (bx + 6, 166)], fill=c), alpha=110)
+    # upper windows: recessed reveals (top and left in shade), glass reflections, sill shadows
+    for x0 in (46, 186):
+        veil(im, lambda dd, c, x0=x0: (dd.rectangle((x0 + 2, 114, x0 + 22, 116), fill=c), dd.rectangle((x0 + 2, 114, x0 + 4, 132), fill=c)), alpha=120)
+        if not ruined:
+            veil(im, lambda dd, c, x0=x0: dd.line([(x0 + 8, 132), (x0 + 20, 116)], fill=c, width=2), color=(255, 250, 230), alpha=110)
+        band(im, x0 - 3, x0 + 27, 141, 147, 140, 0)
+    # ground-floor windows and door: deep stone reveals, shutter shadows, threshold shadow
+    for x0 in (62, 166):
+        veil(im, lambda dd, c, x0=x0: (dd.line([(x0 + 1, 194), (x0 + 1, 166), (x0 + 6, 160), (x0 + 13, 157)], fill=c, width=3)), alpha=130)
+        if not ruined:
+            veil(im, lambda dd, c, x0=x0: dd.line([(x0 + 7, 194), (x0 + 19, 170)], fill=c, width=2), color=(255, 250, 230), alpha=100)
+            veil(im, lambda dd, c, x0=x0: (dd.rectangle((x0 - 2, 172, x0 - 1, 200), fill=c), dd.rectangle((x0 + 39, 172, x0 + 40, 200), fill=c),
+                                          dd.rectangle((x0 - 11, 199, x0 - 2, 200), fill=c), dd.rectangle((x0 + 30, 199, x0 + 39, 200), fill=c)), alpha=110)
+        band(im, x0 - 3, x0 + 29, 198, 203, 120, 0)
+    veil(im, lambda dd, c: dd.line([(114, 203), (114, 176), (119, 168), (127, 163)], fill=c, width=4), alpha=150)
+    if not ruined:
+        for y in range(170, 204, 6):                                                # iron studs on the door
+            for x in (117, 124, 132, 139):
+                if y > 172 or 121 < x < 136:
+                    d.point((x, y), fill=(52, 48, 50))
+        d.ellipse((134, 184, 141, 191), outline=(60, 56, 56))                       # ring handle
+        for _ in range(16):
+            x, y = rnd.randrange(115, 142), rnd.randrange(170, 203)
+            d.line([(x, y), (x, y + 2)], fill=(96, 60, 34))
+        # hops garland over the door, a chalkboard by the step
+        for i in range(13):
+            x = 104 + i * 4; y = 160 - int(5 * (1 - ((i - 6) / 6) ** 2))
+            d.ellipse((x, y, x + 4, y + 4), fill=(110, 150, 70)); d.point((x + 2, y + 4), fill=(200, 210, 150))
+        d.polygon([(160, 214), (170, 194), (180, 214)], fill=(90, 64, 44), outline=INK)
+        d.rectangle((163, 198, 177, 210), fill=(48, 56, 52), outline=INK)
+        for k, yy in enumerate((201, 204, 207)):
+            d.line([(165, yy), (172 + k, yy)], fill=(224, 224, 210))
+    # stones: lit top edges, mossy base, ambient occlusion where the wall meets the ground
+    for _ in range(140):
+        x, y = rnd.randrange(50, 206), rnd.randrange(160, 200)
+        r, g, b, a = im.getpixel((x, y))
+        if 120 < r < 200 and abs(r - g) < 20:
+            d.line([(x, y), (x + 3, y)], fill=shade((r, g, b), 1.12))
+    for _ in range(60):
+        d.point((rnd.randrange(50, 206), rnd.randrange(198, 204)), fill=(96, 126, 64) if not ruined else (90, 92, 70))
+    band(im, 48, 208, 196, 204, 0, 90)
+    # the building's cast shadow on the ground to the right and below
+    veil(im, lambda dd, c: dd.polygon([(218, 106), (234, 116), (234, 214), (210, 214), (208, 206), (218, 200)], fill=c), alpha=70)
+    band(im, 100, 156, 210, 216, 110, 0)
+    # props: shadows to the lower right
+    veil(im, lambda dd, c: (dd.ellipse((186, 210, 222, 220), fill=c), dd.ellipse((12, 226, 48, 234), fill=c),
+                            dd.polygon([(16, 190), (30, 194), (36, 216), (22, 214)], fill=c)), alpha=70)
+    if not ruined:
+        veil(im, lambda dd, c: dd.rectangle((62, 216, 98, 220), fill=c), alpha=70)
+        veil(im, lambda dd, c: dd.ellipse((160, 210, 186, 218), fill=c), alpha=60)
+        # warm lantern light pooling on the wall and cobbles
+        for lx in (98, 158):
+            veil(im, lambda dd, c, lx=lx: dd.ellipse((lx - 14, 162, lx + 14, 196), fill=c), color=(255, 200, 110), alpha=40)
+            veil(im, lambda dd, c, lx=lx: dd.ellipse((lx - 18, 206, lx + 18, 222), fill=c), color=(255, 210, 130), alpha=35)
+            d.rectangle((lx - 2, 173, lx + 2, 179), fill=(255, 230, 150))
+    # rain barrel with a downspout on the right corner
+    d.line([(214, 104), (214, 170)], fill=(110, 110, 118), width=3)
+    d.rectangle((208, 170, 224, 194), fill=(130, 90, 54) if not ruined else (90, 66, 48), outline=INK)
+    for yy in (174, 189):
+        d.line([(208, yy), (224, yy)], fill=(80, 80, 86), width=2)
+    if not ruined:
+        d.rectangle((210, 170, 222, 172), fill=(110, 160, 210))
+    veil(im, lambda dd, c: dd.ellipse((210, 190, 232, 198), fill=c), alpha=70)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    states = [("before", "1 · Before: Harvest Fair (prologue only)", "warm, saturated, crowded; bunting, flowers, smoke, lit windows"),
-              ("ruined", "2 · Ruined: after the Shift", "desaturated and cold; roof hole, boarded and broken glass, sign on one chain, rubble, purple grass"),
-              ("reclaimed", "3 · Reclaimed: the new normal", "patched, not restored: mismatched roof, strange plants, gold Hope lanterns, both charms on the door")]
+    states = [("before", "1 · Before: Harvest Fair (prologue only)", "warm, saturated, crowded; bunting along the jetty, flowers, wheat, smoke, lit windows"),
+              ("ruined", "2 · Ruined: after the Shift", "desaturated and cold; roof hole, broken leaded glass, fallen shutter, sagging jetty bracket, sign on one chain, dead ivy, purple grass"),
+              ("reclaimed", "3 · Reclaimed: the new normal", "patched, not restored: slate patch on the tiles, one fresh unpainted shutter, strange plants, gold Hope lanterns, both charms on the door")]
     S = 2
     bold = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 17)
     reg = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 13)
@@ -254,7 +468,7 @@ def main():
     sheet = Image.new("RGBA", (30 + 3 * (W * S + 24), 110 + H * S + 80), (243, 234, 214, 255))
     d = ImageDraw.Draw(sheet)
     d.text((30, 22), "The Gilded Tankard in three world states", font=title, fill=(58, 42, 26))
-    d.text((30, 60), "Same building, same layout; the state changes overlays, props, people and colour grading.", font=reg, fill=(90, 74, 58))
+    d.text((30, 60), "High-medieval European, a little gothic, a little rustic: stone ground floor, pointed arches, jettied half-timbered upper floor, steep tiled roof, iron sign. Same building in every state.", font=reg, fill=(90, 74, 58))
     for i, (st, label, sub) in enumerate(states):
         im = scene(st)
         im.save(OUT / f"tankard_{st}.png")
@@ -276,3 +490,191 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------- the architectural range
+def ground(d, rnd, grass=(110, 168, 80)):
+    d.rectangle((0, 0, W, H), fill=grass)
+    for _ in range(1000):
+        x, y = rnd.randrange(W), rnd.randrange(H)
+        c = shade(grass, rnd.choice([0.85, 0.92, 1.08]))
+        d.point((x, y), fill=c); d.point((x, y - 1), fill=c)
+
+
+def cottage():
+    """Mira's cottage: rustic, thatched, wattle-and-daub, with a bread oven."""
+    rnd = random.Random(3)
+    im = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+    d = ImageDraw.Draw(im)
+    ground(d, rnd)
+    path = (196, 170, 120)
+    d.polygon([(112, 206), (140, 206), (150, H), (102, H)], fill=path)
+    # vegetable patch and wattle fence
+    d.rectangle((10, 212, 70, 250), fill=(120, 86, 56))
+    for y in range(216, 250, 8):
+        for x in range(14, 68, 8):
+            d.ellipse((x, y, x + 5, y + 4), fill=rnd.choice([(80, 150, 70), (100, 170, 80)]))
+    for x in range(4, 252, 6):
+        if 98 < x < 154:
+            continue
+        d.line([(x, 246), (x, 258)], fill=(120, 84, 50), width=2)
+    d.line([(4, 250), (98, 250)], fill=(150, 110, 70), width=2); d.line([(154, 250), (252, 250)], fill=(150, 110, 70), width=2)
+    # stone chimney on the left
+    stone = (150, 142, 128)
+    d.rectangle((62, 30, 80, 120), fill=stone, outline=INK)
+    for y in range(34, 120, 6):
+        d.line([(63, y), (79, y)], fill=shade(stone, 0.8))
+    d.ellipse((60, 18, 72, 28), fill=(226, 226, 230)); d.ellipse((66, 8, 80, 20), fill=(226, 226, 230))
+    # walls: daub over wattle, oak posts, stone plinth
+    daub = (236, 222, 196)
+    oak = (84, 56, 38)
+    d.rectangle((56, 132, 200, 206), fill=daub, outline=INK)
+    d.rectangle((56, 196, 200, 206), fill=stone, outline=INK)
+    for x in (56, 104, 152, 200):
+        d.rectangle((x - 2, 132, x + 2, 196), fill=oak)
+    d.line([(58, 194), (102, 140)], fill=oak, width=3); d.line([(198, 194), (154, 140)], fill=oak, width=3)
+    # round-topped door painted blue, small shuttered windows
+    d.rounded_rectangle((114, 152, 142, 206), 12, fill=(70, 110, 160), outline=INK)
+    for x in (121, 128, 135):
+        d.line([(x, 156), (x, 204)], fill=(56, 92, 136))
+    d.ellipse((136, 180, 139, 183), fill=(60, 56, 56))
+    for x0 in (70, 162):
+        d.rectangle((x0, 156, x0 + 24, 178), fill=(255, 214, 110), outline=INK)
+        d.line([(x0 + 12, 156), (x0 + 12, 178)], fill=oak, width=2); d.line([(x0, 167), (x0 + 24, 167)], fill=oak, width=2)
+        d.rectangle((x0 - 9, 154, x0 - 2, 180), fill=(170, 70, 60), outline=INK); d.rectangle((x0 + 26, 154, x0 + 33, 180), fill=(170, 70, 60), outline=INK)
+        d.rectangle((x0 - 2, 179, x0 + 26, 184), fill=(120, 84, 50), outline=INK)
+        for i in range(5):
+            d.ellipse((x0 + i * 5, 175, x0 + i * 5 + 4, 179), fill=rnd.choice([(220, 60, 60), (240, 200, 70), (230, 120, 160)]))
+    # thick thatched roof with an eyebrow window (Pip's lantern)
+    thatch = (196, 160, 92)
+    d.pieslice((36, 24, 220, 240), 180, 360, fill=thatch, outline=INK)
+    d.rectangle((36, 131, 220, 138), fill=shade(thatch, 0.75), outline=INK)
+    for _ in range(420):
+        x = rnd.randrange(40, 216); y = rnd.randrange(30, 132)
+        if (x - 128) ** 2 / 92 ** 2 + (y - 132) ** 2 / 108 ** 2 < 1:
+            d.line([(x, y), (x + rnd.choice([-1, 0, 1]), y + 4)], fill=shade(thatch, rnd.choice([0.8, 0.9, 1.1])))
+    d.chord((112, 90, 144, 124), 180, 360, fill=shade(thatch, 0.7), outline=INK)
+    d.rectangle((120, 98, 136, 110), fill=(255, 214, 110), outline=INK)
+    d.ellipse((125, 101, 131, 107), fill=(255, 240, 170))
+    for _ in range(30):
+        d.point((rnd.randrange(44, 212), rnd.randrange(112, 131)), fill=(98, 124, 60))   # moss on the old thatch
+    # clay bread oven
+    d.chord((204, 170, 246, 220), 180, 360, fill=(184, 112, 76), outline=INK)
+    d.rectangle((204, 194, 246, 206), fill=(150, 142, 128), outline=INK)
+    d.chord((216, 182, 234, 204), 180, 360, fill=(40, 30, 28))
+    d.point((224, 190), fill=(255, 160, 80)); d.point((226, 192), fill=(255, 200, 100))
+    # woodpile, a cat
+    for i in range(3):
+        for j in range(4 - i):
+            d.ellipse((10 + j * 10 + i * 5, 190 - i * 8, 20 + j * 10 + i * 5, 198 - i * 8), fill=(150, 104, 64), outline=INK)
+    byname = {c["name"]: c for c in town.TOWN}
+    for name, x, y in (("Mira Wainwright", 150, 188), ("Pip Wainwright", 84, 196)):
+        c = dict(byname[name])
+        if name == "Mira Wainwright":
+            c["hat"] = (None,)
+        im.alpha_composite(town.character(c), (x, y))
+    grade(im, sat=1.1, bright=1.02, tint=(1.03, 1.0, 0.95))
+    return im
+
+
+def abbey():
+    """The Abbey: the town's gothic anchor. Stone, pointed portal, rose window, buttresses, bell-cote."""
+    rnd = random.Random(5)
+    im = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+    d = ImageDraw.Draw(im)
+    ground(d, rnd)
+    stone, dark = (164, 160, 166), (120, 116, 124)
+    slate = (86, 92, 118)
+    # slate roof slopes behind the facade
+    d.polygon([(40, 112), (128, 34), (216, 112)], fill=slate, outline=INK)
+    for k in range(40, 112, 6):
+        t = (k - 34) / 78
+        d.line([(128 - 88 * t, k), (128 + 88 * t, k)], fill=shade(slate, 0.82))
+    # facade with a pointed gable
+    face = [(60, 214), (60, 92), (128, 40), (196, 92), (196, 214)]
+    d.polygon(face, fill=stone, outline=INK)
+    for y in range(96, 214, 7):                                                    # ashlar courses
+        for x in range(62 + (y // 7 % 2) * 7, 196, 14):
+            d.rectangle((x, y, x + 12, y + 5), outline=shade(stone, 0.86))
+    d.line([(60, 92), (128, 40), (196, 92)], fill=shade(stone, 1.15), width=4)      # coping
+    # bell-cote with the Abbey bell (a Hope anchor)
+    d.rectangle((116, 14, 140, 44), fill=stone, outline=INK)
+    d.polygon(gothic_arch(121, 135, 30, 42), fill=(40, 36, 44), outline=INK)
+    d.chord((122, 28, 134, 42), 180, 360, fill=(214, 176, 80)); d.rectangle((122, 35, 134, 37), fill=(214, 176, 80))
+    d.polygon([(112, 16), (144, 16), (128, 0)], fill=slate, outline=INK)
+    d.polygon([(126, 0), (130, 0), (128, -6)], fill=(60, 56, 60))
+    # buttresses with pinnacles and gargoyles
+    for bx in (48, 194):
+        d.polygon([(bx, 216), (bx, 120), (bx + 4, 110), (bx + 10, 110), (bx + 14, 120), (bx + 14, 216)], fill=dark, outline=INK)
+        d.polygon([(bx + 2, 112), (bx + 12, 112), (bx + 7, 90)], fill=dark, outline=INK)
+        d.ellipse((bx + 4, 120, bx + 12, 126), fill=(70, 66, 74))                   # gargoyle head
+        d.point((bx + (2 if bx < 128 else 12), 123), fill=(70, 66, 74))
+    # rose window with stained glass
+    cx, cy, r = 128, 104, 22
+    d.ellipse((cx - r - 3, cy - r - 3, cx + r + 3, cy + r + 3), fill=shade(stone, 1.12), outline=INK)
+    cols = [(180, 50, 60), (60, 90, 170), (220, 180, 70), (70, 140, 90)]
+    for i in range(12):
+        d.pieslice((cx - r, cy - r, cx + r, cy + r), i * 30, i * 30 + 30, fill=cols[i % 4], outline=(50, 46, 50))
+    d.ellipse((cx - 6, cy - 6, cx + 6, cy + 6), fill=(240, 220, 150), outline=(50, 46, 50))
+    # lancet windows with stained glass
+    for x0 in (74, 168):
+        for dx in (0, 10):
+            glass_pane(im, gothic_arch(x0 + dx, x0 + dx + 8, 150, 176), (70, 100, 170), (50, 46, 56), INK)
+            d.rectangle((x0 + dx + 2, 162, x0 + dx + 5, 166), fill=(190, 60, 60))
+    # great portal: recessed pointed arches, double oak doors
+    for i, c in enumerate((shade(stone, 1.18), stone, shade(stone, 1.1))):
+        d.polygon(gothic_arch(98 + i * 5, 158 - i * 5, 176, 214), fill=c, outline=INK)
+    doors = gothic_arch(113, 143, 180, 214)
+    d.polygon(doors, fill=(104, 66, 40), outline=INK)
+    d.line([(128, 166), (128, 214)], fill=INK)
+    for y in (186, 202):
+        d.line([(115, y), (126, y)], fill=(40, 36, 36), width=2); d.line([(130, y), (141, y)], fill=(40, 36, 36), width=2)
+    d.rectangle((90, 214, 166, 222), fill=shade(stone, 1.1), outline=INK)
+    d.rectangle((82, 222, 174, 230), fill=shade(stone, 1.05), outline=INK)
+    # herb beds and a stone cross
+    for x0 in (8, 204):
+        d.rectangle((x0, 226, x0 + 44, 254), fill=(120, 86, 56), outline=INK)
+        for _ in range(24):
+            x, y = rnd.randrange(x0 + 3, x0 + 41), rnd.randrange(229, 252)
+            d.point((x, y), fill=rnd.choice([(90, 150, 80), (150, 120, 190), (230, 210, 120)]))
+    d.rectangle((20, 180, 26, 214), fill=dark, outline=INK); d.rectangle((14, 188, 32, 194), fill=dark, outline=INK)
+    byname = {c["name"]: c for c in town.TOWN}
+    for name, x, y in (("Father Aldous", 104, 168), ("Brother Fennick", 144, 172), ("Sabine Marsh", 216, 178)):
+        im.alpha_composite(town.character(byname[name]), (x, y))
+    grade(im, sat=1.05, bright=1.0, tint=(1.0, 1.0, 1.02))
+    return im
+
+
+def range_sheet():
+    S = 2
+    bold = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 17)
+    reg = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 13)
+    title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 26)
+    panels = [
+        (cottage(), "Rustic · Mira's cottage", "thatch, wattle-and-daub between oak posts, stone plinth, painted door and shutters, clay bread oven, wattle fence, veg patch"),
+        (scene("before"), "Town · the Gilded Tankard", "rubble-stone ground floor with pointed arches, jettied half-timbered upper floor in ochre limewash, steep red tiles, iron sign"),
+        (abbey(), "Gothic · the Abbey", "dressed stone, steep slate roof, pointed portal, rose window and lancets in stained glass, buttresses, gargoyles, bell-cote"),
+    ]
+    sheet = Image.new("RGBA", (30 + 3 * (W * S + 24), 110 + H * S + 80), (243, 234, 214, 255))
+    d = ImageDraw.Draw(sheet)
+    d.text((30, 22), "Hollowmere's architecture: rustic to gothic", font=title, fill=(58, 42, 26))
+    d.text((30, 60), "High-medieval northern Europe (think Rothenburg, Colmar, York's Shambles, Bruges): lively colours on old stone and timber.", font=reg, fill=(90, 74, 58))
+    for i, (im, label, sub) in enumerate(panels):
+        x = 30 + i * (W * S + 24)
+        sheet.alpha_composite(im.resize((W * S, H * S), Image.NEAREST), (x, 96))
+        d.text((x, 104 + H * S), label, font=bold, fill=(42, 30, 20))
+        lines, cur = [], ""
+        for w in sub.split():
+            t = (cur + " " + w).strip()
+            if d.textlength(t, font=reg) <= W * S:
+                cur = t
+            else:
+                lines.append(cur); cur = w
+        lines.append(cur)
+        for j, line in enumerate(lines):
+            d.text((x, 128 + H * S + j * 17), line, font=reg, fill=(90, 74, 58))
+    sheet.save(OUT / "architecture_range.png")
+
+
+if __name__ == "__main__":
+    range_sheet()
