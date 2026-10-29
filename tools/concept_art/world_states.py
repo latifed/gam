@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import town  # noqa: E402
+import roofs  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[2] / "docs" / "concept-art" / "world"
 W, H = 256, 264
@@ -112,12 +113,6 @@ def scene(state):
     roof = (172, 70, 52) if not ruined else (118, 64, 54)
     shutter = (70, 120, 96)
 
-    # chimney
-    d.rectangle((182, 6, 200, 50), fill=stone, outline=INK)
-    for y in range(10, 50, 5):
-        d.line([(183, y), (199, y)], fill=shade(stone, 0.8))
-    d.rectangle((180, 2, 202, 7), fill=shade(stone, 0.9), outline=INK)
-
     # ground floor: rubble stone
     d.rectangle((48, 152, 208, 204), fill=stone, outline=INK)
     for y in range(154, 204, 6):
@@ -198,48 +193,46 @@ def scene(state):
                 d.line([(x0 + 1 + i * 6, 135), (x0 + 1 + i * 6, 129)], fill=(70, 120, 80))
                 d.ellipse((x0 - 1 + i * 6, 125, x0 + 3 + i * 6, 129), fill=rnd.choice([(170, 120, 230), (110, 210, 200)]))
 
-    # ---------------- steep roof with a pointed front gable (wall dormer)
-    d.polygon([(26, 104), (230, 104), (202, 22), (54, 22)], fill=roof, outline=INK)
-    for i, y in enumerate(range(28, 104, 6)):
-        t = (y - 22) / 82
-        xl, xr = 54 - 28 * t, 202 + 28 * t
-        d.line([(xl, y), (xr, y)], fill=shade(roof, 0.75))
-        for x in range(int(xl) + (i % 2) * 5, int(xr), 10):
-            d.line([(x, y), (x, y + 5)], fill=shade(roof, 0.82))
-    d.line([(54, 22), (202, 22)], fill=shade(roof, 1.25), width=2)
-    for _ in range(40 if not ruined else 90):                                     # moss on the old tiles
-        x = rnd.randrange(34, 222); y = rnd.randrange(80, 103)
-        d.point((x, y), fill=(98, 124, 60))
-    # front gable: half-timbered, pointed window, carved bargeboards, finial
-    d.polygon([(100, 104), (156, 104), (128, 36)], fill=plaster, outline=INK)
-    d.line([(128, 40), (128, 104)], fill=oak, width=3)
-    d.line([(104, 100), (152, 100)], fill=oak, width=3)
-    win = gothic_arch(119, 137, 78, 96)
+    # ---------------- roof, top-down 3/4: front slope + a front gable whose slopes run away from us
+    roofs.slope(im, [(24, 34), (232, 34), (232, 104), (24, 104)], roof, "tile", seed=2)
+    roofs.verge(im, 24, 32, 104, roof, "l"); roofs.verge(im, 232, 32, 104, roof, "r")
+    for _ in range(40 if not ruined else 110):                                    # moss on the lowest courses
+        x = rnd.randrange(28, 228); y = rnd.randrange(86, 103)
+        if not 92 < x < 164:
+            d.point((x, y), fill=(98, 124, 60)); d.point((x + 1, y), fill=(84, 110, 52))
+    hole = [(176, 46), (206, 46), (206, 52), (214, 52), (214, 64), (220, 64), (220, 82), (204, 82), (204, 88), (186, 88), (186, 82), (172, 82), (172, 64), (168, 64), (168, 52), (176, 52)]   # follows the tile courses
+    if ruined:   # a hole through tiles and battens down to the rafters
+        d.polygon(hole, fill=(22, 18, 22), outline=INK)
+        for x in (180, 196, 210):                                                 # rafters run eave to ridge
+            d.line([(x, 47), (x, 87)], fill=(96, 64, 42), width=3); d.line([(x - 1, 47), (x - 1, 87)], fill=(126, 88, 58))
+        for y in (58, 72):                                                        # broken battens
+            d.line([(173, y), (205, y + 1)], fill=(120, 84, 52), width=2)
+        for _ in range(26):                                                       # loose and missing tiles
+            x, y = rnd.randrange(40, 226), rnd.randrange(40, 100)
+            if 92 < x < 164:
+                continue
+            d.rectangle((x, y, x + 7, y + 4), fill=(26, 22, 26)); d.line([(x, y + 2), (x + 7, y + 2)], fill=(90, 62, 42))
+    if after:    # patched with second-hand slate and a few new tiles
+        roofs.slope(im, hole, (112, 108, 136), "slate", seed=9)
+        for (x, y) in ((60, 64), (68, 64), (64, 70)):
+            d.rectangle((x, y, x + 7, y + 5), fill=(206, 104, 76), outline=shade((206, 104, 76), 0.6))
+    roofs.ridge(im, 22, 234, 34, roof)
+    roofs.chimney(im, 54, 70, 12, 56, stone, smoke=not ruined)
+    roofs.slope(im, [(96, 107), (128, 56), (128, 40), (96, 91)], roof, "tile", vertical=True, light=1.1, seed=4)
+    roofs.slope(im, [(160, 107), (128, 56), (128, 40), (160, 91)], roof, "tile", vertical=True, light=0.74, seed=5)
+    d.line([(96, 91), (128, 40), (160, 91)], fill=shade(roof, 0.45), width=2)    # valleys
+    roofs.eave(im, 22, 96, 103, roof); roofs.eave(im, 160, 234, 103, roof)
+    # gable wall: limewash, king post and collar, pointed window
+    d.polygon([(100, 104), (156, 104), (128, 62)], fill=plaster, outline=INK)
+    d.line([(128, 64), (128, 103)], fill=oak, width=3)
+    d.line([(112, 89), (144, 89)], fill=oak, width=3)
+    d.line([(103, 101), (112, 89)], fill=oak, width=2); d.line([(153, 101), (144, 89)], fill=oak, width=2)
+    win = gothic_arch(121, 135, 96, 104)
     if ruined:
-        d.polygon(win, fill=(36, 30, 34), outline=INK)
+        d.polygon(gothic_arch(122, 134, 82, 88), fill=(36, 30, 34), outline=INK)
     else:
-        d.polygon(win, fill=(255, 214, 110), outline=INK)
-        d.line([(128, 68), (128, 96)], fill=oak, width=2)
-    for side in (-1, 1):
-        d.line([(128, 32), (128 + side * 32, 108)], fill=(70, 46, 30), width=5)    # bargeboards
-        for k in range(4):
-            px = 128 + side * (8 + k * 7); py = 32 + int((8 + k * 7) * 76 / 32)
-            d.point((px, py + 3), fill=(120, 84, 50))
-    d.polygon([(125, 32), (131, 32), (128, 22)], fill=(60, 56, 60), outline=INK)   # iron finial
-    d.line([(128, 22), (128, 16)], fill=(60, 56, 60))
-
-    if ruined:  # roof hole with broken rafters
-        d.polygon([(150, 34), (192, 40), (200, 70), (166, 80), (146, 62)], fill=(24, 20, 22), outline=INK)
-        for x0, x1 in ((152, 186), (150, 196)):
-            d.line([(x0, 52), (x1, 60)], fill=(90, 60, 40), width=2)
-        for _ in range(16):
-            x, y = rnd.randrange(60, 200), rnd.randrange(26, 98)
-            d.rectangle((x, y, x + 3, y + 2), fill=(24, 20, 22))
-    if after:   # patched with slate and a few new tiles
-        d.polygon([(150, 34), (192, 40), (200, 70), (166, 80), (146, 62)], fill=(118, 110, 138), outline=INK)
-        for y in range(40, 78, 5):
-            d.line([(148, y), (198, y)], fill=(96, 88, 118))
-        d.rectangle((66, 60, 82, 70), fill=(200, 100, 74), outline=INK)
+        glass_pane(im, gothic_arch(122, 134, 82, 88), (255, 214, 110), (150, 110, 60), INK)
+    roofs.bargeboards(im, (96, 107), (128, 58), (160, 107), oak)
 
     # ---------------- wrought-iron sign bracket with a scroll, hanging board
     iron = (44, 40, 44)
@@ -288,10 +281,6 @@ def scene(state):
             d.ellipse((lx - 9, 165, lx + 9, 187), fill=(255, 226, 150))
         d.rectangle((lx - 3, 172, lx + 3, 180), fill=(255, 214, 110) if before else (255, 200, 90), outline=INK)
         d.polygon([(lx - 4, 172), (lx + 4, 172), (lx, 168)], fill=iron)
-    # chimney smoke
-    if not ruined:
-        for (sx, sy, r) in ((192, -2, 5), (186, -8, 6)):
-            d.ellipse((sx - r, sy - r, sx + r, sy + r), fill=(226, 226, 230))
     # harvest fair decorations
     if before:
         for i, x in enumerate(range(30, 226, 10)):
@@ -370,23 +359,9 @@ def detail_pass(im, state, rnd):
             y = rnd.randrange(102, 146)
             d.line([(x - 1 + rnd.choice([0, 1]), y), (x - 1 + rnd.choice([0, 1]), y + 3)], fill=shade(oak, 0.75))
         d.line([(x - 2, 102), (x - 2, 148)], fill=shade(oak, 1.35))
-    # roof: tile highlights, colour variation, chimney shadow on the tiles
-    roof = (172, 70, 52) if not ruined else (118, 64, 54)
-    in_gable = lambda x, y: y >= 34 + abs(x - 128) * 72 / 30
-    patch = lambda x, y: (after or ruined) and 144 < x < 202 and 32 < y < 82
-    for i, y in enumerate(range(28, 104, 6)):
-        t = (y - 22) / 82
-        xl, xr = int(54 - 28 * t), int(202 + 28 * t)
-        for x in range(xl + 2 + (i % 2) * 5, xr - 9, 10):
-            if in_gable(x, y) or in_gable(x + 8, y) or patch(x, y):
-                continue
-            if rnd.random() < 0.3:
-                d.rectangle((x + 1, y + 1, x + 8, y + 4), fill=shade(roof, rnd.choice([0.9, 1.07])))
-            d.line([(x + 1, y + 1), (x + 7, y + 1)], fill=shade(roof, 1.12))
-    veil(im, lambda dd, c: dd.polygon([(200, 50), (214, 58), (214, 74), (200, 66)], fill=c), alpha=90)
     # cast shadow of the eaves on the upper wall, and of the bargeboards on the gable
     band(im, 38, 218, 104, 116, 150, 0)
-    veil(im, lambda dd, c: (dd.line([(129, 38), (157, 106)], fill=c, width=5), dd.line([(100, 108), (127, 44)], fill=c, width=2)), alpha=70)
+    veil(im, lambda dd, c: dd.line([(102, 103), (127, 66)], fill=c, width=3), alpha=70)
     # shadow under the jetty on the stone ground floor (deep), and under the brackets
     band(im, 48, 208, 157, 172, 160, 0)
     for bx in (48, 92, 164, 208):
@@ -519,12 +494,7 @@ def cottage():
             continue
         d.line([(x, 246), (x, 258)], fill=(120, 84, 50), width=2)
     d.line([(4, 250), (98, 250)], fill=(150, 110, 70), width=2); d.line([(154, 250), (252, 250)], fill=(150, 110, 70), width=2)
-    # stone chimney on the left
     stone = (150, 142, 128)
-    d.rectangle((62, 30, 80, 120), fill=stone, outline=INK)
-    for y in range(34, 120, 6):
-        d.line([(63, y), (79, y)], fill=shade(stone, 0.8))
-    d.ellipse((60, 18, 72, 28), fill=(226, 226, 230)); d.ellipse((66, 8, 80, 20), fill=(226, 226, 230))
     # walls: daub over wattle, oak posts, stone plinth
     daub = (236, 222, 196)
     oak = (84, 56, 38)
@@ -545,19 +515,31 @@ def cottage():
         d.rectangle((x0 - 2, 179, x0 + 26, 184), fill=(120, 84, 50), outline=INK)
         for i in range(5):
             d.ellipse((x0 + i * 5, 175, x0 + i * 5 + 4, 179), fill=rnd.choice([(220, 60, 60), (240, 200, 70), (230, 120, 160)]))
-    # thick thatched roof with an eyebrow window (Pip's lantern)
-    thatch = (196, 160, 92)
-    d.pieslice((36, 24, 220, 240), 180, 360, fill=thatch, outline=INK)
-    d.rectangle((36, 131, 220, 138), fill=shade(thatch, 0.75), outline=INK)
-    for _ in range(420):
-        x = rnd.randrange(40, 216); y = rnd.randrange(30, 132)
-        if (x - 128) ** 2 / 92 ** 2 + (y - 132) ** 2 / 108 ** 2 < 1:
-            d.line([(x, y), (x + rnd.choice([-1, 0, 1]), y + 4)], fill=shade(thatch, rnd.choice([0.8, 0.9, 1.1])))
-    d.chord((112, 90, 144, 124), 180, 360, fill=shade(thatch, 0.7), outline=INK)
-    d.rectangle((120, 98, 136, 110), fill=(255, 214, 110), outline=INK)
-    d.ellipse((125, 101, 131, 107), fill=(255, 240, 170))
-    for _ in range(30):
-        d.point((rnd.randrange(44, 212), rnd.randrange(112, 131)), fill=(98, 124, 60))   # moss on the old thatch
+    # thatch, top-down 3/4: a deep front slope with softened corners, a block-cut ridge and a thick eave roll
+    thatch = (198, 162, 94)
+    roofs.slope(im, [(38, 62), (44, 50), (56, 44), (200, 44), (212, 50), (218, 62), (220, 128), (36, 128)], thatch, "thatch", seed=6)
+    for _ in range(34):                                                            # moss and darker weathering
+        x, y = rnd.randrange(42, 214), rnd.randrange(96, 126)
+        d.point((x, y), fill=(98, 124, 60)); d.point((x + 1, y), fill=(120, 110, 70))
+    # eyebrow dormer: the thatch rolls up and over Pip's window
+    roofs.slope(im, [(104, 112), (110, 98), (120, 92), (136, 92), (146, 98), (152, 112)], shade(thatch, 1.08), "thatch", seed=8)
+    d.rectangle((118, 102, 138, 116), fill=(255, 214, 110), outline=INK)
+    d.line([(128, 102), (128, 116)], fill=(84, 56, 38), width=2)
+    d.ellipse((121, 106, 126, 111), fill=(255, 240, 170))                         # the lantern
+    d.line([(116, 101), (140, 101)], fill=shade(thatch, 0.55), width=2)            # shadow under the eyebrow
+    # block-cut ridge with scalloped edge and crossed hazel spars
+    ridge_c = shade(thatch, 0.88)
+    d.rounded_rectangle((48, 36, 208, 50), 6, fill=ridge_c, outline=INK)
+    for x in range(52, 204, 10):
+        d.chord((x, 44, x + 10, 56), 0, 180, fill=ridge_c, outline=INK)
+    for x in range(54, 204, 8):
+        d.line([(x, 39), (x + 6, 47)], fill=shade(ridge_c, 0.7)); d.line([(x + 6, 39), (x, 47)], fill=shade(ridge_c, 0.7))
+    d.line([(52, 38), (204, 38)], fill=shade(ridge_c, 1.2))
+    # eave roll: the thick, rounded lower edge of the thatch, with its shadow on the wall
+    roofs.slope(im, [(32, 126), (224, 126), (226, 132), (222, 138), (34, 138), (30, 132)], shade(thatch, 0.92), "thatch", seed=7)
+    d.line([(34, 139), (222, 139)], fill=shade(thatch, 0.5), width=2)
+    band(im, 56, 200, 140, 150, 140, 0)
+    roofs.chimney(im, 62, 78, 22, 64, stone, seed=5)
     # clay bread oven
     d.chord((204, 170, 246, 220), 180, 360, fill=(184, 112, 76), outline=INK)
     d.rectangle((204, 194, 246, 206), fill=(150, 142, 128), outline=INK)
@@ -585,11 +567,13 @@ def abbey():
     ground(d, rnd)
     stone, dark = (164, 160, 166), (120, 116, 124)
     slate = (86, 92, 118)
-    # slate roof slopes behind the facade
-    d.polygon([(40, 112), (128, 34), (216, 112)], fill=slate, outline=INK)
-    for k in range(40, 112, 6):
-        t = (k - 34) / 78
-        d.line([(128 - 88 * t, k), (128 + 88 * t, k)], fill=shade(slate, 0.82))
+    # slate roof, top-down 3/4: the nave runs away from us, so both slopes are parallelograms
+    roofs.slope(im, [(56, 96), (128, 40), (128, 6), (56, 62)], slate, "slate", vertical=True, light=1.12, seed=11)
+    roofs.slope(im, [(200, 96), (128, 40), (128, 6), (200, 62)], slate, "slate", vertical=True, light=0.72, seed=12)
+    d.rectangle((126, 6, 130, 40), fill=(110, 116, 128), outline=INK)            # lead ridge with cresting
+    for y in range(9, 39, 5):
+        d.point((128, y), fill=(170, 176, 186))
+    d.line([(56, 62), (56, 96)], fill=shade(slate, 0.5), width=2); d.line([(200, 62), (200, 96)], fill=shade(slate, 0.5), width=2)   # eaves
     # facade with a pointed gable
     face = [(60, 214), (60, 92), (128, 40), (196, 92), (196, 214)]
     d.polygon(face, fill=stone, outline=INK)
