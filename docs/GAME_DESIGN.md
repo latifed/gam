@@ -729,3 +729,37 @@ The player loves *change and progress* most, so that's a pillar: **everything yo
 - **The tension:** a hopeful person is the ripest crop. On Harvest nights the Dungeon Master reaches for the most hopeful people first. Protecting them (anchors, being together, festivals) is part of the night.
 
 The full list of each person's three stages and who gives whom their Hope accent: [CHARACTERS.md, "Rescued → Purpose → Hope for everyone"](CHARACTERS.md#rescued--purpose--hope-for-everyone).
+
+## 26. Monsters: the Dungeon Master's farm (v0.17)
+
+**One theme for every enemy:** the Dungeon Master is a farmer, so his creatures are his **farmhands, livestock, tools and pests**. They're built from farm things (sackcloth, twine, straw, jar glass, iron hooks and blades) in the same muted palette as the world, with one unnatural accent: the sickly **gold glow of stolen hope** in their eyes and seams. **Defeating them releases that gold as loose hope**, which drifts back toward town: fighting literally takes hope back.
+
+**Combat roles** (harder, readable combat, §22): every monster has **one clear wind-up** you learn to read.
+chaff (many, weak) · swarm (tiny, fast) · tank (slow, heavy) · ranged · support (buffs others) · hazard (part of the floor) · **rescue** (people under his control: subdue, don't kill, and they join the Rescued stage, §25).
+
+### 26.1 In and around town
+| Monster | Role | What it is | Behaviour |
+|---|---|---|---|
+| **Wraiths** | swarm | the disturbed dead of the Old Graveyard | drift through walls, drain *energy* (never progress); calmed by Consecration or Settling (§23) |
+| **Grave-walkers** | chaff | the dead whose graves you dug for soil | slow, carry handfuls of their own earth; reaching the Strange Garden they muddle a plot (a small problem, §18.5) |
+| **Bone-rattlers** | tank | skeletons; only when Unrest is very high | march in step, shields of old coffin lids |
+| **Reapers** | special | the Harvest-hands; only on Harvest nights | tall shadows with scythes and sacks; they don't fight, they **steal loose hope**; they flee from lanterns and anchors; chase them off |
+
+### 26.2 The wilds
+| Monster | Role | What it is | Behaviour |
+|---|---|---|---|
+| **Herders** | support | the Dungeon Master's sheepdogs: black, lantern-eyed hounds ("Baa-aaa") | they don't kill, they **herd**: they scattered the townsfolk during the raid and keep herding survivors away from town; bark to call others |
+| **Lantern-moths** | harmless | big pale moths drawn to hope | follow hopeful people; Sabine reads omens in their flight |
+| **Purple grazers** | neutral | strange-world deer-like animals with glassy antlers | flee; can be tamed later (a second animal after the ox) |
+
+### 26.3 The dungeon, by level
+| Level | Monsters | Boss |
+|---|---|---|
+| **1. The Roots** | **Grubbers**: puny goblins in sackcloth with tiny hoes, the farm's planters (chaff) · **Rootlings**: walking root bundles (Sprout is a runaway one) (swarm) · **Burrowers**: blind iron-clawed moles that tunnel under you (tank) · **metal-vine snares** (hazard) | **Gnashgut, Foreman of the Roots**: a goblin chief with giant pruning shears; telegraphed snip |
+| **2. The Granary** | **Gleaners**: sack-mice swarming after spilled hope (swarm) · **Strawmen**: scarecrows guarding the stores, stuffed with old harvests (tank) · **Jar-keepers**: skeletal clerks who label jars of hope and throw them (ranged) | **The Granary Warden**: a huge skeleton with a ledger and scales, weighing hope |
+| **3. The Press** | **Press-hands**: rust golems (tank) · **Gear-imps**: furnace imps spitting sparks (ranged) · **Overseers**: masked figures with bells that speed up the others (support) · **Husks**: hollowed people from harvested towns working the machines (**rescue**) | **The Foreman**: a walking press; Bruna is chained to its controls |
+| **4. The Cellar** | **Must-caps**: fungus grown on casks, burst into spores (hazard/ranged) · **Barrel-mimics** (ambush) · **Cellarers**: brutes rolling barrels (tank) · **The Hollowed**: sleepwalking people drained of hope; guide them out (**rescue**) · **despair fumes** that slow you and dim your colour (hazard) | **The Vintner**: the Dungeon Master's sommelier, who tastes hope; keeps Edric |
+| **5. The Table** | **Waiters** and **Carvers**: the Dungeon Master's servants, elegant and deadly | **The Dungeon Master** |
+
+- **Percival** appears on every level mid-"escape"; **Tilly** (Granary) and **Tam** (Press) are rescues with their own fights around them.
+- The earlier tier list (§19.2) keeps its *look* per level; these names and roles replace its enemy column.
