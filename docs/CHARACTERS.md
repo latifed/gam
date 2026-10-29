@@ -416,3 +416,47 @@ Sabine's husband, a gentle, devout weaver. During the fever year he chose Aldous
 - **Ties:** **You**, **Winnie** (rival: "that girl irons with her opinions").
 - **In the game:** Found when you reclaim your manor. Runs the household: breakfast, storage, and the occasional devastating piece of advice.
 - **Voice:** *"Monsters at the gate. Very well. Tea first."*
+
+---
+
+## Rescued → Purpose → Hope for everyone
+
+How each person looks when found, what their purpose unlocks, and the **Hope accent** they wear at the end, which is usually a gift from someone else. (System: [GAME_DESIGN.md §25](GAME_DESIGN.md). Sprites for six of them: [concept-art/town/stages.png](concept-art/town/stages.png).)
+
+| Person | Rescued (found as) | Purpose (unlocks) | Hope accent (gift from) |
+|---|---|---|---|
+| Father Aldous | crypt dust, torn cassock, broken wrist bound by Sabine | Consecration, sermons, the Abbey bell | their mother's prayer beads (**Hester**, the day they make peace) |
+| Hester Pell | wilds-worn, splintered cane | reading people: hints about who needs help | a new carved cane (**Edric**) |
+| Mira Wainwright | torn dress, hair loose, no hat | the bakery: daily bread, shared meals | a paper flower (**Pip**) and her felt hat back |
+| Edric Wainwright | hollow-eyed, shirt in rags, carving knife | the workshop: building upgrades, toys | a bread-dough knot charm on a cord (**Mira**) |
+| Pip Wainwright | soot-streaked, clutching his lantern | sketchbook, errands with Sprout | a carved wooden lantern (**Edric**) |
+| Martha Cobb | dusty, bonnet lost | tailoring, festival clothes | a new bonnet sewn from scraps (**Kat**) |
+| Hamish Cobb | filthy, belt pulled tight, hugging a grain sack | the shop, storage | a festival rosette (**Cordelia**, of all people) |
+| Kit Cobb | scraped knees, slingshot snapped | scouting, errands | Tam's old wooden sword (**Tam**) |
+| Kat Cobb | ribbons lost, stolen pockets full | her map of the wilds | Kit's flat cap (the twins swap) (**Kit**) |
+| Ambrose Dunmore | still in his fair clothes, flour everywhere | the mill: flour | a ribbon from the real fair (**Hilde**) |
+| Hilde Dunmore | still knitting the same scarf | mill accounts; knits for the town | Ambrose's dried fair-flower (**Ambrose**) |
+| Nell Brannock | cellar-pale, apron in tatters | kitchen and brewery | Sabine's charm hidden in her kerchief (**Sabine**) |
+| Gus Brannock | overgrown beard, dusty, no apron | the Tankard | Tilly's ribbon round his wrist (**Tilly**) |
+| Tilly Brannock | Granary rags, hair down, chafed wrists | the bar; her escape routes help in the dungeon | a strange flower in her hair (**Linden**) |
+| Capt. Percival Varr | the navy coat in rags, no medals | gate guard | a medal hammered from a tin lid (**Pip**) |
+| Cordelia Varr | wilds-worn, ledger clutched to her chest | the Counting House | a torn-out ledger page folded into a rose (**Winnie**): a forgiven debt |
+| Winnie Crane | dust in her cap, sleeves rolled | hireable helper | a tea-shop apron (**Dorrit**: rivals turned friends) |
+| Ignatius Thorne | moth-eaten robe, beard full of cobwebs | arcane research, the glyphs | Juniper's star clip on his hat (**Juniper**) |
+| Rowan Thorne | root-scarred arms, vines in his hair | farming, root lore | a sprig of the first wheat harvest in his hat (**Elsa**) |
+| Elsa Thorne | wilds-worn, baby on her hip | orchard, grafting | apple blossom in her braid (**Rowan**) |
+| Juniper Thorne | wilds-worn, star clip lost | arcane helper | a paper crown (**Pip**) |
+| Bram Thorne | swaddled in a cloak | (first word: "light") | a lantern charm on his cradle (**Pip**) |
+| Garrick Fletcher | hiding in hay, torch burnt out | stables, the ox, the mules | a braided horsehair bracelet (**Wren**) |
+| Wren Fletcher | bloodied, quiver half-empty | first companion, hunting | her father's old hunting horn (**Garrick**) |
+| Tam Fletcher | Press soot, a real sword he shouldn't have | guard trainee | Holt's old helmet, replacing the pot (**Holt**) |
+| Bruna Hammersley | burns, soot, forearms bandaged | master smithing | the charm Oswin forged (**Oswin**) |
+| Dag Hammersley | wilds-worn, dented shield | armour and shields | a shield painted by the children (**Kit, Kat and Pip**) |
+| Oswin | bandaged, arm in a sling | the forge: vine cutters, tools | Bruna's red bandana (**Bruna**) |
+| Sabine Marsh | weeks of crypt dust; Parson never left | Settling, medicine, omens | a strange flower in her hair (**Linden**) |
+| Linden Marsh | wilds-worn, hands raw from digging | the herb garden | Tilly's ribbon (**Tilly**), if he finally says it |
+| Sgt. Holt Barrow | dented mail, limping | defence, training at the Guild Hall | a pint token from the Tankard (**Gus**) |
+| Lewin Barrow | ink-stained, spectacles cracked | research, the Chronicle | a quill cut from one of Parson's feathers (**Sabine**) |
+| Brother Fennick | crypt dust, candle stubs in every pocket | Abbey chores, the go-between | a brass candle-holder (**Aldous**) *and* a herb pouch (**Sabine**): both |
+| You | — | — | the player chooses who gives you yours |
+| Dorrit | cellar dust, the family silver in her apron | your household | a teacup brooch (**Winnie**) |

@@ -698,9 +698,66 @@ def character(c):
         if kind == "charms":  # bone charms on a cord
             put(im, [(13, b.S + 1), (14, b.S + 2), (15, b.S + 3), (16, b.S + 3), (17, b.S + 2), (18, b.S + 1)], (90, 70, 50))
             put(im, [(14, b.S + 3), (16, b.S + 4), (16, b.S + 5), (18, b.S + 2)], (232, 224, 200))
+    stage_overlays(im, b)
     if c.get("streak"):
         put(im, [(b.x1 - 3, b.y0 + i) for i in range(-1, 6)] + [(b.x1 + 1, b.y0 + 8 + i) for i in range(0, 14)], (196, 194, 192))
     return im
+
+
+def stage_overlays(im, b):
+    """Wear and care: rags, dirt and soot for the rescued; small personal accents for the hopeful."""
+    c = b.c
+    rnd = __import__("random").Random(len(c["name"]))
+    px = im.load()
+    for ov in c.get("over", []):
+        kind, *arg = ov if isinstance(ov, tuple) else (ov,)
+        if kind == "tatters":       # ragged hem and sleeves
+            for x in range(4, 28):
+                for y in range(48, 60):
+                    if px[x, y][3] and y >= 52 + (x * 7 % 5) and px[x, y][:3] not in [ramp(b.c.get("shoes", (70, 46, 32)))[k] for k in range(4)]:
+                        if y < 56:
+                            px[x, y] = (0, 0, 0, 0)
+            for (x, y) in ((b.L - 3, b.S + 9), (b.R + 3, b.S + 10), (b.L + 2, b.W + 3)):
+                if 0 <= x < 32 and px[x, y][3]:
+                    px[x, y] = (0, 0, 0, 0)
+            for x in range(1, 31):     # re-outline the torn edge so it reads as cloth, not as a gap
+                for y in range(46, 58):
+                    if px[x, y][3] and not px[x, y + 1][3]:
+                        r, g, bb, al = px[x, y]
+                        px[x, y] = (int(r * 0.45), int(g * 0.45), int(bb * 0.45), al)
+        elif kind == "dirt":
+            for _ in range(22):
+                x, y = rnd.randrange(b.L - 3, b.R + 4), rnd.randrange(b.S, 57)
+                if 0 <= x < 32 and px[x, y][3]:
+                    r, g, bb, a = px[x, y]
+                    px[x, y] = (int(r * 0.7 + 30), int(g * 0.68 + 20), int(bb * 0.6 + 10), a)
+            for (x, y) in ((b.x0 + 3, b.eye_y + 4), (b.x1 - 4, b.eye_y + 5), (b.x0 + 5, b.mouth_y + 1)):
+                put(im, [(x, y)], b.skin[1])
+        elif kind == "soot":
+            put(im, [(b.x0 + 3, b.eye_y + 4), (b.x0 + 4, b.eye_y + 4), (b.x1 - 3, b.y0 + 3), (b.L + 2, b.S + 6), (b.R - 2, b.S + 9)], (70, 66, 66))
+        elif kind == "tired":
+            put(im, [(b.x0 + 3, b.eye_y + 3), (b.x0 + 4, b.eye_y + 3), (b.x1 - 4, b.eye_y + 3), (b.x1 - 3, b.eye_y + 3)], b.skin[1])
+        elif kind == "patches":
+            for (x, y) in ((b.L + 1, b.W + 6), (b.R - 4, b.S + 4)):
+                put(im, [(x + i, y + j) for i in range(3) for j in range(3) if px[x + i, y + j][3]], (150, 130, 100))
+                put(im, [(x, y), (x + 2, y + 2)], (90, 70, 50))
+        elif kind == "flower":      # tucked behind the ear / in the hair band
+            col = arg[0]
+            put(im, [(b.x1, b.y0 + 3), (b.x1 + 1, b.y0 + 2), (b.x1 + 1, b.y0 + 4), (b.x1 + 2, b.y0 + 3)], col)
+            put(im, [(b.x1 + 1, b.y0 + 3)], (250, 230, 140))
+        elif kind == "scarf":
+            col = ramp(arg[0])
+            put(im, [(x, b.S) for x in range(12, 20)] + [(x, b.S + 1) for x in range(12, 20)], col[2])
+            put(im, [(18, b.S + 2), (18, b.S + 3), (19, b.S + 4), (18, b.S + 5)], col[1])
+        elif kind == "brooch":      # a small gold token: a Hope anchor they wear
+            put(im, [(b.L + 3, b.S + 3), (b.L + 4, b.S + 3), (b.L + 3, b.S + 4), (b.L + 4, b.S + 4)], (226, 190, 96))
+            put(im, [(b.L + 3, b.S + 3)], (255, 236, 170))
+        elif kind == "tinmedal":    # a medal hammered out of a tin lid by Pip
+            put(im, [(b.R - 3, b.S + 2), (b.R - 2, b.S + 2)], (176, 60, 60))
+            put(im, [(b.R - 4, b.S + 3), (b.R - 3, b.S + 3), (b.R - 2, b.S + 3), (b.R - 1, b.S + 3), (b.R - 3, b.S + 4), (b.R - 2, b.S + 4)], (186, 190, 198))
+        elif kind == "wristribbon":
+            x, y = b.hands.get("l", (b.L - 2, b.S + 19))
+            put(im, [(x - 1, y - 2), (x, y - 2), (x + 1, y - 2), (x + 2, y - 1)], arg[0])
 
 
 # ---------------------------------------------------------------- the town

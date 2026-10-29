@@ -701,3 +701,31 @@ Eighteen years ago Aldous forbade Sabine's fever remedies and her husband Corwin
 - **Hope drives the whole town's look:** colour saturation, warm light, smoke from chimneys, birds, cats, laundry lines, how many people are out, the music. Players *see* their progress across the whole town, not just in a menu.
 - **Harvest nights:** while the Dungeon Master tries to harvest, the colour visibly drains toward grey and comes back as you protect your loose Hope. A visual for an invisible threat.
 - Art approach (base + overlays + grading, so not 3 full sets): [ART.md §6](ART.md).
+
+## 25. Design pillar: visible change, everywhere (v0.16)
+
+The player loves *change and progress* most, so that's a pillar: **everything you help gets visibly better, and you can always see how far it's come.**
+
+| What changes | From → to | Where it's shown |
+|---|---|---|
+| The town | Ruined → Cleared → Patched → Reclaimed (→ Upgraded) | §24, [ART.md §6](ART.md) |
+| The people | **Rescued → Purpose → Hope** (below) | [concept-art/town/stages.png](concept-art/town/stages.png) |
+| The colour of the world | grey after the Shift → warmer and richer as Hope rises | §24 |
+| The land | metal vines and purple grass → fields, orchard, tamed strange garden | §15 |
+| Pip's sketchbook | scared scribbles → bright drawings of the people you've helped | §17.2 G |
+| **Lewin's Chronicle: "Then and Now"** | the game saves a picture of each place the day you reclaim it, and again when it's thriving; the Chronicle shows them side by side | new |
+
+### 25.1 Townsfolk progression: Rescued → Purpose → Hope
+![Stages](concept-art/town/stages.png)
+
+1. **Rescued.** Found in a cellar, the wilds or the dungeon. Ragged, dirty, washed-out colours, no tools. They need a bed, food and a few days of care. They can talk (and drop hints), but can't work yet.
+2. **Purpose.** You give them a role back: repair their workshop, hand them their tools, find their apron. They work: their building and services open. Work clothes and tools, muted colours.
+3. **Hope.** After their personal story beat (their arc in [CHARACTERS.md](CHARACTERS.md)) and once the town's Hope is high enough, **they start looking after themselves**: clean, mended, their own colours back, and a **personal accent that is almost always a gift from someone else in town** (Pip's paper flower for Mira, Bruna's bandana for Oswin, a tin medal for Percival). The gifts make the web of relationships visible.
+
+**What Hope gives:** better services (rare goods, recipes, discounts), they become a **small Hope anchor** themselves, and they help someone else move up (Hester helps Mira, Fennick helps Aldous and Sabine meet halfway...). Progress spreads person to person.
+
+**Rules:**
+- **Never backwards.** Nobody drops a stage. On Harvest nights they look tired the next morning (a cosmetic dip), then recover.
+- **The tension:** a hopeful person is the ripest crop. On Harvest nights the Dungeon Master reaches for the most hopeful people first. Protecting them (anchors, being together, festivals) is part of the night.
+
+The full list of each person's three stages and who gives whom their Hope accent: [CHARACTERS.md, "Rescued → Purpose → Hope for everyone"](CHARACTERS.md#rescued--purpose--hope-for-everyone).
