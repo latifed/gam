@@ -433,7 +433,7 @@ def detail_pass(im, state, rnd):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    states = [("before", "1 · Before: Harvest Fair (prologue only)", "warm, saturated, crowded; bunting along the jetty, flowers, wheat, smoke, lit windows"),
+    states = [("before", "1 · Before: Harvest Fair (prologue only)", "the liveliest it gets (still muted): crowded, bunting along the jetty, flowers, wheat, smoke, lit windows"),
               ("ruined", "2 · Ruined: after the Shift", "desaturated and cold; roof hole, broken leaded glass, fallen shutter, sagging jetty bracket, sign on one chain, dead ivy, purple grass"),
               ("reclaimed", "3 · Reclaimed: the new normal", "patched, not restored: slate patch on the tiles, one fresh unpainted shutter, strange plants, gold Hope lanterns, both charms on the door")]
     S = 2
